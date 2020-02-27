@@ -1,4 +1,4 @@
-package com.example.architecture.android.core
+package com.example.architecture.android.core.base
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider

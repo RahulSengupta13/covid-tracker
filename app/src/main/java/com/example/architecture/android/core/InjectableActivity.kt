@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.base
+package com.example.architecture.android.core
 
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.DispatchingAndroidInjector

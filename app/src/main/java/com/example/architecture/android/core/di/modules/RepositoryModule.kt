@@ -21,7 +21,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesWebSocketRepository(service: WebSocketService, dispatcher: ICoroutinesDispatcher): IWebSocketRepository {
-        return WebSocketRepository(service, dispatcher)
+    fun providesWebSocketRepository(service: WebSocketService): IWebSocketRepository {
+        return WebSocketRepository(service)
     }
 }

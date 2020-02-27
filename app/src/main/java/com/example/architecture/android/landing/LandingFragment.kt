@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.architecture.R
-import com.example.architecture.android.core.base.InjectableFragment
+import com.example.architecture.android.core.InjectableFragment
 import kotlinx.android.synthetic.main.fragment_landing.*
 
 class LandingFragment : InjectableFragment() {

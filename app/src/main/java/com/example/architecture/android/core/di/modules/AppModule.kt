@@ -33,7 +33,6 @@ class AppModule {
     @Provides
     fun providesTypiCodeDataSource(service: TypiCodeService) = TypiCodeDataSource(service)
 
-    @Singleton
     @Provides
     fun providesWebSocketService(scarlet: Scarlet) = scarlet.create(WebSocketService::class.java)
 

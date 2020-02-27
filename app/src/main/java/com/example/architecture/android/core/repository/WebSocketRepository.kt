@@ -2,14 +2,14 @@ package com.example.architecture.android.core.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.architecture.android.core.base.CoroutineRepository
-import com.example.architecture.android.core.di.modules.ICoroutinesDispatcher
 import com.example.architecture.android.core.network.websocket.WebSocketService
 import com.example.architecture.android.core.network.websocket.model.channel.Ticker
 import com.example.architecture.android.core.network.websocket.model.request.Subscribe
 import com.example.architecture.android.core.network.websocket.model.request.TickerRequest
 import com.tinder.scarlet.WebSocket
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,15 +21,8 @@ interface IWebSocketRepository {
 }
 
 class WebSocketRepository @Inject constructor(
-    private val webSocketService: WebSocketService,
-    dispatcher: ICoroutinesDispatcher
-) : CoroutineRepository(dispatcher), IWebSocketRepository {
-
-    init {
-        CoroutineScope(coroutineContext).launch {
-            connectToWebSocket()
-        }
-    }
+    private val webSocketService: WebSocketService
+) : IWebSocketRepository {
 
     companion object {
         private val TAG = WebSocketRepository::class.java.simpleName
@@ -39,6 +32,8 @@ class WebSocketRepository @Inject constructor(
     override val ticker: LiveData<Ticker>
         get() = _ticker
 
+    @FlowPreview
+    @InternalCoroutinesApi
     override suspend fun connectToWebSocket() {
         webSocketService.observeWebSocketEvent().receive().let {
             when (it) {

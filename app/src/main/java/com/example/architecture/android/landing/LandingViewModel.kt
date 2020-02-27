@@ -31,7 +31,6 @@ class LandingViewModel @Inject constructor(
             }
         }
         viewModelScope.launch(dispatcher.DEFAULT) {
-            webSocketRepository.connectToWebSocket()
             webSocketRepository.observeTicker()
         }
     }

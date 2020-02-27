@@ -1,3 +1,6 @@
+import com.example.buildsrc.AppMetaData
+import com.example.buildsrc.Dependencies
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -5,19 +8,18 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 29
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion AppMetaData.compileSdkVersion
+    buildToolsVersion AppMetaData.buildToolsVersion
     defaultConfig {
-        applicationId "com.example.architecture.android"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        applicationId AppMetaData.id
+        minSdkVersion AppMetaData.minSdkVersion
+        targetSdkVersion AppMetaData.targetSdkVersion
+        versionCode AppMetaData.versionCode
+        versionName AppMetaData.versionName
         vectorDrawables.useSupportLibrary true
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        buildConfigField "boolean", "DEBUG_LOGS", "true"
     }
 
     buildTypes {
@@ -27,11 +29,15 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    dataBinding {
+        enabled = true
     }
-    // work-runtime-ktx 2.1.0 and above now requires Java 8
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -39,58 +45,56 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
-    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    implementation "androidx.paging:paging-runtime:$rootProject.pagingVersion"
-    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    kapt Dependencies.roomCompiler
+    kapt Dependencies.glideCompiler
+
+    //core
+    implementation Dependencies.appcompat
+    implementation Dependencies.constraintlayout
+    implementation Dependencies.core
+    implementation Dependencies.fragmentKtx
+    implementation Dependencies.lifecycleExtensions
+    implementation Dependencies.livedata
+    implementation Dependencies.viewmodel
+    implementation Dependencies.navigationFragment
+    implementation Dependencies.navigationUi
+    implementation Dependencies.recyclerview
+    implementation Dependencies.roomRuntime
+    implementation Dependencies.pagingRuntime
+    implementation Dependencies.roomKtx
+    implementation Dependencies.glide
+    implementation Dependencies.material
+    implementation Dependencies.kotlinStdlib
+    implementation Dependencies.coroutinesAndroid
+    implementation Dependencies.coroutinesCore
 
     // Tools
-    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
-    implementation "com.facebook.stetho:stetho:$rootProject.stetho"
-    implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho"
+    implementation Dependencies.timber
 
     // Dagger
-    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    kapt Dependencies.daggerCompiler
+    kapt Dependencies.daggerAndroidProcessor
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    implementation Dependencies.daggerAndroidSupport
 
     // Networking
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp"
+    implementation Dependencies.gson
+    implementation Dependencies.retrofit
+    implementation Dependencies.gsonConvertor
+    implementation Dependencies.okhttp
+    implementation Dependencies.okhttpLoggingInterceptor
 
     //web socket
-    implementation "com.tinder.scarlet:scarlet:$scarlet_version"
-    implementation "com.tinder.scarlet:websocket-okhttp:$scarlet_version"
-    implementation "com.tinder.scarlet:message-adapter-gson:$scarlet_version"
-    implementation "com.tinder.scarlet:lifecycle-android:$scarlet_version"
-    implementation "com.tinder.scarlet:stream-adapter-coroutines:$scarlet_version"
+    implementation Dependencies.scarlet
+    implementation Dependencies.scarletWebSocketOkHttp
+    implementation Dependencies.scarletGsonAdapter
+    implementation Dependencies.scarletLifecycle
+    implementation Dependencies.scarletCoroutinesAdapter
 
     //testing
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.junitAndroidx
+    androidTestImplementation Dependencies.espresso
 }

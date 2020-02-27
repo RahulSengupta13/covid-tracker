@@ -1,7 +1,6 @@
 package com.example.architecture.android.core.di.modules
 
 import com.example.architecture.BuildConfig
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -16,7 +15,6 @@ class CoreDataModule {
     @Provides
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder().addInterceptor(interceptor)
-            .addNetworkInterceptor(StethoInterceptor())
             .build()
 
     @Provides

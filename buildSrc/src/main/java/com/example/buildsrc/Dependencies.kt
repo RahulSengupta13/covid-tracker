@@ -48,6 +48,12 @@ object Versions {
     const val androidxJunit = "1.1.1"
     const val espresso = "3.2.0"
 
+    //analytics
+    const val googleServices = "4.3.3"
+    const val fabric = "1.31.2"
+    const val firebaseAnalytics = "17.2.2"
+    const val crashlytics = "2.10.1"
+
 }
 
 object Dependencies {
@@ -108,4 +114,8 @@ object Dependencies {
     const val junit = "junit:junit:${Versions.junit}"
     const val junitAndroidx = "androidx.test.ext:junit:${Versions.androidxJunit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+
+    //analytics
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
+    const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlytics}"
 }

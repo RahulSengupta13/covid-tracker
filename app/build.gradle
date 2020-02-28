@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion AppMetaData.compileSdkVersion
@@ -92,6 +93,10 @@ dependencies {
     implementation Dependencies.scarletGsonAdapter
     implementation Dependencies.scarletLifecycle
     implementation Dependencies.scarletCoroutinesAdapter
+
+    //analytics & crashlytics
+    implementation Dependencies.firebaseAnalytics
+    implementation Dependencies.crashlytics
 
     //testing
     testImplementation Dependencies.junit

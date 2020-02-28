@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 class LandingViewModel @Inject constructor(
     dispatcher: ICoroutinesDispatcher,
-    private val repository: ILandingRepository,
-    private val webSocketRepository: IWebSocketRepository
+    webSocketRepository: IWebSocketRepository,
+    private val repository: ILandingRepository
 ) : ViewModel() {
 
     private val _posts = MutableLiveData<List<Post>>()
@@ -29,9 +29,6 @@ class LandingViewModel @Inject constructor(
             if (posts.status == Result.Status.SUCCESS) {
                 _posts.postValue(posts.data)
             }
-        }
-        viewModelScope.launch(dispatcher.DEFAULT) {
-            webSocketRepository.observeTicker()
         }
     }
 

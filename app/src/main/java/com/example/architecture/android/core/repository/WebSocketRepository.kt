@@ -20,6 +20,7 @@ interface IWebSocketRepository {
     val ticker: LiveData<Ticker>
 }
 
+@ExperimentalCoroutinesApi
 class WebSocketRepository @Inject constructor(
     private val webSocketService: WebSocketService,
     dispatcher: ICoroutinesDispatcher
@@ -28,6 +29,7 @@ class WebSocketRepository @Inject constructor(
     init {
         CoroutineScope(coroutineContext).launch {
             connectToWebSocket()
+            observeTicker()
         }
     }
 

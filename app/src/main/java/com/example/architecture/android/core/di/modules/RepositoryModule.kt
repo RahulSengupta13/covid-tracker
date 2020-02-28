@@ -8,6 +8,7 @@ import com.example.architecture.android.landing.ILandingRepository
 import com.example.architecture.android.landing.LandingRepository
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Singleton
 
 @Module
@@ -19,6 +20,7 @@ class RepositoryModule {
         return LandingRepository(dataSource)
     }
 
+    @ExperimentalCoroutinesApi
     @Provides
     @Singleton
     fun providesWebSocketRepository(service: WebSocketService, dispatcher: ICoroutinesDispatcher): IWebSocketRepository {

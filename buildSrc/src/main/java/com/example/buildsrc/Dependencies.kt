@@ -109,3 +109,7 @@ object Dependencies {
     const val junitAndroidx = "androidx.test.ext:junit:${Versions.androidxJunit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
 }
+
+object GradleTemplates {
+    const val androidLibrary = "template-android-library.gradle"
+}

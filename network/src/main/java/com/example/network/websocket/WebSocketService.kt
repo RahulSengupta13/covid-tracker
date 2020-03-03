@@ -1,7 +1,7 @@
-package com.example.architecture.android.core.network.websocket
+package com.example.network.websocket
 
-import com.example.architecture.android.core.network.websocket.model.channel.Ticker
-import com.example.architecture.android.core.network.websocket.model.request.Subscribe
+import com.example.architecture.android.core.datasource.websocket.model.channel.Ticker
+import com.example.architecture.android.core.datasource.websocket.model.request.Subscribe
 import com.tinder.scarlet.WebSocket
 import com.tinder.scarlet.ws.Receive
 import com.tinder.scarlet.ws.Send

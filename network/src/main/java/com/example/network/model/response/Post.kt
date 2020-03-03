@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.network.model.response
+package com.example.network.model.response
 
 import java.io.Serializable
 

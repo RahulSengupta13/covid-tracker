@@ -1,6 +1,6 @@
-package com.example.architecture.android.core.network
+package com.example.network
 
-import com.example.architecture.android.core.network.model.response.Post
+import com.example.network.model.response.Post
 import retrofit2.Response
 import retrofit2.http.GET
 

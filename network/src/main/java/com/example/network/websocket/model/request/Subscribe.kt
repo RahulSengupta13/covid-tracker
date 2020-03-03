@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.network.websocket.model.request
+package com.example.architecture.android.core.datasource.websocket.model.request
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

@@ -1,0 +1,39 @@
+import com.example.buildsrc.Dependencies
+import com.example.buildsrc.AppMetaData
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion AppMetaData.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion AppMetaData.minSdkVersion
+        targetSdkVersion AppMetaData.targetSdkVersion
+        versionCode AppMetaData.versionCode
+        versionName AppMetaData.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation Dependencies.coroutinesAndroid
+
+    implementation Dependencies.timber
+}

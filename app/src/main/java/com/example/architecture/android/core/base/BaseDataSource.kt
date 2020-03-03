@@ -1,5 +1,6 @@
-package com.example.architecture.android.core.data
+package com.example.architecture.android.core.base
 
+import com.example.architecture.android.core.data.Result
 import retrofit2.Response
 import timber.log.Timber
 
@@ -10,7 +11,9 @@ abstract class BaseDataSource {
             val response = call()
             if (response.isSuccessful) {
                 val body = response.body()
-                if (body != null) return Result.success(body)
+                if (body != null) return Result.success(
+                    body
+                )
             }
             return error(" ${response.code()} ${response.message()}")
         } catch (e: Exception) {
@@ -20,7 +23,9 @@ abstract class BaseDataSource {
 
     private fun <T> error(message: String): Result<T> {
         Timber.e(message)
-        return Result.error("Network call has failed for a following reason: $message")
+        return Result.error(
+            "Network call has failed for a following reason: $message"
+        )
     }
 
 }

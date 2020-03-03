@@ -1,7 +1,7 @@
-package com.example.architecture.android.core.di.modules
+package com.example.network.di
 
 import android.app.Application
-import com.example.architecture.android.core.network.websocket.WebSocketService
+import com.example.network.websocket.WebSocketService
 import com.tinder.scarlet.Lifecycle
 import com.tinder.scarlet.Scarlet
 import com.tinder.scarlet.lifecycle.android.AndroidLifecycle

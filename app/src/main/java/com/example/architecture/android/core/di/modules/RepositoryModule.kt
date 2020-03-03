@@ -1,7 +1,7 @@
 package com.example.architecture.android.core.di.modules
 
-import com.example.architecture.android.core.network.TypiCodeDataSource
-import com.example.architecture.android.core.network.websocket.WebSocketService
+import com.example.architecture.android.core.datasource.TypiCodeDataSource
+import com.example.network.websocket.WebSocketService
 import com.example.architecture.android.core.repository.IWebSocketRepository
 import com.example.architecture.android.core.repository.WebSocketRepository
 import com.example.architecture.android.landing.ILandingRepository

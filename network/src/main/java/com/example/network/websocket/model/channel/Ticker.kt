@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.network.websocket.model.channel
+package com.example.architecture.android.core.datasource.websocket.model.channel
 
 import java.io.Serializable
 

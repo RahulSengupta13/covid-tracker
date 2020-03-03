@@ -1,20 +1,16 @@
 package com.example.architecture.android.core.di.modules
 
-import com.example.architecture.android.core.datasource.TypiCodeDataSource
-import com.example.network.TypiCodeService
 import dagger.Module
-import dagger.Provides
 
 @Module(
     includes = [
-        ViewModelModule::class,
-        RepositoryModule::class,
         ActivityModule::class,
-        FragmentModule::class
+        FragmentModule::class,
+        ViewModelModule::class,
+        DataSourceModule::class,
+        RepositoryModule::class
     ]
 )
 class AppModule {
 
-    @Provides
-    fun providesTypiCodeDataSource(service: TypiCodeService) = TypiCodeDataSource(service)
 }

@@ -113,3 +113,7 @@ object Dependencies {
 object GradleTemplates {
     const val androidLibrary = "template-android-library.gradle"
 }
+
+object Modules {
+    const val network = ":network"
+}

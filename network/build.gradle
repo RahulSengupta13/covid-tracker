@@ -18,16 +18,16 @@ dependencies {
     implementation Dependencies.daggerAndroidSupport
 
     // Networking
-    implementation Dependencies.gson
-    implementation Dependencies.retrofit
-    implementation Dependencies.gsonConvertor
-    implementation Dependencies.okhttp
-    implementation Dependencies.okhttpLoggingInterceptor
+    api Dependencies.gson
+    api Dependencies.retrofit
+    api Dependencies.gsonConvertor
+    api Dependencies.okhttp
+    api Dependencies.okhttpLoggingInterceptor
 
     //web socket
-    implementation Dependencies.scarlet
-    implementation Dependencies.scarletWebSocketOkHttp
-    implementation Dependencies.scarletGsonAdapter
-    implementation Dependencies.scarletLifecycle
-    implementation Dependencies.scarletCoroutinesAdapter
+    api Dependencies.scarlet
+    api Dependencies.scarletWebSocketOkHttp
+    api Dependencies.scarletGsonAdapter
+    api Dependencies.scarletLifecycle
+    api Dependencies.scarletCoroutinesAdapter
 }

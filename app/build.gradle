@@ -1,5 +1,6 @@
 import com.example.buildsrc.AppMetaData
 import com.example.buildsrc.Dependencies
+import com.example.buildsrc.Modules
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -45,7 +46,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(':network')
+    implementation project(Modules.network)
 
     kapt Dependencies.roomCompiler
     kapt Dependencies.glideCompiler
@@ -79,20 +80,6 @@ dependencies {
     implementation Dependencies.dagger
     implementation Dependencies.daggerAndroid
     implementation Dependencies.daggerAndroidSupport
-
-    // Networking
-    implementation Dependencies.gson
-    implementation Dependencies.retrofit
-    implementation Dependencies.gsonConvertor
-    implementation Dependencies.okhttp
-    implementation Dependencies.okhttpLoggingInterceptor
-
-    //web socket
-    implementation Dependencies.scarlet
-    implementation Dependencies.scarletWebSocketOkHttp
-    implementation Dependencies.scarletGsonAdapter
-    implementation Dependencies.scarletLifecycle
-    implementation Dependencies.scarletCoroutinesAdapter
 
     //testing
     testImplementation Dependencies.junit

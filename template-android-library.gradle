@@ -36,4 +36,9 @@ dependencies {
     implementation Dependencies.coroutinesAndroid
 
     implementation Dependencies.timber
+
+    //testing
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.junitAndroidx
+    androidTestImplementation Dependencies.espresso
 }

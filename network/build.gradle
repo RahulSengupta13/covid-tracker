@@ -1,0 +1,33 @@
+import com.example.buildsrc.Dependencies
+import com.example.buildsrc.GradleTemplates
+
+apply from: "$rootDir/${GradleTemplates.androidLibrary}"
+
+android {
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+}
+
+dependencies {
+    //di
+    kapt Dependencies.daggerCompiler
+    kapt Dependencies.daggerAndroidProcessor
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    implementation Dependencies.daggerAndroidSupport
+
+    // Networking
+    api Dependencies.gson
+    api Dependencies.retrofit
+    api Dependencies.gsonConvertor
+    api Dependencies.okhttp
+    api Dependencies.okhttpLoggingInterceptor
+
+    //web socket
+    api Dependencies.scarlet
+    api Dependencies.scarletWebSocketOkHttp
+    api Dependencies.scarletGsonAdapter
+    api Dependencies.scarletLifecycle
+    api Dependencies.scarletCoroutinesAdapter
+}

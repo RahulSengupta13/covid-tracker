@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.architecture.android.core.base.CoroutineRepository
 import com.example.architecture.android.core.di.modules.ICoroutinesDispatcher
-import com.example.architecture.android.core.network.websocket.WebSocketService
-import com.example.architecture.android.core.network.websocket.model.channel.Ticker
-import com.example.architecture.android.core.network.websocket.model.request.Subscribe
-import com.example.architecture.android.core.network.websocket.model.request.TickerRequest
+import com.example.network.websocket.WebSocketService
+import com.example.architecture.android.core.datasource.websocket.model.channel.Ticker
+import com.example.architecture.android.core.datasource.websocket.model.request.Subscribe
+import com.example.architecture.android.core.datasource.websocket.model.request.TickerRequest
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.consumeEach

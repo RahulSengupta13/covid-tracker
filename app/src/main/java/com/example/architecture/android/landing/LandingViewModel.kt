@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.architecture.android.core.data.Result
 import com.example.architecture.android.core.di.modules.ICoroutinesDispatcher
-import com.example.architecture.android.core.network.model.response.Post
 import com.example.architecture.android.core.repository.IWebSocketRepository
+import com.example.network.model.response.Post
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

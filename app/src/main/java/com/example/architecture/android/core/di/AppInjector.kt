@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.architecture.android.DaggerSampleApplication
+import com.example.network.di.NetworkModule
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -16,9 +17,16 @@ import dagger.android.support.AndroidSupportInjection
  */
 object AppInjector {
 
-    fun init(application: DaggerSampleApplication) {
-        DaggerAppComponent.builder().application(application)
-            .build().inject(application)
+    fun init(
+        application: DaggerSampleApplication,
+        networkModule: NetworkModule
+    ) {
+        DaggerAppComponent.builder()
+            .application(application)
+            .networkModule(networkModule)
+            .build()
+            .inject(application)
+
         application
             .registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

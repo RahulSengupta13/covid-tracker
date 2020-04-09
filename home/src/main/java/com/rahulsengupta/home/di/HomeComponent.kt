@@ -1,6 +1,7 @@
 package com.rahulsengupta.home.di
 
 import android.app.Application
+import com.rahulsengupta.core.di.CoreModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
 import com.rahulsengupta.home.HomeActivity
@@ -17,7 +18,8 @@ import javax.inject.Singleton
     modules = [
         HomeModules::class,
         CoroutinesModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        CoreModule::class
     ]
 )
 interface HomeComponent {

@@ -1,39 +1,34 @@
 package com.rahulsengupta.architecture.android.landing
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rahulsengupta.network.datasource.NovelCovid19DataSource
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
+import com.rahulsengupta.core.repository.ICoreRepository
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LandingViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
-    private val dataSource: NovelCovid19DataSource,
-    private val globalTotalsDao: GlobalTotalsDao
+    private val globalTotalsDao: GlobalTotalsDao,
+    private val coreRepository: ICoreRepository
 ) : ViewModel() {
 
-    fun initialize() {
+    init {
+        initialize()
+    }
+
+    val uiData = MutableLiveData<List<GlobalTotalsEntity>>()
+
+    private fun initialize() {
         viewModelScope.launch(dispatcher.IO) {
-            val globalTotals = dataSource.getGlobalTotals().data ?: return@launch
-            val globalTotalsEntity = GlobalTotalsEntity(
-                globalTotals.active,
-                globalTotals.affectedCountries,
-                globalTotals.cases,
-                globalTotals.casesPerOneMillion,
-                globalTotals.critical,
-                globalTotals.deaths,
-                globalTotals.deathsPerOneMillion,
-                globalTotals.recovered,
-                globalTotals.tests,
-                globalTotals.testsPerOneMillion,
-                globalTotals.todayCases,
-                globalTotals.todayDeaths,
-                globalTotals.updated
-            )
-            globalTotalsDao.insertOrReplace(item = globalTotalsEntity)
+            coreRepository.initialize()
+            globalTotalsDao.getGlobalTotals().collect {
+                uiData.postValue(it)
+            }
         }
     }
 }

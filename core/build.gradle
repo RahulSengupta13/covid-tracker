@@ -1,9 +1,11 @@
 import com.rahulsengupta.buildsrc.GradleTemplates
+import com.rahulsengupta.buildsrc.Modules
 
 apply from: "$rootDir/${GradleTemplates.featureModule}"
 
 dependencies {
 
-
+    implementation project(Modules.network)
+    implementation project(Modules.persistence)
 
 }

@@ -27,8 +27,10 @@ class LandingFragment : InjectableFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
+        viewModel.uiData.observe(viewLifecycleOwner, Observer {
+            ticker.text = it.toString()
+        })
 
-        viewModel.initialize()
+        ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
     }
 }

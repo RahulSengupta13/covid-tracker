@@ -3,6 +3,7 @@ package com.rahulsengupta.architecture.android.core.di
 import android.app.Application
 import com.rahulsengupta.architecture.android.CovidTrackerApplication
 import com.rahulsengupta.architecture.android.core.di.modules.AppModule
+import com.rahulsengupta.core.di.CoreModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
 import com.rahulsengupta.network.di.DataSourceModule
@@ -19,6 +20,7 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         CoroutinesModule::class,
+        CoreModule::class,
         ViewModelFactoryModule::class
     ]
 )

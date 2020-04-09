@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.rahulsengupta.core.di.ViewModelKey
 import com.rahulsengupta.home.HomeActivityViewModel
 import com.rahulsengupta.network.di.DataSourceModule
-import com.rahulsengupta.network.di.NetworkModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.Binds
 import dagger.Module

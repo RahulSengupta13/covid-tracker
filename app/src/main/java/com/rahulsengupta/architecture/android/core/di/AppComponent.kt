@@ -5,6 +5,7 @@ import com.rahulsengupta.architecture.android.CovidTrackerApplication
 import com.rahulsengupta.architecture.android.core.di.modules.AppModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
+import com.rahulsengupta.network.di.DataSourceModule
 import com.rahulsengupta.network.di.NetworkModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.BindsInstance
@@ -29,7 +30,7 @@ interface AppComponent {
         fun application(application: Application): Builder
 
         @BindsInstance
-        fun networkModule(networkModule: NetworkModule): Builder
+        fun dataSourceModule(dataSourceModule: DataSourceModule): Builder
 
         @BindsInstance
         fun persistenceModule(persistenceModule: PersistenceModule): Builder

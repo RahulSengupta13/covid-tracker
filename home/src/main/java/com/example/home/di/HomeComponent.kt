@@ -1,10 +1,10 @@
 package com.example.home.di
 
 import com.example.core.di.CoroutinesModule
-import com.example.network.di.NetworkModule
+import com.example.core.di.ViewModelFactoryModule
 import com.example.home.HomeActivity
 import com.example.home.di.modules.HomeModules
-import dagger.BindsInstance
+import com.example.network.di.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,7 +13,8 @@ import javax.inject.Singleton
     modules = [
         HomeModules::class,
         NetworkModule::class,
-        CoroutinesModule::class
+        CoroutinesModule::class,
+        ViewModelFactoryModule::class
     ]
 )
 interface HomeComponent {

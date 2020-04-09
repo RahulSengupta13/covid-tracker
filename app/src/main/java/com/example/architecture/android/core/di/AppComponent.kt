@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.architecture.android.DaggerSampleApplication
 import com.example.architecture.android.core.di.modules.AppModule
 import com.example.core.di.CoroutinesModule
+import com.example.core.di.ViewModelFactoryModule
 import com.example.network.di.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
@@ -15,7 +16,8 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        CoroutinesModule::class
+        CoroutinesModule::class,
+        ViewModelFactoryModule::class
     ]
 )
 interface AppComponent {

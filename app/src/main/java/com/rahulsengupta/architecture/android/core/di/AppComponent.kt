@@ -6,6 +6,7 @@ import com.rahulsengupta.architecture.android.core.di.modules.AppModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
 import com.rahulsengupta.network.di.NetworkModule
+import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -23,11 +24,15 @@ import javax.inject.Singleton
 interface AppComponent {
     @Component.Builder
     interface Builder {
+
         @BindsInstance
         fun application(application: Application): Builder
 
         @BindsInstance
         fun networkModule(networkModule: NetworkModule): Builder
+
+        @BindsInstance
+        fun persistenceModule(persistenceModule: PersistenceModule): Builder
 
         fun build(): AppComponent
     }

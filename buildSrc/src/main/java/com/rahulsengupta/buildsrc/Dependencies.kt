@@ -18,6 +18,7 @@ object Versions {
 
     //core
     const val appcompat = "1.1.0-beta01"
+    const val annotation = "1.1.0"
     const val constraintLayout = "2.0.0-beta4"
     const val ktx = "1.2.0"
     const val fragment = "1.2.1"
@@ -58,6 +59,7 @@ object Dependencies {
 
     //core
     const val appcompat =  "androidx.appcompat:appcompat:${Versions.appcompat}"
+    const val annotation = "androidx.annotation:annotation:${Versions.annotation}"
     const val constraintlayout =  "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val core =  "androidx.core:core-ktx:${Versions.ktx}"
     const val fragmentKtx =  "androidx.fragment:fragment-ktx:${Versions.fragment}"
@@ -110,6 +112,7 @@ object GradleTemplates {
 
 object Modules {
     const val app = ":app"
+    const val persistence = ":persistence"
     const val network = ":network"
     const val home = ":home"
     const val core = ":core"

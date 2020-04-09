@@ -1,7 +1,6 @@
 import com.rahulsengupta.buildsrc.Dependencies
 import com.rahulsengupta.buildsrc.GradleTemplates
 
-apply plugin: 'kotlinx-serialization'
 apply from: "$rootDir/${GradleTemplates.androidLibrary}"
 
 android {
@@ -18,11 +17,15 @@ dependencies {
     implementation Dependencies.daggerAndroid
     implementation Dependencies.daggerAndroidSupport
 
-    // Networking
-    api Dependencies.retrofit
-    api Dependencies.okhttp
-    api Dependencies.okhttpLoggingInterceptor
-    api Dependencies.kotlinSerializationConverter
+    // Room
+    implementation Dependencies.roomRuntime
+    implementation Dependencies.roomKtx
 
-    implementation Dependencies.kotlinSerialization
+    implementation Dependencies.core
+    implementation(Dependencies.annotation) { force = true }
+
+    kapt Dependencies.roomCompiler
+
+    implementation Dependencies.coroutinesCore
+    implementation Dependencies.coroutinesAndroid
 }

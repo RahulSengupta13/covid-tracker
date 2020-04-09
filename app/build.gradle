@@ -48,6 +48,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(Modules.network)
+    implementation project(Modules.persistence)
     implementation project(Modules.home)
     implementation project(Modules.core)
 

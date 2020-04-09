@@ -6,12 +6,12 @@ import com.rahulsengupta.network.model.response.GlobalTotalsResponse
 import javax.inject.Inject
 
 interface ILandingRepository {
-    suspend fun getPosts(): Result<GlobalTotalsResponse>
+    suspend fun getGlobalTotals(): Result<GlobalTotalsResponse>
 }
 
 class LandingRepository @Inject constructor(
     private val dataSource: NovelCovid19DataSource
 ) : ILandingRepository {
 
-    override suspend fun getPosts() = dataSource.getPosts()
+    override suspend fun getGlobalTotals() = dataSource.getPosts()
 }

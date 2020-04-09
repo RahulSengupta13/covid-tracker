@@ -12,6 +12,7 @@ android {
     defaultConfig {
         minSdkVersion AppMetaData.minSdkVersion
         targetSdkVersion AppMetaData.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -52,12 +53,12 @@ dependencies {
     implementation Dependencies.daggerAndroid
     implementation Dependencies.daggerAndroidSupport
 
-    testImplementation Dependencies.junit
-
     implementation Dependencies.navigationUi
     implementation Dependencies.navigationFragment
 
     implementation Dependencies.timber
 
+    testImplementation Dependencies.junit
     androidTestImplementation Dependencies.junitAndroidx
+    androidTestImplementation Dependencies.espresso
 }

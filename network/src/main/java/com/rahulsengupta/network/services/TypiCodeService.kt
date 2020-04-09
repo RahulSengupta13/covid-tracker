@@ -1,4 +1,4 @@
-package com.rahulsengupta.network
+package com.rahulsengupta.network.services
 
 import com.rahulsengupta.network.model.response.Post
 import retrofit2.Response

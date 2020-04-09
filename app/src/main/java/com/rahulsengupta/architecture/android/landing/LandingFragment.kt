@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.rahulsengupta.architecture.R
-import com.rahulsengupta.architecture.android.core.base.InjectableFragment
+import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_landing.*
 

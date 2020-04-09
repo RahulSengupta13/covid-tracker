@@ -1,4 +1,4 @@
-package com.rahulsengupta.architecture.android.core.base
+package com.rahulsengupta.core.base
 
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import kotlinx.coroutines.CoroutineScope

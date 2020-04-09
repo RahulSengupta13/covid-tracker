@@ -1,4 +1,4 @@
-package com.rahulsengupta.architecture.android.core.base
+package com.rahulsengupta.core.base
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider

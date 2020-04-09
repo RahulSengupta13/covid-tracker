@@ -1,6 +1,6 @@
 package com.rahulsengupta.architecture.android.core.di.modules
 
-import com.rahulsengupta.architecture.android.core.base.InjectableFragment
+import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.architecture.android.landing.LandingFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

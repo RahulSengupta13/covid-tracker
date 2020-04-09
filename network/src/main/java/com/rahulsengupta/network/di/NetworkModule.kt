@@ -1,6 +1,6 @@
 package com.rahulsengupta.network.di
 
-import com.rahulsengupta.network.TypiCodeService
+import com.rahulsengupta.network.services.TypiCodeService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

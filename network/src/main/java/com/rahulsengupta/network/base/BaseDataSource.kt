@@ -1,8 +1,8 @@
-package com.rahulsengupta.architecture.android.core.base
+package com.rahulsengupta.network.base
 
 import retrofit2.Response
 import timber.log.Timber
-import com.rahulsengupta.architecture.android.core.data.Result
+import com.rahulsengupta.network.data.Result
 
 abstract class BaseDataSource {
 
@@ -29,4 +29,3 @@ abstract class BaseDataSource {
     }
 
 }
-

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rahulsengupta.architecture.android.core.data.Result
+import com.rahulsengupta.network.data.Result
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.network.model.response.Post
 import kotlinx.coroutines.launch

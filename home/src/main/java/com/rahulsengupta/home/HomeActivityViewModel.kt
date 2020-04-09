@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.network.TypiCodeService
+import com.rahulsengupta.network.services.TypiCodeService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

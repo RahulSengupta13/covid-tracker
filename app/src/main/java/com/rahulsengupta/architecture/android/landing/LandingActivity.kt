@@ -11,7 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.rahulsengupta.architecture.R
-import com.rahulsengupta.architecture.android.core.base.InjectableActivity
+import com.rahulsengupta.core.base.InjectableActivity
 import com.rahulsengupta.architecture.databinding.ActivityLandingBinding
 
 class LandingActivity : InjectableActivity() {

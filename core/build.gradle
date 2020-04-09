@@ -4,4 +4,6 @@ apply from: "$rootDir/${GradleTemplates.featureModule}"
 
 dependencies {
 
+
+
 }

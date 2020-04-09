@@ -1,0 +1,9 @@
+import com.example.buildsrc.GradleTemplates
+import com.example.buildsrc.Modules
+
+apply from: "$rootDir/${GradleTemplates.featureModule}"
+
+dependencies {
+    implementation project(Modules.network)
+    implementation project(Modules.core)
+}

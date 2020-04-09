@@ -1,6 +1,6 @@
 package com.example.architecture.android.core.base
 
-import com.example.architecture.android.core.di.modules.ICoroutinesDispatcher
+import com.example.core.di.ICoroutinesDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext

@@ -1,0 +1,64 @@
+import com.example.buildsrc.AppMetaData
+import com.example.buildsrc.Dependencies
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion AppMetaData.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion AppMetaData.minSdkVersion
+        targetSdkVersion AppMetaData.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation Dependencies.appcompat
+    implementation Dependencies.core
+    implementation Dependencies.constraintlayout
+    implementation Dependencies.material
+
+    implementation Dependencies.kotlinStdlib
+
+    implementation Dependencies.coroutinesAndroid
+    implementation Dependencies.coroutinesCore
+
+    kapt Dependencies.daggerCompiler
+    kapt Dependencies.daggerAndroidProcessor
+    implementation Dependencies.dagger
+    implementation Dependencies.daggerAndroid
+    implementation Dependencies.daggerAndroidSupport
+
+    implementation Dependencies.navigationUi
+    implementation Dependencies.navigationFragment
+
+    implementation Dependencies.timber
+
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.junitAndroidx
+    androidTestImplementation Dependencies.espresso
+}

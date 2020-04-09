@@ -1,0 +1,7 @@
+import com.example.buildsrc.GradleTemplates
+
+apply from: "$rootDir/${GradleTemplates.featureModule}"
+
+dependencies {
+
+}

@@ -1,9 +1,7 @@
 package com.example.network.di
 
 import com.example.network.TypiCodeService
-import com.example.network.websocket.WebSocketService
 import com.google.gson.Gson
-import com.tinder.scarlet.Scarlet
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,10 +38,6 @@ class NetworkModule {
         okhttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
     ) = provideService(okhttpClient, converterFactory, TypiCodeService::class.java)
-
-    @Singleton
-    @Provides
-    fun providesWebSocketService(scarlet: Scarlet) = scarlet.create(WebSocketService::class.java)
 
     private fun createRetrofit(
         okhttpClient: OkHttpClient,

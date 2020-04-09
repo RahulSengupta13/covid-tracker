@@ -1,5 +1,5 @@
-import com.example.buildsrc.Dependencies
-import com.example.buildsrc.AppMetaData
+import com.rahulsengupta.buildsrc.Dependencies
+import com.rahulsengupta.buildsrc.AppMetaData
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'

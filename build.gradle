@@ -1,4 +1,4 @@
-import com.example.buildsrc.Versions
+import com.rahulsengupta.buildsrc.Versions
 
 buildscript {
 

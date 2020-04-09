@@ -1,5 +1,5 @@
-import com.example.buildsrc.Dependencies
-import com.example.buildsrc.GradleTemplates
+import com.rahulsengupta.buildsrc.Dependencies
+import com.rahulsengupta.buildsrc.GradleTemplates
 
 apply from: "$rootDir/${GradleTemplates.androidLibrary}"
 

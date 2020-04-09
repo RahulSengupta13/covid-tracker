@@ -1,5 +1,5 @@
-import com.example.buildsrc.GradleTemplates
-import com.example.buildsrc.Modules
+import com.rahulsengupta.buildsrc.GradleTemplates
+import com.rahulsengupta.buildsrc.Modules
 
 apply from: "$rootDir/${GradleTemplates.featureModule}"
 

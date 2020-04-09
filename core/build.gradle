@@ -1,4 +1,4 @@
-import com.example.buildsrc.GradleTemplates
+import com.rahulsengupta.buildsrc.GradleTemplates
 
 apply from: "$rootDir/${GradleTemplates.featureModule}"
 

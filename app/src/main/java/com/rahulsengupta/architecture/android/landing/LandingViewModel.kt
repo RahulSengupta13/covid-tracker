@@ -2,6 +2,7 @@ package com.rahulsengupta.architecture.android.landing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rahulsengupta.network.datasource.NovelCovid19DataSource
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
@@ -10,13 +11,13 @@ import javax.inject.Inject
 
 class LandingViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
-    private val repository: ILandingRepository,
+    private val dataSource: NovelCovid19DataSource,
     private val globalTotalsDao: GlobalTotalsDao
 ) : ViewModel() {
 
     fun initialize() {
         viewModelScope.launch(dispatcher.IO) {
-            val globalTotals = repository.getGlobalTotals().data ?: return@launch
+            val globalTotals = dataSource.getGlobalTotals().data ?: return@launch
             val globalTotalsEntity = GlobalTotalsEntity(
                 globalTotals.active,
                 globalTotals.affectedCountries,

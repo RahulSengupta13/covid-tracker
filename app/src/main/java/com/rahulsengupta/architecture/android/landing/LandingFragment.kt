@@ -28,9 +28,5 @@ class LandingFragment : InjectableFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
-
-        viewModel.posts.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it.size.toString(), Toast.LENGTH_LONG).show()
-        })
     }
 }

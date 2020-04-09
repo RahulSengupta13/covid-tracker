@@ -43,6 +43,8 @@ dependencies {
     implementation Dependencies.material
 
     implementation Dependencies.kotlinStdlib
+    implementation Dependencies.kotlinSerialization
+    implementation Dependencies.kotlinSerializationConverter
 
     implementation Dependencies.coroutinesAndroid
     implementation Dependencies.coroutinesCore

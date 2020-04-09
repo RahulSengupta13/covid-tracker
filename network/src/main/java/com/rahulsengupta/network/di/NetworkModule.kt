@@ -1,13 +1,16 @@
 package com.rahulsengupta.network.di
 
-import com.rahulsengupta.network.services.TypiCodeService
-import com.google.gson.Gson
+import com.rahulsengupta.network.services.NovelCovid19Service
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Converter
 import javax.inject.Singleton
 
 @Module
@@ -25,35 +28,35 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = Gson()
+    fun provideMediaType() ="application/json".toMediaType()
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
+    fun provideConverterFactory(mediaType: MediaType): Converter.Factory = Json.asConverterFactory(mediaType)
 
     @Singleton
     @Provides
     fun providesTypiCodeService(
         okhttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory
-    ) = provideService(okhttpClient, converterFactory, TypiCodeService::class.java)
-
-    private fun createRetrofit(
-        okhttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(TypiCodeService.BASE_URL)
-            .client(okhttpClient)
-            .addConverterFactory(converterFactory)
-            .build()
-    }
+        converterFactory: Converter.Factory
+    ) = provideService(okhttpClient, converterFactory, NovelCovid19Service::class.java)
 
     private fun <T> provideService(
         okhttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory, clazz: Class<T>
+        converterFactory: Converter.Factory, clazz: Class<T>
     ): T {
         return createRetrofit(okhttpClient, converterFactory).create(clazz)
+    }
+
+
+    private fun createRetrofit(
+        okhttpClient: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(NovelCovid19Service.BASE_URL)
+            .client(okhttpClient)
+            .addConverterFactory(converterFactory)
+            .build()
     }
 }

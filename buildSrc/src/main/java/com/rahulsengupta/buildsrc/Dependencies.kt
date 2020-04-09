@@ -12,7 +12,8 @@ object AppMetaData {
 
 object Versions {
     // Application
-    const val kotlin = "1.3.61"
+    const val kotlin = "1.3.70"
+    const val kotlinSerialization = "0.20.0-mpp-dev-1"
     const val gradle = "4.0.0-alpha09"
 
     //core
@@ -26,16 +27,15 @@ object Versions {
     const val material = "1.1.0"
     const val coroutines = "1.3.3"
     const val timber = "4.7.1"
-    const val gson = "2.8.6"
 
     //database
     const val room = "2.2.3"
     const val paging = "2.1.1"
 
     //networking
-    const val retrofit = "2.7.1"
-    const val okhttp = "3.14.4"
-    const val scarlet = "0.1.10"
+    const val retrofit = "2.8.1"
+    const val okhttp = "4.5.0"
+    const val kotlinSerializationConverter = "0.5.0"
 
     //di
     const val dagger = "2.25.4"
@@ -77,6 +77,7 @@ object Dependencies {
     const val glide =  "com.github.bumptech.glide:glide:${Versions.glide}"
     const val material =  "com.google.android.material:material:${Versions.material}"
     const val kotlinStdlib =  "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
+    const val kotlinSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.kotlinSerialization}"
     const val coroutinesAndroid =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val coroutinesCore =  "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
@@ -91,18 +92,10 @@ object Dependencies {
     const val daggerAndroidSupport =  "com.google.dagger:dagger-android-support:${Versions.dagger}"
 
     // Networking
-    const val gson =  "com.google.code.gson:gson:${Versions.gson}"
     const val retrofit =  "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val gsonConvertor =  "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp =  "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     const val okhttpLoggingInterceptor =  "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
-
-    //web socket
-    const val scarlet =  "com.tinder.scarlet:scarlet:${Versions.scarlet}"
-    const val scarletWebSocketOkHttp =  "com.tinder.scarlet:websocket-okhttp:${Versions.scarlet}"
-    const val scarletGsonAdapter =  "com.tinder.scarlet:message-adapter-gson:${Versions.scarlet}"
-    const val scarletLifecycle =  "com.tinder.scarlet:lifecycle-android:${Versions.scarlet}"
-    const val scarletCoroutinesAdapter =  "com.tinder.scarlet:stream-adapter-coroutines:${Versions.scarlet}"
+    const val kotlinSerializationConverter =  "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinSerializationConverter}"
 
     //testing
     const val junit = "junit:junit:${Versions.junit}"

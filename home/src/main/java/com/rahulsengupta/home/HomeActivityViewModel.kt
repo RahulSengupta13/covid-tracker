@@ -1,24 +1,22 @@
 package com.rahulsengupta.home
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.network.services.TypiCodeService
+import com.rahulsengupta.network.services.NovelCovid19Service
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeActivityViewModel @Inject constructor(
-    private val service: TypiCodeService,
+    private val service: NovelCovid19Service,
     private val dispatcher: ICoroutinesDispatcher
-): ViewModel() {
+) : ViewModel() {
 
-    val uiData = MutableLiveData<Int>()
-
-    init {
+    fun load() {
         viewModelScope.launch(dispatcher.IO) {
-            uiData.postValue(service.getPosts().body()?.size ?: 0)
+            val response = service.getGlobalTotals().body()
+            Timber.d(response?.toString())
         }
     }
-
 }

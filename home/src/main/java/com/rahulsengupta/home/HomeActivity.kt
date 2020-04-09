@@ -25,8 +25,6 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_home)
 
-        viewModel.uiData.observe(this, Observer {
-            Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
-        })
+        viewModel.load()
     }
 }

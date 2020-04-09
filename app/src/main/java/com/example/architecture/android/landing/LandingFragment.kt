@@ -1,5 +1,6 @@
 package com.example.architecture.android.landing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.architecture.R
 import com.example.architecture.android.core.base.InjectableFragment
+import com.example.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_landing.*
 
 class LandingFragment : InjectableFragment() {
@@ -24,6 +26,8 @@ class LandingFragment : InjectableFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
 
         viewModel.posts.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it.size.toString(), Toast.LENGTH_LONG).show()

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.architecture.android.core.data.Result
-import com.example.architecture.android.core.di.modules.ICoroutinesDispatcher
+import com.example.core.di.ICoroutinesDispatcher
 import com.example.network.model.response.Post
 import kotlinx.coroutines.launch
 import javax.inject.Inject

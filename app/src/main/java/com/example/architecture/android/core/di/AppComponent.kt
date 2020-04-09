@@ -3,7 +3,7 @@ package com.example.architecture.android.core.di
 import android.app.Application
 import com.example.architecture.android.DaggerSampleApplication
 import com.example.architecture.android.core.di.modules.AppModule
-import com.example.architecture.android.core.di.modules.CoroutinesModule
+import com.example.core.di.CoroutinesModule
 import com.example.network.di.NetworkModule
 import dagger.BindsInstance
 import dagger.Component

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.architecture.android.DaggerSampleApplication
+import com.example.core.di.Injectable
 import com.example.network.di.NetworkModule
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector

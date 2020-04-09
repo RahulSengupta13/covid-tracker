@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.di.modules
+package com.example.core.di
 
 import dagger.Module
 import dagger.Provides

@@ -112,8 +112,12 @@ object Dependencies {
 
 object GradleTemplates {
     const val androidLibrary = "template-android-library.gradle"
+    const val featureModule = "template-feature-module.gradle"
 }
 
 object Modules {
+    const val app = ":app"
     const val network = ":network"
+    const val home = ":home"
+    const val core = ":core"
 }

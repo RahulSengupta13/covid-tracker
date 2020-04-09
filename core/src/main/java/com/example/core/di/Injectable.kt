@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.di
+package com.example.core.di
 
 /**
  * Marks an activity / fragment injectable.

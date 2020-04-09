@@ -1,4 +1,4 @@
-package com.example.architecture.android.core.di
+package com.example.core.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +21,5 @@ class ViewModelFactory @Inject constructor(
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

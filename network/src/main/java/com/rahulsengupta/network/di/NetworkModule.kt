@@ -36,7 +36,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun providesTypiCodeService(
+    fun provideNovelCovid19Service(
         okhttpClient: OkHttpClient,
         converterFactory: Converter.Factory
     ) = provideService(okhttpClient, converterFactory, NovelCovid19Service::class.java)

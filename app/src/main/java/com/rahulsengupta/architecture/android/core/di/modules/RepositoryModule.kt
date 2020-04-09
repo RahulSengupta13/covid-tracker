@@ -1,6 +1,6 @@
 package com.rahulsengupta.architecture.android.core.di.modules
 
-import com.rahulsengupta.architecture.android.core.datasource.TypiCodeDataSource
+import com.rahulsengupta.architecture.android.core.datasource.NovelCovid19DataSource
 import com.rahulsengupta.architecture.android.landing.ILandingRepository
 import com.rahulsengupta.architecture.android.landing.LandingRepository
 import com.rahulsengupta.network.di.NetworkModule
@@ -13,7 +13,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesLandingRepository(dataSource: TypiCodeDataSource): ILandingRepository {
+    fun providesLandingRepository(dataSource: NovelCovid19DataSource): ILandingRepository {
         return LandingRepository(dataSource)
     }
 }

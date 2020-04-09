@@ -4,7 +4,7 @@ import com.rahulsengupta.network.base.BaseDataSource
 import com.rahulsengupta.network.services.NovelCovid19Service
 import javax.inject.Inject
 
-class TypiCodeDataSource @Inject constructor(
+class NovelCovid19DataSource @Inject constructor(
     private val service: NovelCovid19Service
 ): BaseDataSource() {
 

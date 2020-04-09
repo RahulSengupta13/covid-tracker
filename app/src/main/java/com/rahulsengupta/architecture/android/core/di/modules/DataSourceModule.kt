@@ -1,6 +1,6 @@
 package com.rahulsengupta.architecture.android.core.di.modules
 
-import com.rahulsengupta.architecture.android.core.datasource.TypiCodeDataSource
+import com.rahulsengupta.architecture.android.core.datasource.NovelCovid19DataSource
 import com.rahulsengupta.network.services.NovelCovid19Service
 import dagger.Module
 import dagger.Provides
@@ -9,5 +9,5 @@ import dagger.Provides
 class DataSourceModule {
 
     @Provides
-    fun providesTypiCodeDataSource(service: NovelCovid19Service) = TypiCodeDataSource(service)
+    fun providesNovelCovid19DataSource(service: NovelCovid19Service) = NovelCovid19DataSource(service)
 }

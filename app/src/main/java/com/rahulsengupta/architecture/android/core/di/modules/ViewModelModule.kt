@@ -1,7 +1,7 @@
 package com.rahulsengupta.architecture.android.core.di.modules
 
 import androidx.lifecycle.ViewModel
-import com.rahulsengupta.architecture.android.landing.LandingViewModel
+import com.rahulsengupta.architecture.android.flows.dashboard.DashboardViewModel
 import com.rahulsengupta.core.di.ViewModelKey
 import com.rahulsengupta.network.di.DataSourceModule
 import com.rahulsengupta.persistence.di.PersistenceModule
@@ -14,6 +14,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(LandingViewModel::class)
-    abstract fun providesLandingViewModel(viewModel: LandingViewModel): ViewModel
+    @ViewModelKey(DashboardViewModel::class)
+    abstract fun providesLandingViewModel(viewModel: DashboardViewModel): ViewModel
 }

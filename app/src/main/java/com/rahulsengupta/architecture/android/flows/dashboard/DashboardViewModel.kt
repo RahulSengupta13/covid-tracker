@@ -1,4 +1,4 @@
-package com.rahulsengupta.architecture.android.landing
+package com.rahulsengupta.architecture.android.flows.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LandingViewModel @Inject constructor(
+class DashboardViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
     private val globalTotalsDao: GlobalTotalsDao,
     private val coreRepository: ICoreRepository

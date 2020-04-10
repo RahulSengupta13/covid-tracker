@@ -80,6 +80,9 @@ dependencies {
     // Tools
     implementation Dependencies.timber
     implementation Dependencies.circularImageView
+    implementation Dependencies.spark
+    implementation Dependencies.ticker
+    implementation Dependencies.gson
 
     // Dagger
     kapt Dependencies.daggerCompiler

@@ -71,22 +71,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
-                android:text="Global Totals"
+                android:text="@{viewModel.totalTitleId}"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/dashboard_title" />
+                app:layout_constraintTop_toBottomOf="@id/dashboard_title"
+                tools:text="@string/dashboard_total_title_cases" />
 
-            <TextView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/dashboard_global_totals_value"
                 style="@style/Body1.Light.Red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_quarter_margin"
-                android:drawableEnd="@drawable/ic_trending_up_24px"
-                android:drawablePadding="@dimen/standard_quarter_margin"
-                android:drawableTint="@color/red"
-                android:text="5231232"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/dashboard_global_totals_title" />
+
+            <include
+                android:id="@+id/layout_spark_chart_cardview"
+                layout="@layout/layout_spark_chart_cardview"
+                android:layout_width="0dp"
+                android:layout_height="350dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_global_totals_value" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle_button_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
+                app:setChecked="@{viewModel.buttonGroupStartId}"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCases"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
+                    android:text="@string/button_cases" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDeaths"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
+                    android:text="@string/button_deaths" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRecovered"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
+                    android:text="@string/button_recovered" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

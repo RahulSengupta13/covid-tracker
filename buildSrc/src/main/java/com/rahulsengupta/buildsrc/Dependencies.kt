@@ -29,6 +29,9 @@ object Versions {
     const val coroutines = "1.3.3"
     const val timber = "4.7.1"
     const val circularImageView = "4.2.0"
+    const val spark = "1.2.0"
+    const val ticker = "2.0.2"
+    const val gson = "2.8.5"
 
     //database
     const val room = "2.2.3"
@@ -87,6 +90,9 @@ object Dependencies {
     // Tools
     const val timber =  "com.jakewharton.timber:timber:${Versions.timber}"
     const val circularImageView =  "com.mikhaellopez:circularimageview:${Versions.circularImageView}"
+    const val spark =  "com.robinhood.spark:spark:${Versions.spark}"
+    const val ticker =  "com.robinhood.ticker:ticker:${Versions.ticker}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 
 
     // Dagger

@@ -1,11 +1,20 @@
+import com.rahulsengupta.buildsrc.Dependencies
 import com.rahulsengupta.buildsrc.GradleTemplates
 import com.rahulsengupta.buildsrc.Modules
 
 apply from: "$rootDir/${GradleTemplates.featureModule}"
 
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
 dependencies {
 
     implementation project(Modules.network)
     implementation project(Modules.persistence)
+
+    implementation Dependencies.ticker
 
 }

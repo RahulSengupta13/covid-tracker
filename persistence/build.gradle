@@ -21,6 +21,7 @@ dependencies {
     implementation Dependencies.roomRuntime
     implementation Dependencies.roomKtx
 
+    implementation Dependencies.gson
     implementation Dependencies.core
     implementation(Dependencies.annotation) { force = true }
 

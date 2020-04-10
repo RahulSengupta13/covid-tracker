@@ -6,7 +6,9 @@ import javax.inject.Inject
 
 class NovelCovid19DataSource @Inject constructor(
     private val service: NovelCovid19Service
-): BaseDataSource() {
+) : BaseDataSource() {
 
     suspend fun getGlobalTotals() = getResult { service.getGlobalTotals() }
+
+    suspend fun getGlobalHistorical(lastDays: Int) = getResult { service.getGlobalHistorical(lastDays) }
 }

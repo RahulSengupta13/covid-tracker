@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="spark_SparkViewStyle">@style/SparkViewStyle</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme" />
@@ -17,6 +18,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+    <style name="SparkViewStyle">
+        <item name="spark_lineColor">@color/red</item>
+        <item name="spark_lineWidth">2dp</item>
+        <item name="spark_cornerRadius">2dp</item>
+        <item name="spark_fill">false</item>
+        <item name="spark_baseLineColor">@color/red</item>
+        <item name="spark_baseLineWidth">4dp</item>
+        <item name="spark_scrubLineColor">@color/white</item>
+        <item name="spark_scrubLineWidth">1dp</item>
+        <item name="spark_scrubEnabled">true</item>
+        <item name="spark_animateChanges">true</item>
+    </style>
 
     <!--Text Styles-->
     <style name="H1.Light" parent="TextAppearance.MaterialComponents.Headline1">
@@ -121,6 +134,7 @@
     <style name="Body1.Light.Green">
         <item name="android:textColor">@color/green</item>
     </style>
+
     <style name="Body1.Light.Red">
         <item name="android:textColor">@color/red</item>
     </style>

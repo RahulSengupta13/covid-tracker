@@ -4,6 +4,12 @@
 
 
     <string name="dashboard_title_welcome">Welcome, </string>
+    <string name="dashboard_total_title_cases">Total Cases</string>
+    <string name="dashboard_total_title_deaths">Total Deaths</string>
+    <string name="dashboard_total_title_recovered">Total Recovered</string>
+    <string name="button_cases">Cases</string>
+    <string name="button_deaths">Deaths</string>
+    <string name="button_recovered">Recovered</string>
 
     <!--Bottom Navigation Menu Items-->
     <string name="bottom_navigation_menu_item_1">Dashboard</string>

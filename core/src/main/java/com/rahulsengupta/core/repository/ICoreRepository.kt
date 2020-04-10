@@ -1,7 +1,9 @@
 package com.rahulsengupta.core.repository
 
 import com.rahulsengupta.network.datasource.NovelCovid19DataSource
+import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
+import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
 import javax.inject.Inject
 
@@ -13,11 +15,13 @@ interface ICoreRepository {
 
 class CoreRepository @Inject constructor(
     private val dataSource: NovelCovid19DataSource,
-    private val globalTotalsDao: GlobalTotalsDao
+    private val globalTotalsDao: GlobalTotalsDao,
+    private val globalHistoricalDao: GlobalHistoricalDao
 ) : ICoreRepository {
 
     override suspend fun initialize() {
         initializeGlobalTotals()
+        initializeGlobalHistorical()
     }
 
     private suspend fun initializeGlobalTotals() {
@@ -38,5 +42,15 @@ class CoreRepository @Inject constructor(
             globalTotals.updated
         )
         globalTotalsDao.insertOrReplace(item = globalTotalsEntity)
+    }
+
+    private suspend fun initializeGlobalHistorical() {
+        val globalHistorical = dataSource.getGlobalHistorical(30).data
+        val globalHistoricalEntity = GlobalHistoricalEntity(
+            cases = globalHistorical?.cases ?: mapOf(),
+            deaths = globalHistorical?.deaths ?: mapOf(),
+            recovered = globalHistorical?.recovered?: mapOf()
+        )
+        globalHistoricalDao.insertOrReplace(globalHistoricalEntity)
     }
 }

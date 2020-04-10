@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.room.Room
 import com.rahulsengupta.persistence.CovidTrackerApplicationDatabase
 import com.rahulsengupta.persistence.DatabaseMeta
+import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -27,5 +27,11 @@ class PersistenceModule {
     @Singleton
     fun provideGlobalTotalsDao(database: CovidTrackerApplicationDatabase): GlobalTotalsDao {
         return database.globalTotalDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGlobalHistoricalDao(database: CovidTrackerApplicationDatabase): GlobalHistoricalDao {
+        return database.globalHistoricalDao()
     }
 }

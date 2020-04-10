@@ -11,6 +11,7 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.DashboardSta
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
+import com.rahulsengupta.core.extensions.getFormattedDate
 import com.rahulsengupta.core.repository.ICoreRepository
 import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
@@ -52,28 +53,29 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun processGlobalHistoricalEntity(entity: GlobalHistoricalEntity) {
-        val chartList = when (state.chartState) {
-            CASES -> {
-                entity.cases.toList()
+        viewModelScope.launch {
+            val chartList = when (state.chartState) {
+                CASES -> {
+                    entity.cases.toList()
+                }
+                DEATHS -> {
+                    entity.deaths.toList()
+                }
+                RECOVERED -> {
+                    entity.recovered.toList()
+                }
             }
-            DEATHS -> {
-                entity.deaths.toList()
-            }
-            RECOVERED -> {
-                entity.recovered.toList()
-            }
-        }
-        _viewState.postValue(
-            ChartData(
+            val chartData = ChartData(
                 chartList.map {
                     ChartData.ChartDataValue(
-                        it.first,
+                        it.first.getFormattedDate(),
                         it.second
                     )
                 },
                 state.chartState.chartAccentId
             )
-        )
+            _viewState.postValue(chartData)
+        }
     }
 
     fun onChartButtonClicked(buttonId: Int) {

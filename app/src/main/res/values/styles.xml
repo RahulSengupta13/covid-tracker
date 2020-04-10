@@ -129,7 +129,6 @@
         <item name="fontFamily">sans-serif-medium</item>
     </style>
 
-
     <!--Accented Text Views-->
     <style name="Body1.Light.Green">
         <item name="android:textColor">@color/green</item>

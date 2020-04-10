@@ -98,16 +98,17 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/standard_big_margin"
-                        android:layout_marginStart="@dimen/standard_big_margin">
+                        android:layout_marginStart="@dimen/standard_big_margin"
+                        android:layout_marginTop="@dimen/standard_margin">
 
                         <TextView
                             android:id="@+id/dashboard_global_totals_title"
-                            style="@style/H6.Light"
+                            style="@style/Body1.Medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_half_margin"
                             android:text="@{viewModel.totalTitleId}"
+                            android:textAllCaps="true"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/dashboard_total_title_cases" />
@@ -116,8 +117,8 @@
                             android:id="@+id/dashboard_global_totals_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_quarter_margin"
                             android:layout_marginStart="@dimen/standard_half_margin"
+                            android:layout_marginTop="@dimen/standard_quarter_margin"
                             app:layout_constraintStart_toEndOf="@id/dashboard_global_totals_value_drawable"
                             app:layout_constraintTop_toBottomOf="@id/dashboard_global_totals_title" />
 
@@ -136,6 +137,7 @@
                             style="@style/Body2.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/standard_quarter_margin"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/dashboard_global_totals_value"
                             tools:text="02/12/20" />

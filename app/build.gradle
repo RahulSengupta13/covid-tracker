@@ -83,6 +83,7 @@ dependencies {
     implementation Dependencies.spark
     implementation Dependencies.ticker
     implementation Dependencies.gson
+    implementation Dependencies.threeTen
 
     // Dagger
     kapt Dependencies.daggerCompiler

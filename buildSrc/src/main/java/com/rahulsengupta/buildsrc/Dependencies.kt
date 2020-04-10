@@ -32,6 +32,7 @@ object Versions {
     const val spark = "1.2.0"
     const val ticker = "2.0.2"
     const val gson = "2.8.5"
+    const val threeTen = "1.2.3"
 
     //database
     const val room = "2.2.3"
@@ -93,6 +94,7 @@ object Dependencies {
     const val spark =  "com.robinhood.spark:spark:${Versions.spark}"
     const val ticker =  "com.robinhood.ticker:ticker:${Versions.ticker}"
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val threeTen = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTen}"
 
 
     // Dagger

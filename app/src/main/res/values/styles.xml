@@ -25,7 +25,7 @@
         <item name="spark_fill">false</item>
         <item name="spark_baseLineColor">@color/red</item>
         <item name="spark_baseLineWidth">4dp</item>
-        <item name="spark_scrubLineColor">@color/white</item>
+        <item name="spark_scrubLineColor">@color/colorPrimary</item>
         <item name="spark_scrubLineWidth">1dp</item>
         <item name="spark_scrubEnabled">true</item>
         <item name="spark_animateChanges">true</item>
@@ -137,6 +137,18 @@
 
     <style name="Body1.Light.Red">
         <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="Body2.Light.Green">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="Body2.Light.Red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="Body2.Medium.Gray">
+        <item name="android:textColor">@color/gray</item>
     </style>
 
 </resources>

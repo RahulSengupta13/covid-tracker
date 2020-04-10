@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulsengupta.architecture.R
-import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartState.*
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashboardState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState
@@ -35,6 +34,7 @@ class DashboardViewModel @Inject constructor(
 
     val buttonGroupStartId = ObservableInt(state.chartState.buttonId)
     val totalTitleId = ObservableInt(state.chartState.titleId)
+    val chartAccentColor = ObservableInt(state.chartState.chartAccentId)
     private var globalHistoricalEntity: GlobalHistoricalEntity? = null
 
     init {
@@ -63,35 +63,41 @@ class DashboardViewModel @Inject constructor(
                 entity.recovered.toList()
             }
         }
-        _viewState.postValue(ChartData(chartList.map {
-            ChartData.ChartDataValue(
-                it.first,
-                it.second
+        _viewState.postValue(
+            ChartData(
+                chartList.map {
+                    ChartData.ChartDataValue(
+                        it.first,
+                        it.second
+                    )
+                },
+                state.chartState.chartAccentId
             )
-        }))
+        )
     }
 
     fun onChartButtonClicked(buttonId: Int) {
-        when(buttonId) {
+        when (buttonId) {
             R.id.btnCases -> {
-                if(state.chartState != CASES) {
+                if (state.chartState != CASES) {
                     state = state.copy(chartState = CASES)
                     globalHistoricalEntity?.let { processGlobalHistoricalEntity(it) }
                 }
             }
             R.id.btnRecovered -> {
-                if(state.chartState != RECOVERED) {
+                if (state.chartState != RECOVERED) {
                     state = state.copy(chartState = RECOVERED)
                     globalHistoricalEntity?.let { processGlobalHistoricalEntity(it) }
                 }
             }
             R.id.btnDeaths -> {
-                if(state.chartState != DEATHS) {
+                if (state.chartState != DEATHS) {
                     state = state.copy(chartState = DEATHS)
                     globalHistoricalEntity?.let { processGlobalHistoricalEntity(it) }
                 }
             }
         }
         totalTitleId.set(state.chartState.titleId)
+        chartAccentColor.set(state.chartState.chartAccentId)
     }
 }

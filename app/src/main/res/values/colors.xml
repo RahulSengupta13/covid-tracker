@@ -3,8 +3,4 @@
     <color name="colorPrimary">#F29494</color>
     <color name="colorPrimaryDark">#F25252</color>
     <color name="colorAccent">#F20519</color>
-
-    <color name="white">#F2F2F2</color>
-    <color name="green">#40AE49</color>
-    <color name="red">#F20519</color>
 </resources>

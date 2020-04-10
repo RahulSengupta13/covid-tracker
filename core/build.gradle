@@ -16,5 +16,6 @@ dependencies {
     implementation project(Modules.persistence)
 
     implementation Dependencies.ticker
+    implementation Dependencies.spark
 
 }

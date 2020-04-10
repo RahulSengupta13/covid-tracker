@@ -27,9 +27,9 @@ class DashboardFragment : InjectableFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.uiData.observe(viewLifecycleOwner, Observer {
-            ticker.text = it.toString()
+//            ticker.text = it.toString()
         })
 
-        ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
+//        ticker.setOnClickListener { startActivity(Intent(context, HomeActivity::class.java)) }
     }
 }

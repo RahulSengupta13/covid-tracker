@@ -79,6 +79,7 @@ dependencies {
 
     // Tools
     implementation Dependencies.timber
+    implementation Dependencies.circularImageView
 
     // Dagger
     kapt Dependencies.daggerCompiler

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="standard_below_divider_margin">40dp</dimen>
+    <dimen name="standard_bigger_margin">32dp</dimen>
+    <dimen name="standard_big_margin">24dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+    <dimen name="standard_three_quarter_margin">12dp</dimen>
+    <dimen name="standard_half_margin">8dp</dimen>
+    <dimen name="standard_quarter_margin">4dp</dimen>
+</resources>

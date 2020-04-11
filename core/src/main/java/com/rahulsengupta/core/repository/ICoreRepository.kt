@@ -1,6 +1,8 @@
 package com.rahulsengupta.core.repository
 
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
+import com.rahulsengupta.core.extensions.getFormattedDateFromShortPattern
+import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
 import com.rahulsengupta.network.datasource.AboutCoronaDataSource
 import com.rahulsengupta.network.datasource.NovelCovid19DataSource
 import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
@@ -63,9 +65,9 @@ class CoreRepository @Inject constructor(
         async {
             val globalHistorical = novelCovid.getGlobalHistorical(30).data ?: return@async
             val globalHistoricalEntity = GlobalHistoricalEntity(
-                cases = globalHistorical.cases,
-                deaths = globalHistorical.deaths,
-                recovered = globalHistorical.recovered
+                cases = globalHistorical.cases.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap(),
+                deaths = globalHistorical.deaths.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap(),
+                recovered = globalHistorical.recovered.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap()
             )
             globalHistoricalDao.insertOrReplace(globalHistoricalEntity)
         }
@@ -80,7 +82,7 @@ class CoreRepository @Inject constructor(
                         it.newConfirmed,
                         it.newRecovered,
                         it.newDeaths,
-                        it.updatedAt
+                        it.updatedAt.getFormattedDateFromUTCTimestamp()
                     )
                 }.asReversed()
             )

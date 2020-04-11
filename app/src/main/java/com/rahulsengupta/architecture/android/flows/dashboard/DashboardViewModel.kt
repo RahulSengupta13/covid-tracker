@@ -13,7 +13,6 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.DashboardSta
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.core.extensions.getFormattedDate
 import com.rahulsengupta.core.repository.ICoreRepository
 import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
 import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
@@ -97,7 +96,7 @@ class DashboardViewModel @Inject constructor(
             val chartData = ChartData(
                 chartList.map {
                     ChartData.ChartDataValue(
-                        it.first.getFormattedDate(),
+                        it.first,
                         it.second
                     )
                 },

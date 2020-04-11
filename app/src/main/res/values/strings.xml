@@ -3,6 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <string name="splash_title">Splash</string>
     <string name="dashboard_title_welcome">Welcome, </string>
     <string name="dashboard_total_title_cases">Global Total Cases</string>
     <string name="dashboard_total_title_deaths">Global Total Deaths</string>

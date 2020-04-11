@@ -51,7 +51,6 @@ class DashboardViewModel @Inject constructor(
     }
 
     private suspend fun initialize() {
-        coreRepository.initializeAsync().await()
 
         viewModelScope.launch(dispatcher.IO) {
             globalHistoricalUseCase.flow.collect {

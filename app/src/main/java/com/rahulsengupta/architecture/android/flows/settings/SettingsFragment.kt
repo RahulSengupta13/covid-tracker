@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.core.base.InjectableFragment
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : InjectableFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

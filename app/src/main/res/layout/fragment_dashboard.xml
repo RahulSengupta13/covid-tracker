@@ -35,6 +35,26 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/standard_big_margin" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="175dp"
+                android:layout_height="190dp"
+                android:alpha="0.05"
+                android:src="@drawable/coronavirus"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="175dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="150dp"
+                android:alpha="0.05"
+                android:src="@drawable/coronavirus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/user_avatar"
                 android:layout_width="50dp"
@@ -153,6 +173,10 @@
                         <com.rahulsengupta.core.customview.CustomSparkView
                             android:id="@+id/dashboard_global_totals_sparkview"
                             android:layout_width="match_parent"
+                            android:layout_marginEnd="@dimen/standard_margin"
+                            android:layout_marginStart="@dimen/standard_margin"
+                            android:paddingTop="@dimen/standard_margin"
+                            android:paddingBottom="@dimen/standard_margin"
                             android:layout_height="375dp" />
 
                         <com.google.android.material.button.MaterialButtonToggleGroup

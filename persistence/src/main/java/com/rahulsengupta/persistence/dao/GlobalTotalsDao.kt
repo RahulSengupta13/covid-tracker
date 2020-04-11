@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface GlobalTotalsDao : BaseDao<GlobalTotalsEntity> {
 
     @Query("SELECT * FROM GlobalTotals")
-    fun getGlobalTotals(): Flow<List<GlobalTotalsEntity>>
+    fun getGlobalTotals(): Flow<List<GlobalTotalsEntity>?>
 }

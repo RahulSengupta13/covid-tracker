@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
 interface IGetGlobalHistoricalUseCase {
-    val flow: Flow<GlobalHistoricalEntity>
+    val flow: Flow<GlobalHistoricalEntity?>
 }
 
 class GetGlobalHistoricalUseCase @Inject constructor(
@@ -16,6 +16,6 @@ class GetGlobalHistoricalUseCase @Inject constructor(
 ) : IGetGlobalHistoricalUseCase {
 
     @ExperimentalCoroutinesApi
-    override val flow: Flow<GlobalHistoricalEntity>
+    override val flow: Flow<GlobalHistoricalEntity?>
         get() = globalHistoricalDao.getGlobalHistorical().distinctUntilChanged()
 }

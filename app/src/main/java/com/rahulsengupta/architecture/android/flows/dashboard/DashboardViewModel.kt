@@ -70,17 +70,18 @@ class DashboardViewModel @Inject constructor(
             }.collect {
                 if (state.chartModeState == DAILY) {
                     totalTitleId.set(state.chartState.titleIdDaily)
-                    processGlobalTimelineEntity(it.second)
+                    processGlobalTimelineEntity(it?.second)
                 } else {
                     totalTitleId.set(state.chartState.titleIdTotal)
-                    processGlobalHistoricalEntity(it.first)
+                    processGlobalHistoricalEntity(it?.first)
                 }
             }
         }
     }
 
-    private fun processGlobalHistoricalEntity(entity: GlobalHistoricalEntity) {
+    private fun processGlobalHistoricalEntity(entity: GlobalHistoricalEntity?) {
         viewModelScope.launch {
+            entity ?: return@launch
             val chartList = when (state.chartState) {
                 CASES -> {
                     entity.cases.toList()
@@ -105,8 +106,9 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    private fun processGlobalTimelineEntity(entity: GlobalTimelineEntity) {
+    private fun processGlobalTimelineEntity(entity: GlobalTimelineEntity?) {
         viewModelScope.launch(dispatcher.IO) {
+            entity ?: return@launch
             val chartList = when (state.chartState) {
                 CASES -> {
                     entity.list.map { ChartData.ChartDataValue(it.updatedAt, it.newConfirmed) }

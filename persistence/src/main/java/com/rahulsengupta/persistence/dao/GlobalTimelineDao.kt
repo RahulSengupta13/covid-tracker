@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface GlobalTimelineDao : BaseDao<GlobalTimelineEntity> {
 
     @Query("SELECT * FROM GlobalTimeline")
-    fun getGlobalTimeline(): Flow<GlobalTimelineEntity>
+    fun getGlobalTimeline(): Flow<GlobalTimelineEntity?>
 }

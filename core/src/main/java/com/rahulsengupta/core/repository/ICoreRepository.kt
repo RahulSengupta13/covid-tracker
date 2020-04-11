@@ -13,12 +13,14 @@ import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface ICoreRepository {
 
-    suspend fun initializeAsync(): Deferred<Unit>
+    suspend fun initializeAsync(): Deferred<List<Unit>>
 
 }
 
@@ -33,9 +35,12 @@ class CoreRepository @Inject constructor(
 
     override suspend fun initializeAsync() = withContext(dispatcher.IO) {
         async {
-            initializeGlobalTotalsAsync().await()
-            initializeGlobalHistoricalAsync().await()
-            initializeGlobalTimelineAsync().await()
+            val deferreds = listOf(
+                initializeGlobalTotalsAsync(),
+                initializeGlobalHistoricalAsync(),
+                initializeGlobalTimelineAsync()
+            )
+            deferreds.awaitAll()
         }
     }
 
@@ -65,9 +70,12 @@ class CoreRepository @Inject constructor(
         async {
             val globalHistorical = novelCovid.getGlobalHistorical(30).data ?: return@async
             val globalHistoricalEntity = GlobalHistoricalEntity(
-                cases = globalHistorical.cases.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap(),
-                deaths = globalHistorical.deaths.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap(),
-                recovered = globalHistorical.recovered.map { (k, v) -> k.getFormattedDateFromShortPattern() to v}.toMap()
+                cases = globalHistorical.cases.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
+                    .toMap(),
+                deaths = globalHistorical.deaths.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
+                    .toMap(),
+                recovered = globalHistorical.recovered.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
+                    .toMap()
             )
             globalHistoricalDao.insertOrReplace(globalHistoricalEntity)
         }

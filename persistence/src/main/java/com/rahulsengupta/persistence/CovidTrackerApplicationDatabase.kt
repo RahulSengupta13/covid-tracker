@@ -5,8 +5,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.rahulsengupta.persistence.converter.DbTypeConverters
 import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
+import com.rahulsengupta.persistence.dao.GlobalTimelineDao
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
 import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
+import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
 
 object DatabaseMeta {
@@ -17,12 +19,14 @@ object DatabaseMeta {
 @Database(
     entities = [
         GlobalTotalsEntity::class,
-        GlobalHistoricalEntity::class
+        GlobalHistoricalEntity::class,
+        GlobalTimelineEntity::class
     ],
     version = DatabaseMeta.VERSION
 )
-@TypeConverters(DbTypeConverters::class)
+@TypeConverters(value = [DbTypeConverters::class])
 abstract class CovidTrackerApplicationDatabase : RoomDatabase() {
     abstract fun globalTotalDao(): GlobalTotalsDao
     abstract fun globalHistoricalDao(): GlobalHistoricalDao
+    abstract fun globalTimelineDao(): GlobalTimelineDao
 }

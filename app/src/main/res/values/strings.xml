@@ -7,9 +7,14 @@
     <string name="dashboard_total_title_cases">Global Total Cases</string>
     <string name="dashboard_total_title_deaths">Global Total Deaths</string>
     <string name="dashboard_total_title_recovered">Global Total Recovered</string>
+    <string name="dashboard_daily_title_cases">Global Daily Cases</string>
+    <string name="dashboard_daily_title_deaths">Global Daily Deaths</string>
+    <string name="dashboard_daily_title_recovered">Global Daily Recovered</string>
     <string name="button_cases">Cases</string>
     <string name="button_deaths">Deaths</string>
     <string name="button_recovered">Recovered</string>
+    <string name="button_daily">Daily</string>
+    <string name="button_total">Total</string>
 
     <!--Bottom Navigation Menu Items-->
     <string name="bottom_navigation_menu_item_1">Dashboard</string>

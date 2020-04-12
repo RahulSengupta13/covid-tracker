@@ -23,3 +23,14 @@ fun String.getFormattedDateFromUTCTimestamp(): String {
     val formatter = DateTimeFormatter.ofPattern("hh:mm a, dd MMM, eee, yyyy", Locale.getDefault())
     return localDate.format(formatter)
 }
+
+fun String.getShortFormattedDateFromUTCTimestamp(): String {
+    val f = DateTimeFormatterBuilder()
+        .append(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+        .appendPattern("[.SSSSSSS][.SSSSSS][.SSS]")
+        .appendOffset("+HH:mm", "Z")
+        .toFormatter()
+    val localDate = LocalDateTime.parse(this, f)
+    val formatter = DateTimeFormatter.ofPattern("hh:mm a, dd MMM", Locale.getDefault())
+    return localDate.format(formatter)
+}

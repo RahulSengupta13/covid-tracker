@@ -13,13 +13,17 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:fillViewport="true"
         tools:context=".android.landing.LandingActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/start_guideline"
@@ -92,7 +96,7 @@
                 style="@style/H6.Thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_big_margin"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:text="@string/dashboard_title_welcome"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/user_avatar" />
@@ -103,10 +107,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_quarter_margin"
-                android:text="Rahul!"
+                android:text="rahul!"
                 app:layout_constraintStart_toEndOf="@id/dashboard_title"
                 app:layout_constraintTop_toTopOf="@id/dashboard_title" />
 
+            <TextView
+                android:id="@+id/dashboard_title_statistics"
+                style="@style/H6.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/dashboard_statistics"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_title" />
+
+            <ImageView
+                android:id="@+id/dashboard_statistics_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_forward_24px"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintTop_toTopOf="@id/dashboard_title_statistics" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/layout_spark_chart_cardview"
@@ -120,7 +142,7 @@
                 app:cardElevation="@dimen/standard_quarter_margin"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/dashboard_title_user">
+                app:layout_constraintTop_toBottomOf="@id/dashboard_title_statistics">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -139,7 +161,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_half_margin"
                             android:text="@{viewModel.totalTitleId}"
-                            android:textAllCaps="true"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/dashboard_total_title_cases" />
@@ -262,6 +283,40 @@
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/dashboard_news_title"
+                style="@style/H6.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_news"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+
+            <ImageView
+                android:id="@+id/dashboard_news_title_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_forward_24px"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintTop_toTopOf="@id/dashboard_news_title" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/news_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_below_divider_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/view_pager_page_offset"
+                android:paddingRight="@dimen/view_pager_page_offset"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_news_title"
+                app:newsHeadlineItems="@{viewModel.newsItems}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

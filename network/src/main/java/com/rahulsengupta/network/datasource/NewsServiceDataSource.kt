@@ -13,7 +13,8 @@ class NewsServiceDataSource @Inject constructor(
         sortBy: String,
         language: String,
         pageSize: Int,
-        page: Int
-    ) = getResult { newsApi.topHeadlines(q, sortBy, language, pageSize, page) }
+        page: Int,
+        country: String
+    ) = getResult { newsApi.topHeadlines(q, sortBy, language, pageSize, page, country) }
 
 }

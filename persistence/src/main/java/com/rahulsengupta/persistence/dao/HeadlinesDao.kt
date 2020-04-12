@@ -10,7 +10,7 @@ interface HeadlinesDao : BaseDao<ArticleEntity> {
 
 
     @Query("SELECT * FROM Article")
-    fun getHeadlines(): Flow<ArticleEntity?>
+    fun getHeadlines(): Flow<List<ArticleEntity>?>
 
 
     @Query("SELECT COUNT(*) FROM Article")

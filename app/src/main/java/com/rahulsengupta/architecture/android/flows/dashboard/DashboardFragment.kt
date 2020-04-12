@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData.ChartDataValue
 import com.rahulsengupta.architecture.databinding.FragmentDashboardBinding
 import com.rahulsengupta.core.base.InjectableFragment
+import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.customview.ScrubListener
 import com.rahulsengupta.core.extensions.setDefaults
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -45,6 +50,19 @@ class DashboardFragment : InjectableFragment() {
         dashboard_global_totals_sparkview.setScrubListener { onScrubbed(it) }
         dashboard_global_totals_sparkview.listener = scrubListener
 
+        with(news_view_pager) {
+            (getChildAt(0) as? RecyclerView)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            offscreenPageLimit = 2
+            setPageTransformer(
+                CompositePageTransformer().apply {
+                    val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.view_pager_page_margin_small)
+                    addTransformer(MarginPageTransformer(pageMarginPx))
+                    addTransformer(ScaleTransformer())
+                }
+            )
+            adapter = DashboardNewsAdapter()
+        }
+
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is ChartData -> updateChartData(it)
@@ -56,10 +74,8 @@ class DashboardFragment : InjectableFragment() {
         adapter.update(chartData)
         lastChartDataValue = chartData.list.last()
         onScrubbed(lastChartDataValue)
-        dashboard_global_totals_value.textColor =
-            ContextCompat.getColor(requireContext(), chartData.color)
-        dashboard_global_totals_sparkview.lineColor =
-            ContextCompat.getColor(requireContext(), chartData.color)
+        dashboard_global_totals_value.textColor = ContextCompat.getColor(requireContext(), chartData.color)
+        dashboard_global_totals_sparkview.lineColor = ContextCompat.getColor(requireContext(), chartData.color)
     }
 
     private fun onScrubbed(value: Any?) {

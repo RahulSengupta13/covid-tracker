@@ -1,5 +1,6 @@
 package com.rahulsengupta.core.repository
 
+import com.rahulsengupta.core.base.CoroutineRepository
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.getFormattedDateFromShortPattern
 import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
@@ -38,11 +39,7 @@ class CoreRepository @Inject constructor(
     private val globalTimelineDao: GlobalTimelineDao,
     private val headlinesDao: HeadlinesDao,
     private val dispatcher: ICoroutinesDispatcher
-) : ICoreRepository, CoroutineScope {
-
-    private val job = Job()
-    override val coroutineContext: CoroutineContext
-        get() = job + dispatcher.IO
+) : ICoreRepository, CoroutineRepository(dispatcher) {
 
     private val channel = ConflatedBroadcastChannel<Unit>()
     override val initialized: Flow<Unit>
@@ -88,7 +85,8 @@ class CoreRepository @Inject constructor(
             "publishedAt",
             "en",
             100,
-            1
+            1,
+            "us"
         ).data ?: return
         val articles = headlines.articles.map {
             ArticleEntity(

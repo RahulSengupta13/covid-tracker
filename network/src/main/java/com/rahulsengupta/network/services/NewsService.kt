@@ -17,6 +17,7 @@ interface NewsService {
         @Query("sortBy") sortBy: String,
         @Query("language") language: String,
         @Query("pageSize") pageSize: Int,
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("country") country: String
     ): Response<TopHeadlinesResponse>
 }

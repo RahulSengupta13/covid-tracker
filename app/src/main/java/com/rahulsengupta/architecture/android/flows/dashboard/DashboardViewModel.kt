@@ -1,5 +1,6 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
+import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,12 +11,16 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardCha
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartModeState.TOTAL
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartState.*
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashboardState
+import com.rahulsengupta.architecture.android.flows.dashboard.model.NewsItem
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.core.repository.ICoreRepository
+import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
+import com.rahulsengupta.core.extensions.getShortFormattedDateFromUTCTimestamp
 import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
 import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
+import com.rahulsengupta.core.usecase.IGetNewsHeadlinesUseCase
+import com.rahulsengupta.persistence.enitity.ArticleEntity
 import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
 import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
 import kotlinx.coroutines.flow.collect
@@ -25,9 +30,9 @@ import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
-    private val coreRepository: ICoreRepository,
     private val globalHistoricalUseCase: IGetGlobalHistoricalUseCase,
-    private val globalTimelineUseCase: IGetGlobalTimelineUseCase
+    private val globalTimelineUseCase: IGetGlobalTimelineUseCase,
+    private val newsHeadlinesUseCase: IGetNewsHeadlinesUseCase
 ) : ViewModel() {
 
     private var state = DashboardState()
@@ -40,6 +45,7 @@ class DashboardViewModel @Inject constructor(
     val modeButtonGroupStartId = ObservableInt(state.chartModeState.modeButtonId)
     val totalTitleId = ObservableInt(state.chartState.titleIdTotal)
     val chartAccentColor = ObservableInt(state.chartState.chartAccentId)
+    val newsItems = ObservableField<List<NewsItem>>(emptyList())
 
     private var globalHistoricalEntity: GlobalHistoricalEntity? = null
     private var globalTimelineEntity: GlobalTimelineEntity? = null
@@ -77,6 +83,27 @@ class DashboardViewModel @Inject constructor(
                 }
             }
         }
+
+        viewModelScope.launch(dispatcher.IO) {
+            newsHeadlinesUseCase.flow.collect {
+                processArticles(it)
+            }
+        }
+    }
+
+    private fun processArticles(articles: List<ArticleEntity>?) {
+        val items = mutableListOf<NewsItem>()
+        val articleList = articles?.map {
+            NewsItem.Headline(
+                title = it.title,
+                publishedAt = "published at: ${it.publishedAt.getShortFormattedDateFromUTCTimestamp()}",
+                imageUrl = it.urlToImage ?: "",
+                url = it.url
+            )
+        }?.take(10) ?: emptyList()
+        items.addAll(articleList)
+        items.add(NewsItem.More())
+        newsItems.set(items)
     }
 
     private fun processGlobalHistoricalEntity(entity: GlobalHistoricalEntity?) {

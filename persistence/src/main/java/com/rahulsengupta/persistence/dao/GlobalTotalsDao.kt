@@ -10,4 +10,7 @@ interface GlobalTotalsDao : BaseDao<GlobalTotalsEntity> {
 
     @Query("SELECT * FROM GlobalTotals")
     fun getGlobalTotals(): Flow<List<GlobalTotalsEntity>?>
+
+    @Query("SELECT COUNT(*) FROM GlobalTotals")
+    fun getGlobalTotalsCount(): Int
 }

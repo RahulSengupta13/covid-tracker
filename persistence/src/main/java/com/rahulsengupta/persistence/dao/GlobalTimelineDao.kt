@@ -10,4 +10,7 @@ interface GlobalTimelineDao : BaseDao<GlobalTimelineEntity> {
 
     @Query("SELECT * FROM GlobalTimeline")
     fun getGlobalTimeline(): Flow<GlobalTimelineEntity?>
+
+    @Query("SELECT COUNT(*) FROM GlobalTimeline")
+    fun getGlobalTimelineCount(): Int
 }

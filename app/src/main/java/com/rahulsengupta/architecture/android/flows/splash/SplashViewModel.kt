@@ -8,6 +8,7 @@ import com.rahulsengupta.architecture.android.flows.splash.model.ViewEffect
 import com.rahulsengupta.architecture.android.flows.splash.model.ViewEffect.NavigateToDashboard
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.repository.ICoreRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,12 +23,10 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher.IO) {
-            initialize()
+            coreRepository.initialized.collect {
+                _viewEffect.postValue(NavigateToDashboard)
+            }
         }
-    }
-
-    private suspend fun initialize() {
-        coreRepository.initializeAsync().await()
-        _viewEffect.postValue(NavigateToDashboard)
+        coreRepository.initializeAsync()
     }
 }

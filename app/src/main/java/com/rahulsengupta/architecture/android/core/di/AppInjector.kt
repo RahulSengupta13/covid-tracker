@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.rahulsengupta.architecture.android.CovidTrackerApplication
 import com.rahulsengupta.core.di.Injectable
+import com.rahulsengupta.network.di.DataSourceModule
 import com.rahulsengupta.network.di.NetworkModule
+import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -20,11 +22,13 @@ object AppInjector {
 
     fun init(
         application: CovidTrackerApplication,
-        networkModule: NetworkModule
+        dataSourceModule: DataSourceModule,
+        persistenceModule: PersistenceModule
     ) {
         DaggerAppComponent.builder()
             .application(application)
-            .networkModule(networkModule)
+            .dataSourceModule(dataSourceModule)
+            .persistenceModule(persistenceModule)
             .build()
             .inject(application)
 

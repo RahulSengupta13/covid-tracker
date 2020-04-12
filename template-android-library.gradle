@@ -34,9 +34,12 @@ android {
 }
 
 dependencies {
+    implementation Dependencies.coroutinesCore
     implementation Dependencies.coroutinesAndroid
 
     implementation Dependencies.timber
+
+    implementation Dependencies.kotlinStdlib
 
     //testing
     testImplementation Dependencies.junit

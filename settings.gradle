@@ -1,3 +1,4 @@
+include ':persistence'
 include ':core'
 include ':home'
 include ':network'

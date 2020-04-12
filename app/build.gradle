@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion AppMetaData.compileSdkVersion
@@ -47,6 +48,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(Modules.network)
+    implementation project(Modules.persistence)
     implementation project(Modules.home)
     implementation project(Modules.core)
 
@@ -70,11 +72,18 @@ dependencies {
     implementation Dependencies.glide
     implementation Dependencies.material
     implementation Dependencies.kotlinStdlib
+    implementation Dependencies.kotlinSerialization
+    implementation Dependencies.kotlinSerializationConverter
     implementation Dependencies.coroutinesAndroid
     implementation Dependencies.coroutinesCore
 
     // Tools
     implementation Dependencies.timber
+    implementation Dependencies.circularImageView
+    implementation Dependencies.spark
+    implementation Dependencies.ticker
+    implementation Dependencies.gson
+    implementation Dependencies.threeTen
 
     // Dagger
     kapt Dependencies.daggerCompiler

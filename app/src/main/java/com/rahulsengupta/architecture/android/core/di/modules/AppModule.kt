@@ -6,9 +6,7 @@ import dagger.Module
     includes = [
         ActivityModule::class,
         FragmentModule::class,
-        ViewModelModule::class,
-        DataSourceModule::class,
-        RepositoryModule::class
+        ViewModelModule::class
     ]
 )
 class AppModule {

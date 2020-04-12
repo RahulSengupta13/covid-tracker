@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.rahulsengupta.core.di.ViewModelFactory
 import com.rahulsengupta.home.di.provider.HomeComponentProvider
+import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         viewModel.uiData.observe(this, Observer {
-            Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
+            ticker.text = it.toString()
         })
     }
 }

@@ -7,6 +7,7 @@ import com.rahulsengupta.persistence.DatabaseMeta
 import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.dao.GlobalTimelineDao
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
+import com.rahulsengupta.persistence.dao.HeadlinesDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,7 +22,7 @@ class PersistenceModule {
             application,
             CovidTrackerApplicationDatabase::class.java,
             DatabaseMeta.NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
@@ -40,5 +41,11 @@ class PersistenceModule {
     @Singleton
     fun provideGlobalTimelineDao(database: CovidTrackerApplicationDatabase): GlobalTimelineDao {
         return database.globalTimelineDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHeadlineDao(database: CovidTrackerApplicationDatabase): HeadlinesDao {
+        return database.headlinesDao()
     }
 }

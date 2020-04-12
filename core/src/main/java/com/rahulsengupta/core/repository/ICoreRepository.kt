@@ -4,10 +4,13 @@ import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.getFormattedDateFromShortPattern
 import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
 import com.rahulsengupta.network.datasource.AboutCoronaDataSource
+import com.rahulsengupta.network.datasource.NewsServiceDataSource
 import com.rahulsengupta.network.datasource.NovelCovid19DataSource
 import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.dao.GlobalTimelineDao
 import com.rahulsengupta.persistence.dao.GlobalTotalsDao
+import com.rahulsengupta.persistence.dao.HeadlinesDao
+import com.rahulsengupta.persistence.enitity.ArticleEntity
 import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
 import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
 import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
@@ -29,9 +32,11 @@ interface ICoreRepository {
 class CoreRepository @Inject constructor(
     private val novelCovid: NovelCovid19DataSource,
     private val aboutCorona: AboutCoronaDataSource,
+    private val news: NewsServiceDataSource,
     private val globalTotalsDao: GlobalTotalsDao,
     private val globalHistoricalDao: GlobalHistoricalDao,
     private val globalTimelineDao: GlobalTimelineDao,
+    private val headlinesDao: HeadlinesDao,
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineScope {
 
@@ -50,17 +55,20 @@ class CoreRepository @Inject constructor(
             val hasGlobalTotals = globalTotalsDao.getGlobalTotalsCount() > 0
             val hasGlobalHistorical = globalHistoricalDao.getGlobalHistoricalCount() > 0
             val hasGlobalTimeline = globalTimelineDao.getGlobalTimelineCount() > 0
+            val hasHeadlines = headlinesDao.getHeadlinesCount() > 0
 
-            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals) {
+            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines) {
                 channel.send(Unit)
                 initializeGlobalTotals()
                 initializeGlobalHistorical()
                 initializeGlobalTimeline()
+                initializeTopHeadlines()
             } else {
                 val deferreds = listOf(
                     initializeGlobalTotalsAsync(),
                     initializeGlobalHistoricalAsync(),
-                    initializeGlobalTimelineAsync()
+                    initializeGlobalTimelineAsync(),
+                    initializeTopHeadlinesAsync()
                 )
                 deferreds.awaitAll()
                 channel.send(Unit)
@@ -68,25 +76,41 @@ class CoreRepository @Inject constructor(
         }
     }
 
+    private suspend fun initializeTopHeadlinesAsync() = withContext(dispatcher.IO) {
+        async {
+            initializeTopHeadlines()
+        }
+    }
+
+    private suspend fun initializeTopHeadlines() {
+        val headlines = news.getHeadlines(
+            "COVID",
+            "publishedAt",
+            "en",
+            100,
+            1
+        ).data ?: return
+        val articles = headlines.articles.map {
+            ArticleEntity(
+                it.author,
+                it.content,
+                it.description,
+                it.publishedAt,
+                ArticleEntity.Source(
+                    it.source?.id,
+                    it.source?.name
+                ),
+                it.title,
+                it.url,
+                it.urlToImage
+            )
+        }
+        headlinesDao.insertAllOrReplace(articles)
+    }
+
     private suspend fun initializeGlobalTotalsAsync() = withContext(dispatcher.IO) {
         async {
-            val globalTotals = novelCovid.getGlobalTotals().data ?: return@async
-            val globalTotalsEntity = GlobalTotalsEntity(
-                globalTotals.active,
-                globalTotals.affectedCountries,
-                globalTotals.cases,
-                globalTotals.casesPerOneMillion,
-                globalTotals.critical,
-                globalTotals.deaths,
-                globalTotals.deathsPerOneMillion,
-                globalTotals.recovered,
-                globalTotals.tests,
-                globalTotals.testsPerOneMillion,
-                globalTotals.todayCases,
-                globalTotals.todayDeaths,
-                globalTotals.updated
-            )
-            globalTotalsDao.insertOrReplace(item = globalTotalsEntity)
+            initializeGlobalTotals()
         }
     }
 
@@ -112,16 +136,7 @@ class CoreRepository @Inject constructor(
 
     private suspend fun initializeGlobalHistoricalAsync() = withContext(dispatcher.IO) {
         async {
-            val globalHistorical = novelCovid.getGlobalHistorical(30).data ?: return@async
-            val globalHistoricalEntity = GlobalHistoricalEntity(
-                cases = globalHistorical.cases.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                    .toMap(),
-                deaths = globalHistorical.deaths.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                    .toMap(),
-                recovered = globalHistorical.recovered.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                    .toMap()
-            )
-            globalHistoricalDao.insertOrReplace(globalHistoricalEntity)
+            initializeGlobalHistorical()
         }
     }
 
@@ -140,18 +155,7 @@ class CoreRepository @Inject constructor(
 
     private suspend fun initializeGlobalTimelineAsync() = withContext(dispatcher.IO) {
         async {
-            val globalTimeline = aboutCorona.getTimeline().data ?: return@async
-            val globalTimelineEntity = GlobalTimelineEntity(
-                list = globalTimeline.data.map {
-                    GlobalTimelineEntity.GlobalTimelineValue(
-                        it.newConfirmed,
-                        it.newRecovered,
-                        it.newDeaths,
-                        it.updatedAt.getFormattedDateFromUTCTimestamp()
-                    )
-                }.asReversed()
-            )
-            globalTimelineDao.insertOrReplace(globalTimelineEntity)
+            initializeGlobalTimeline()
         }
     }
 

@@ -3,6 +3,7 @@ package com.rahulsengupta.persistence.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.rahulsengupta.persistence.enitity.ArticleEntity
 import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity.GlobalTimelineValue
 
 class DbTypeConverters {
@@ -26,6 +27,17 @@ class DbTypeConverters {
     @TypeConverter
     fun toGlobalTimeline(value: String): List<GlobalTimelineValue> {
         val mapType = object : TypeToken<List<GlobalTimelineValue>>() {}.type
+        return Gson().fromJson(value, mapType)
+    }
+
+    @TypeConverter
+    fun fromArticleSource(data: ArticleEntity.Source): String {
+        return Gson().toJson(data)
+    }
+
+    @TypeConverter
+    fun toArticleSource(value: String): ArticleEntity.Source {
+        val mapType = object : TypeToken<ArticleEntity.Source>() {}.type
         return Gson().fromJson(value, mapType)
     }
 }

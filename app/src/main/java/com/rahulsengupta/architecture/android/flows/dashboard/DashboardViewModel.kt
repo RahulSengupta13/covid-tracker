@@ -17,6 +17,7 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.Ch
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
 import com.rahulsengupta.core.extensions.getShortFormattedDateFromUTCTimestamp
+import com.rahulsengupta.core.usecase.IGetGlobalCountryUseCase
 import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
 import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
 import com.rahulsengupta.core.usecase.IGetNewsHeadlinesUseCase
@@ -26,13 +27,15 @@ import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
     private val globalHistoricalUseCase: IGetGlobalHistoricalUseCase,
     private val globalTimelineUseCase: IGetGlobalTimelineUseCase,
-    private val newsHeadlinesUseCase: IGetNewsHeadlinesUseCase
+    private val newsHeadlinesUseCase: IGetNewsHeadlinesUseCase,
+    private val globalCountryUseCase: IGetGlobalCountryUseCase
 ) : ViewModel() {
 
     private var state = DashboardState()
@@ -85,6 +88,12 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch(dispatcher.IO) {
             newsHeadlinesUseCase.flow.collect {
                 processArticles(it)
+            }
+        }
+
+        viewModelScope.launch(dispatcher.IO) {
+            globalCountryUseCase.flow.collect {
+                Timber.d(it.toString())
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rahulsengupta.persistence.enitity.ArticleEntity
+import com.rahulsengupta.persistence.enitity.GlobalCountryEntity
 import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity.GlobalTimelineValue
 
 class DbTypeConverters {
@@ -38,6 +39,17 @@ class DbTypeConverters {
     @TypeConverter
     fun toArticleSource(value: String): ArticleEntity.Source {
         val mapType = object : TypeToken<ArticleEntity.Source>() {}.type
+        return Gson().fromJson(value, mapType)
+    }
+
+    @TypeConverter
+    fun fromGlobalCountryInfo(data: GlobalCountryEntity.CountryInfo): String {
+        return Gson().toJson(data)
+    }
+
+    @TypeConverter
+    fun toGlobalCountryInfo(value: String): GlobalCountryEntity.CountryInfo {
+        val mapType = object : TypeToken<GlobalCountryEntity.CountryInfo>() {}.type
         return Gson().fromJson(value, mapType)
     }
 }

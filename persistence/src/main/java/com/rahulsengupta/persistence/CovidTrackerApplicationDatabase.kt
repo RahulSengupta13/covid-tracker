@@ -4,18 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.rahulsengupta.persistence.converter.DbTypeConverters
-import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
-import com.rahulsengupta.persistence.dao.GlobalTimelineDao
-import com.rahulsengupta.persistence.dao.GlobalTotalsDao
-import com.rahulsengupta.persistence.dao.HeadlinesDao
-import com.rahulsengupta.persistence.enitity.ArticleEntity
-import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
-import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
-import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
+import com.rahulsengupta.persistence.dao.*
+import com.rahulsengupta.persistence.enitity.*
 
 object DatabaseMeta {
     const val NAME = "covid_tracker.db"
-    const val VERSION = 2
+    const val VERSION = 3
 }
 
 @Database(
@@ -23,7 +17,8 @@ object DatabaseMeta {
         GlobalTotalsEntity::class,
         GlobalHistoricalEntity::class,
         GlobalTimelineEntity::class,
-        ArticleEntity::class
+        ArticleEntity::class,
+        GlobalCountryEntity::class
     ],
     version = DatabaseMeta.VERSION,
     exportSchema = false
@@ -34,4 +29,5 @@ abstract class CovidTrackerApplicationDatabase : RoomDatabase() {
     abstract fun globalHistoricalDao(): GlobalHistoricalDao
     abstract fun globalTimelineDao(): GlobalTimelineDao
     abstract fun headlinesDao(): HeadlinesDao
+    abstract fun globalCountryDao(): GlobalCountryDao
 }

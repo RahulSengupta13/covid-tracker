@@ -7,20 +7,13 @@ import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
 import com.rahulsengupta.network.datasource.AboutCoronaDataSource
 import com.rahulsengupta.network.datasource.NewsServiceDataSource
 import com.rahulsengupta.network.datasource.NovelCovid19DataSource
-import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
-import com.rahulsengupta.persistence.dao.GlobalTimelineDao
-import com.rahulsengupta.persistence.dao.GlobalTotalsDao
-import com.rahulsengupta.persistence.dao.HeadlinesDao
-import com.rahulsengupta.persistence.enitity.ArticleEntity
-import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
-import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
-import com.rahulsengupta.persistence.enitity.GlobalTotalsEntity
+import com.rahulsengupta.persistence.dao.*
+import com.rahulsengupta.persistence.enitity.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 interface ICoreRepository {
 
@@ -38,6 +31,7 @@ class CoreRepository @Inject constructor(
     private val globalHistoricalDao: GlobalHistoricalDao,
     private val globalTimelineDao: GlobalTimelineDao,
     private val headlinesDao: HeadlinesDao,
+    private val globalCountryDao: GlobalCountryDao,
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineRepository(dispatcher) {
 
@@ -53,19 +47,22 @@ class CoreRepository @Inject constructor(
             val hasGlobalHistorical = globalHistoricalDao.getGlobalHistoricalCount() > 0
             val hasGlobalTimeline = globalTimelineDao.getGlobalTimelineCount() > 0
             val hasHeadlines = headlinesDao.getHeadlinesCount() > 0
+            val hasGlobalCountryResult = globalCountryDao.getGlobalCountryCount() > 0
 
-            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines) {
+            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines && hasGlobalCountryResult) {
                 channel.send(Unit)
                 initializeGlobalTotals()
                 initializeGlobalHistorical()
                 initializeGlobalTimeline()
                 initializeTopHeadlines()
+                initializeGlobalCountryResult()
             } else {
                 val deferreds = listOf(
                     initializeGlobalTotalsAsync(),
                     initializeGlobalHistoricalAsync(),
                     initializeGlobalTimelineAsync(),
-                    initializeTopHeadlinesAsync()
+                    initializeTopHeadlinesAsync(),
+                    initializeGlobalCountryResultAsync()
                 )
                 deferreds.awaitAll()
                 channel.send(Unit)
@@ -136,6 +133,43 @@ class CoreRepository @Inject constructor(
         async {
             initializeGlobalHistorical()
         }
+    }
+
+    private suspend fun initializeGlobalCountryResultAsync() = withContext(dispatcher.IO) {
+        async {
+            initializeGlobalCountryResult()
+        }
+    }
+
+
+    private suspend fun initializeGlobalCountryResult() {
+        val globalCountryResult = novelCovid.getGlobalCountryResult("todayCases").data ?: return
+        val globalCountryResultEntities = globalCountryResult
+            .filter { it.countryInfo.id != null && it.country.isNotEmpty() }
+            .map {
+                GlobalCountryEntity(
+                    it.active,
+                    it.cases,
+                    it.casesPerOneMillion,
+                    it.country,
+                    GlobalCountryEntity.CountryInfo(
+                        it.countryInfo.flag,
+                        it.countryInfo.id,
+                        it.countryInfo.iso2,
+                        it.countryInfo.iso3,
+                        it.countryInfo.lat,
+                        it.countryInfo.long
+                    ),
+                    it.critical,
+                    it.deaths,
+                    it.deathsPerOneMillion,
+                    it.recovered,
+                    it.todayCases,
+                    it.todayDeaths,
+                    it.updated
+                )
+            }
+        globalCountryDao.insertAllOrReplace(globalCountryResultEntities)
     }
 
     private suspend fun initializeGlobalHistorical() {

@@ -52,7 +52,8 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
         mapFragment.run {
             getMapAsync(this@DashboardFragment)
         }
@@ -62,7 +63,8 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
         dashboard_global_totals_sparkview.listener = scrubListener
 
         with(news_view_pager) {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardNewsAdapter()
         }
 
@@ -75,7 +77,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
         //TODO: extract this to a custom view
         binding.customView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                return when(event?.action) {
+                return when (event?.action) {
                     ACTION_DOWN -> {
                         dashboard_scrollview.requestDisallowInterceptTouchEvent(true)
                         false
@@ -96,6 +98,9 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
+            map.uiSettings.run {
+                isMapToolbarEnabled = false
+            }
             setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_skin))
         }
     }

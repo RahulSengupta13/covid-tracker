@@ -25,4 +25,8 @@ class CoreModule {
     @Singleton
     @Provides
     fun provideGetNewsHeadlinesUseCase(useCase: GetNewsHeadlinesUseCase): IGetNewsHeadlinesUseCase = useCase
+
+    @Singleton
+    @Provides
+    fun provideGetGlobalCountryUseCase(useCase: GetGlobalCountryUseCase): IGetGlobalCountryUseCase = useCase
 }

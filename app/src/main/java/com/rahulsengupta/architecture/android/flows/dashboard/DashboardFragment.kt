@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -51,15 +52,15 @@ class DashboardFragment : InjectableFragment() {
         dashboard_global_totals_sparkview.listener = scrubListener
 
         with(news_view_pager) {
-            (getChildAt(0) as? RecyclerView)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            offscreenPageLimit = 2
-            setPageTransformer(
-                CompositePageTransformer().apply {
-                    val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.view_pager_page_margin_small)
-                    addTransformer(MarginPageTransformer(pageMarginPx))
-                    addTransformer(ScaleTransformer())
-                }
-            )
+//            offscreenPageLimit = 2
+//            setPageTransformer(
+//                CompositePageTransformer().apply {
+//                    val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.view_pager_page_margin_small)
+//                    addTransformer(MarginPageTransformer(pageMarginPx))
+//                    addTransformer(ScaleTransformer())
+//                }
+//            )
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardNewsAdapter()
         }
 

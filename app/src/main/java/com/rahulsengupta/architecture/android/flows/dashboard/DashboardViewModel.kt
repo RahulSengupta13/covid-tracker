@@ -51,12 +51,10 @@ class DashboardViewModel @Inject constructor(
     private var globalTimelineEntity: GlobalTimelineEntity? = null
 
     init {
-        viewModelScope.launch(dispatcher.IO) {
-            initialize()
-        }
+        initialize()
     }
 
-    private suspend fun initialize() {
+    private fun initialize() {
 
         viewModelScope.launch(dispatcher.IO) {
             globalHistoricalUseCase.flow.collect {
@@ -100,7 +98,7 @@ class DashboardViewModel @Inject constructor(
                 imageUrl = it.urlToImage ?: "",
                 url = it.url
             )
-        }?.take(10) ?: emptyList()
+        }?.take(20) ?: emptyList()
         items.addAll(articleList)
         items.add(NewsItem.More())
         newsItems.set(items)

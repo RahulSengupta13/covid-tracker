@@ -54,10 +54,10 @@
                 android:layout_marginTop="150dp"
                 android:alpha="0.05"
                 android:src="@drawable/coronavirus"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/layout_spark_chart_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/layout_spark_chart_cardview" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="175dp"
@@ -302,16 +302,14 @@
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintTop_toTopOf="@id/dashboard_news_title" />
 
-            <androidx.viewpager2.widget.ViewPager2
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/news_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:layout_marginBottom="@dimen/standard_below_divider_margin"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:paddingLeft="@dimen/view_pager_page_offset"
-                android:paddingRight="@dimen/view_pager_page_offset"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

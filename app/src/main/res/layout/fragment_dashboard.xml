@@ -11,6 +11,7 @@
     </data>
 
     <ScrollView
+        android:id="@+id/dashboard_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
@@ -284,6 +285,52 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/dashboard_map_title"
+                style="@style/H6.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_map"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboard_live_map_cardview"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/standard_half_margin"
+                app:cardElevation="@dimen/standard_quarter_margin"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_map_title">
+
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_map_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <fragment
+                        android:id="@+id/dashboard_live_map"
+                        class="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <View
+                        android:id="@+id/customView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
                 android:id="@+id/dashboard_news_title"
                 style="@style/H6.Medium"
                 android:layout_width="wrap_content"
@@ -291,7 +338,7 @@
                 android:layout_marginTop="@dimen/standard_big_margin"
                 android:text="@string/dashboard_news"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+                app:layout_constraintTop_toBottomOf="@id/dashboard_live_map_cardview" />
 
             <ImageView
                 android:id="@+id/dashboard_news_title_more"

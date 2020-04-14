@@ -2,31 +2,35 @@ package com.rahulsengupta.architecture.android.flows.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData.ChartDataValue
 import com.rahulsengupta.architecture.databinding.FragmentDashboardBinding
 import com.rahulsengupta.core.base.InjectableFragment
-import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.customview.ScrubListener
 import com.rahulsengupta.core.extensions.setDefaults
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
-class DashboardFragment : InjectableFragment() {
+class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
 
     private val viewModel: DashboardViewModel by viewModels { viewModelFactory }
     private val adapter = SparkGlobalTotalsAdapter()
 
     var lastChartDataValue: ChartDataValue? = null
+
+    lateinit var binding: FragmentDashboardBinding
 
     private val scrubListener = object : ScrubListener {
         override fun onScrubEndedListener() {
@@ -38,7 +42,7 @@ class DashboardFragment : InjectableFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.dashboardGlobalTotalsValue.setDefaults()
@@ -47,19 +51,17 @@ class DashboardFragment : InjectableFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
+        mapFragment.run {
+            getMapAsync(this@DashboardFragment)
+        }
+
         dashboard_global_totals_sparkview.adapter = adapter
         dashboard_global_totals_sparkview.setScrubListener { onScrubbed(it) }
         dashboard_global_totals_sparkview.listener = scrubListener
 
         with(news_view_pager) {
-//            offscreenPageLimit = 2
-//            setPageTransformer(
-//                CompositePageTransformer().apply {
-//                    val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.view_pager_page_margin_small)
-//                    addTransformer(MarginPageTransformer(pageMarginPx))
-//                    addTransformer(ScaleTransformer())
-//                }
-//            )
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardNewsAdapter()
         }
@@ -69,14 +71,43 @@ class DashboardFragment : InjectableFragment() {
                 is ChartData -> updateChartData(it)
             }
         })
+
+        //TODO: extract this to a custom view
+        binding.customView.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                return when(event?.action) {
+                    ACTION_DOWN -> {
+                        dashboard_scrollview.requestDisallowInterceptTouchEvent(true)
+                        false
+                    }
+                    ACTION_UP -> {
+                        dashboard_scrollview.requestDisallowInterceptTouchEvent(false)
+                        true
+                    }
+                    ACTION_MOVE -> {
+                        dashboard_scrollview.requestDisallowInterceptTouchEvent(true)
+                        false
+                    }
+                    else -> true
+                }
+            }
+        })
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        map?.run {
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_skin))
+        }
     }
 
     private fun updateChartData(chartData: ChartData) {
         adapter.update(chartData)
         lastChartDataValue = chartData.list.last()
         onScrubbed(lastChartDataValue)
-        dashboard_global_totals_value.textColor = ContextCompat.getColor(requireContext(), chartData.color)
-        dashboard_global_totals_sparkview.lineColor = ContextCompat.getColor(requireContext(), chartData.color)
+        dashboard_global_totals_value.textColor =
+            ContextCompat.getColor(requireContext(), chartData.color)
+        dashboard_global_totals_sparkview.lineColor =
+            ContextCompat.getColor(requireContext(), chartData.color)
     }
 
     private fun onScrubbed(value: Any?) {

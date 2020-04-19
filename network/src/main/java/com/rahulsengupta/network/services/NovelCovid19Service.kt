@@ -10,13 +10,13 @@ import retrofit2.http.Query
 interface NovelCovid19Service {
 
     companion object {
-        const val BASE_URL = "https://corona.lmao.ninja/"
+        const val BASE_URL = "https://corona.lmao.ninja/v2/"
     }
 
     @GET("all")
     suspend fun getGlobalTotals(): Response<GlobalTotalsResponse>
 
-    @GET("v2/historical/all")
+    @GET("historical/all")
     suspend fun getGlobalHistorical(
         @Query("lastDays") lastDays: Int
     ): Response<GlobalHistoricalResponse>

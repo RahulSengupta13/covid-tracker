@@ -292,6 +292,29 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/dashboard_countries_title"
+                style="@style/H6.Medium.Bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_countries"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/countries_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_below_divider_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_countries_title"
+                app:countryItems="@{viewModel.countryItems}" />
+
+            <TextView
                 android:id="@+id/dashboard_map_title"
                 style="@style/H6.Medium.Bright"
                 android:layout_width="wrap_content"
@@ -299,7 +322,7 @@
                 android:layout_marginTop="@dimen/standard_big_margin"
                 android:text="@string/dashboard_map"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+                app:layout_constraintTop_toBottomOf="@id/countries_view_pager" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/dashboard_live_map_cardview"

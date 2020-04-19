@@ -14,6 +14,7 @@
     <string name="dashboard_statistics">statistics</string>
     <string name="dashboard_news">top headlines</string>
     <string name="dashboard_map">live map</string>
+    <string name="dashboard_countries">countries</string>
     <string name="dashboard_news_item_more_title">see more</string>
     <string name="button_cases">cases</string>
     <string name="button_deaths">deaths</string>

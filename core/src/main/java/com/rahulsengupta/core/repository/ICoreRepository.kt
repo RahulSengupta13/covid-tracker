@@ -4,6 +4,7 @@ import com.rahulsengupta.core.base.CoroutineRepository
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.getFormattedDateFromShortPattern
 import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
+import com.rahulsengupta.core.extensions.getLongFromTimeStamp
 import com.rahulsengupta.network.datasource.AboutCoronaDataSource
 import com.rahulsengupta.network.datasource.NewsServiceDataSource
 import com.rahulsengupta.network.datasource.NovelCovid19DataSource
@@ -83,14 +84,14 @@ class CoreRepository @Inject constructor(
             "en",
             100,
             1,
-            "us"
+            ""
         ).data ?: return
         val articles = headlines.articles.map {
             ArticleEntity(
                 it.author,
                 it.content,
                 it.description,
-                it.publishedAt,
+                it.publishedAt.getLongFromTimeStamp(),
                 ArticleEntity.Source(
                     it.source?.id,
                     it.source?.name

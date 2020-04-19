@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface HeadlinesDao : BaseDao<ArticleEntity> {
 
 
-    @Query("SELECT * FROM Article")
+    @Query("SELECT * FROM Article ORDER BY Date(Article.publishedAt)")
     fun getHeadlines(): Flow<List<ArticleEntity>?>
 
 

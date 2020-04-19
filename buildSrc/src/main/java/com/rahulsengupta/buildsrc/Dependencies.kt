@@ -35,6 +35,7 @@ object Versions {
     const val threeTen = "1.2.3"
 
     const val mapsPlayServices = "17.0.0"
+    const val mapUtils = "1.1.0"
 
     //database
     const val room = "2.2.3"
@@ -81,6 +82,7 @@ object Dependencies {
     const val recyclerview =  "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
 
     const val mapsPlayServices = "com.google.android.gms:play-services-maps:${Versions.mapsPlayServices}"
+    const val mapUtils = "com.google.maps.android:android-maps-utils:${Versions.mapUtils}"
 
     const val roomRuntime =  "androidx.room:room-runtime:${Versions.room}"
     const val pagingRuntime =  "androidx.paging:paging-runtime:${Versions.paging}"

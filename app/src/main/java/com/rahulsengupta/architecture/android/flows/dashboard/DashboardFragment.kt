@@ -14,7 +14,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.TileOverlayOptions
+import com.google.maps.android.heatmaps.HeatmapTileProvider
+import com.google.maps.android.heatmaps.WeightedLatLng
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.architecture.android.flows.dashboard.model.MapCircle
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData.ChartDataValue
 import com.rahulsengupta.architecture.databinding.FragmentDashboardBinding
@@ -31,6 +35,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
     var lastChartDataValue: ChartDataValue? = null
 
     lateinit var binding: FragmentDashboardBinding
+    lateinit var map: GoogleMap
 
     private val scrubListener = object : ScrubListener {
         override fun onScrubEndedListener() {
@@ -52,8 +57,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
         mapFragment.run {
             getMapAsync(this@DashboardFragment)
         }
@@ -63,15 +67,23 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
         dashboard_global_totals_sparkview.listener = scrubListener
 
         with(news_view_pager) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardNewsAdapter()
+        }
+
+        with(countries_view_pager) {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = DashboardCountriesAdapter()
         }
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is ChartData -> updateChartData(it)
             }
+        })
+
+        viewModel.mapCircles.observe(viewLifecycleOwner, Observer {
+            processMapCircles(it)
         })
 
         //TODO: extract this to a custom view
@@ -96,8 +108,30 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
         })
     }
 
+    private fun processMapCircles(list: List<MapCircle>?) {
+        val latLongs = list?.map { WeightedLatLng(it.center, it.weight) }
+        latLongs?.let {
+            if(it.isNotEmpty()) {
+                val provider = HeatmapTileProvider.Builder()
+                    .weightedData(it)
+                    .radius(50)
+                    .build()
+                map.addTileOverlay(TileOverlayOptions().tileProvider(provider))
+            }
+        }
+        /*list?.forEach {
+            map.addCircle(CircleOptions().apply {
+                center(it.center)
+                radius(it.radius*50)
+                strokeWidth(0F)
+                fillColor(ContextCompat.getColor(requireContext(), com.rahulsengupta.core.R.color.translucentRed))
+            })
+        }*/
+    }
+
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
+            this@DashboardFragment.map = this
             map.uiSettings.run {
                 isMapToolbarEnabled = false
             }

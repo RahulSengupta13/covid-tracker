@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GlobalCountryDao : BaseDao<GlobalCountryEntity> {
 
-    @Query("SELECT * FROM GlobalCountry")
+    @Query("SELECT * FROM GlobalCountry ORDER BY GlobalCountry.cases ASC")
     fun getGlobalCountryResult(): Flow<List<GlobalCountryEntity>?>
 
 

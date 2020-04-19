@@ -1,5 +1,6 @@
 package com.rahulsengupta.network.services
 
+import com.rahulsengupta.network.model.response.CountryHistoricalResponse
 import com.rahulsengupta.network.model.response.GlobalCountryResponseItem
 import com.rahulsengupta.network.model.response.GlobalHistoricalResponse
 import com.rahulsengupta.network.model.response.GlobalTotalsResponse
@@ -20,6 +21,11 @@ interface NovelCovid19Service {
     suspend fun getGlobalHistorical(
         @Query("lastDays") lastDays: Int
     ): Response<GlobalHistoricalResponse>
+
+    @GET("historical")
+    suspend fun getCountriesHistorical(
+        @Query("lastDays") lastDays: Int
+    ): Response<List<CountryHistoricalResponse>>
 
     @GET("countries")
     suspend fun getGlobalCountryResult(

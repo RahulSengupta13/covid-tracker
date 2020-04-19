@@ -29,4 +29,8 @@ class CoreModule {
     @Singleton
     @Provides
     fun provideGetGlobalCountryUseCase(useCase: GetGlobalCountryUseCase): IGetGlobalCountryUseCase = useCase
+
+    @Singleton
+    @Provides
+    fun provideGetCountryHistoricalUseCase(useCase: GetCountryHistoricalUseCase): IGetCountryHistoricalUseCase = useCase
 }

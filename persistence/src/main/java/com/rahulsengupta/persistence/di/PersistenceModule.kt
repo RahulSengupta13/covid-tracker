@@ -51,4 +51,10 @@ class PersistenceModule {
     fun provideGlobalCountryDao(database: CovidTrackerApplicationDatabase): GlobalCountryDao {
         return database.globalCountryDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideCountryHistoricalDao(database: CovidTrackerApplicationDatabase): CountryHistoricalDao {
+        return database.countryHistoricalDao()
+    }
 }

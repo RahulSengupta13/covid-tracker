@@ -15,14 +15,8 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardCha
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.toFormattedLocalDateTime
-import com.rahulsengupta.core.usecase.IGetGlobalCountryUseCase
-import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
-import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
-import com.rahulsengupta.core.usecase.IGetNewsHeadlinesUseCase
-import com.rahulsengupta.persistence.enitity.ArticleEntity
-import com.rahulsengupta.persistence.enitity.GlobalCountryEntity
-import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
-import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
+import com.rahulsengupta.core.usecase.*
+import com.rahulsengupta.persistence.enitity.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -33,7 +27,8 @@ class DashboardViewModel @Inject constructor(
     private val globalHistoricalUseCase: IGetGlobalHistoricalUseCase,
     private val globalTimelineUseCase: IGetGlobalTimelineUseCase,
     private val newsHeadlinesUseCase: IGetNewsHeadlinesUseCase,
-    private val globalCountryUseCase: IGetGlobalCountryUseCase
+    private val globalCountryUseCase: IGetGlobalCountryUseCase,
+    private val countryHistoricalUseCase: IGetCountryHistoricalUseCase
 ) : ViewModel() {
 
     private var state = DashboardState()
@@ -97,17 +92,59 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch(dispatcher.IO) {
             globalCountryUseCase.flow.collect {
                 processMapCountries(it)
-                processCountryList(it)
+            }
+        }
+
+        viewModelScope.launch(dispatcher.IO) {
+            globalCountryUseCase.flow.combine(countryHistoricalUseCase.flow) { history, timeline ->
+                Pair(history, timeline)
+            }.collect {
+                processCountryListHistorical(it.second, it.first)
             }
         }
     }
 
-    private fun processCountryList(list: List<GlobalCountryEntity>?) {
-        val countryItemsList = list?.sortedByDescending { it.cases }?.filter { it.countryInfo.flag != null }
-            ?.map {
-                CountryItem(it.country, "${it.cases}", requireNotNull(it.countryInfo.flag))
-            }
-        countryItems.set(countryItemsList)
+    private fun processCountryListHistorical(
+        countryTimelineList: List<CountryHistoricalEntity>?,
+        countryEntityList: List<GlobalCountryEntity>?
+    ) {
+        if (countryEntityList != null && countryTimelineList != null) {
+            val countryItemsList =
+                countryEntityList.sortedByDescending { it.cases }.take(10).mapNotNull { entity ->
+                    val timeline =
+                        countryTimelineList.firstOrNull { it.country.equals(entity.country, true) }
+                    if (timeline != null) {
+                        CountryItem(
+                            country = entity.country,
+                            cases = entity.cases.toString(),
+                            flag = requireNotNull(entity.countryInfo.flag),
+                            timeline = CountryItem.Timeline(
+                                cases = timeline.cases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                deaths = timeline.deaths.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                recovered = timeline.recovered.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                }
+                            )
+                        )
+                    } else {
+                        null
+                    }
+                }
+            countryItems.set(countryItemsList)
+        }
     }
 
     private fun processMapCountries(list: List<GlobalCountryEntity>?) {

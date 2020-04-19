@@ -33,6 +33,7 @@ class CoreRepository @Inject constructor(
     private val globalTimelineDao: GlobalTimelineDao,
     private val headlinesDao: HeadlinesDao,
     private val globalCountryDao: GlobalCountryDao,
+    private val countryHistoricalDao: CountryHistoricalDao,
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineRepository(dispatcher) {
 
@@ -49,21 +50,24 @@ class CoreRepository @Inject constructor(
             val hasGlobalTimeline = globalTimelineDao.getGlobalTimelineCount() > 0
             val hasHeadlines = headlinesDao.getHeadlinesCount() > 0
             val hasGlobalCountryResult = globalCountryDao.getGlobalCountryCount() > 0
+            val hasCountryHistoricalResult = countryHistoricalDao.getCountryHistoricalCount() > 0
 
-            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines && hasGlobalCountryResult) {
+            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines && hasGlobalCountryResult && hasCountryHistoricalResult) {
                 channel.send(Unit)
                 initializeGlobalTotals()
                 initializeGlobalHistorical()
                 initializeGlobalTimeline()
                 initializeTopHeadlines()
                 initializeGlobalCountryResult()
+                initializeCountriesHistorical()
             } else {
                 val deferreds = listOf(
                     initializeGlobalTotalsAsync(),
                     initializeGlobalHistoricalAsync(),
                     initializeGlobalTimelineAsync(),
                     initializeTopHeadlinesAsync(),
-                    initializeGlobalCountryResultAsync()
+                    initializeGlobalCountryResultAsync(),
+                    initializeCountriesHistoricalAsync()
                 )
                 deferreds.awaitAll()
                 channel.send(Unit)
@@ -130,12 +134,6 @@ class CoreRepository @Inject constructor(
         globalTotalsDao.insertOrReplace(item = globalTotalsEntity)
     }
 
-    private suspend fun initializeGlobalHistoricalAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalHistorical()
-        }
-    }
-
     private suspend fun initializeGlobalCountryResultAsync() = withContext(dispatcher.IO) {
         async {
             initializeGlobalCountryResult()
@@ -171,6 +169,32 @@ class CoreRepository @Inject constructor(
                 )
             }
         globalCountryDao.insertAllOrReplace(globalCountryResultEntities)
+    }
+
+    private suspend fun initializeCountriesHistoricalAsync() = withContext(dispatcher.IO) {
+        async {
+            initializeCountriesHistorical()
+        }
+    }
+
+    private suspend fun initializeCountriesHistorical() {
+        val countriesHistoricalResult = novelCovid.getCountriesHistorical(28).data ?: return
+        val countriesHistoricalEntities = countriesHistoricalResult.map {
+            CountryHistoricalEntity(
+                country = it.country,
+                province = it.province ?: "",
+                cases = it.timeline.cases,
+                deaths = it.timeline.deaths,
+                recovered = it.timeline.recovered
+            )
+        }
+        countryHistoricalDao.insertAllOrReplace(countriesHistoricalEntities)
+    }
+
+    private suspend fun initializeGlobalHistoricalAsync() = withContext(dispatcher.IO) {
+        async {
+            initializeGlobalHistorical()
+        }
     }
 
     private suspend fun initializeGlobalHistorical() {

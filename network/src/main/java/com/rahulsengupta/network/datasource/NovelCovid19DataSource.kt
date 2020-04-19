@@ -13,4 +13,6 @@ class NovelCovid19DataSource @Inject constructor(
     suspend fun getGlobalHistorical(lastDays: Int) = getResult { service.getGlobalHistorical(lastDays) }
 
     suspend fun getGlobalCountryResult(sort: String) = getResult { service.getGlobalCountryResult(sort) }
+
+    suspend fun getCountriesHistorical(lastDays: Int) = getResult { service.getCountriesHistorical(lastDays) }
 }

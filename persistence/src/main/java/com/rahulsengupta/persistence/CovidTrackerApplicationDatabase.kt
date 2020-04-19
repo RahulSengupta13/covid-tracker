@@ -18,7 +18,8 @@ object DatabaseMeta {
         GlobalHistoricalEntity::class,
         GlobalTimelineEntity::class,
         ArticleEntity::class,
-        GlobalCountryEntity::class
+        GlobalCountryEntity::class,
+        CountryHistoricalEntity::class
     ],
     version = DatabaseMeta.VERSION,
     exportSchema = false
@@ -30,4 +31,5 @@ abstract class CovidTrackerApplicationDatabase : RoomDatabase() {
     abstract fun globalTimelineDao(): GlobalTimelineDao
     abstract fun headlinesDao(): HeadlinesDao
     abstract fun globalCountryDao(): GlobalCountryDao
+    abstract fun countryHistoricalDao(): CountryHistoricalDao
 }

@@ -73,7 +73,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
 
         with(countries_view_pager) {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = DashboardCountriesAdapter()
+            adapter = DashboardCountriesAdapter(this)
         }
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer {

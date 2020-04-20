@@ -78,6 +78,7 @@ dependencies {
     implementation Dependencies.coroutinesCore
     implementation Dependencies.mapsPlayServices
     implementation Dependencies.mapUtils
+    implementation Dependencies.palette
 
     // Tools
     implementation Dependencies.timber

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialSharedAxis
 import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
+import com.rahulsengupta.core.extensions.loadImage
 import com.robinhood.spark.SparkView
 import kotlinx.android.synthetic.main.item_dashboard_countries.view.*
 
@@ -24,7 +25,9 @@ class DashboardCountryItemViewHolder constructor(val view: View) : BaseRecyclerV
     fun bind(item: CountryItem) {
         countryTitle?.text = item.country
         countryCount?.text = item.cases
-        countryFlag?.let { Glide.with(view.context).load(item.flag).into(it) }
+        countryFlag?.loadImage(item.flag) {
+            expandedView?.background = it
+        }
         collapsedView?.visibility = View.VISIBLE
         expandedView?.visibility = View.GONE
         expandedView?.setOnClickListener {

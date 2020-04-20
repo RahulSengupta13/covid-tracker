@@ -37,6 +37,7 @@
             android:id="@+id/country_title"
             style="@style/Body1.Light"
             android:layout_width="0dp"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
             android:textColor="@color/white"
@@ -67,15 +68,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_half_margin"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <com.robinhood.spark.SparkView
             android:id="@+id/country_chart"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/country_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/country_more"
+            style="@style/Body1.Light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:drawableEnd="@drawable/ic_arrow_forward_24px"
+            android:drawablePadding="@dimen/standard_quarter_margin"
+            android:drawableTint="@color/white"
+            android:padding="@dimen/standard_quarter_margin"
+            android:text="@string/more"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/country_chart" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

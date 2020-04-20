@@ -4,6 +4,6 @@
     <color name="green">#40AE49</color>
     <color name="red">#A60321</color>
     <color name="gray">#404040</color>
-
+    <color name="darkGray">#212426</color>
     <color name="translucentRed">#44A60321</color>
 </resources>

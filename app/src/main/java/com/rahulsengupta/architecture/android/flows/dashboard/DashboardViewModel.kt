@@ -110,7 +110,7 @@ class DashboardViewModel @Inject constructor(
     ) {
         if (countryEntityList != null && countryTimelineList != null) {
             val countryItemsList =
-                countryEntityList.sortedByDescending { it.cases }.take(10).mapNotNull { entity ->
+                countryEntityList.sortedByDescending { it.cases }.mapNotNull { entity ->
                     val timeline =
                         countryTimelineList.firstOrNull { it.country.equals(entity.country, true) }
                     if (timeline != null) {
@@ -142,7 +142,7 @@ class DashboardViewModel @Inject constructor(
                     } else {
                         null
                     }
-                }
+                }.take(20)
             countryItems.set(countryItemsList)
         }
     }

@@ -7,4 +7,7 @@
     <dimen name="standard_three_quarter_margin">12dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+
+    <dimen name="view_pager_page_margin_small">5dp</dimen>
+    <dimen name="view_pager_page_offset">40dp</dimen>
 </resources>

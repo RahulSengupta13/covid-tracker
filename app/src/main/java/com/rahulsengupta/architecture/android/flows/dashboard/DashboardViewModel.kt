@@ -1,23 +1,22 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
+import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.architecture.android.flows.dashboard.model.*
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartModeState.DAILY
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartModeState.TOTAL
 import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardChartState.*
-import com.rahulsengupta.architecture.android.flows.dashboard.model.DashboardState
-import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.core.repository.ICoreRepository
-import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
-import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
-import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
-import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity
+import com.rahulsengupta.core.extensions.toFormattedLocalDateTime
+import com.rahulsengupta.core.usecase.*
+import com.rahulsengupta.persistence.enitity.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -25,9 +24,11 @@ import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher,
-    private val coreRepository: ICoreRepository,
     private val globalHistoricalUseCase: IGetGlobalHistoricalUseCase,
-    private val globalTimelineUseCase: IGetGlobalTimelineUseCase
+    private val globalTimelineUseCase: IGetGlobalTimelineUseCase,
+    private val newsHeadlinesUseCase: IGetNewsHeadlinesUseCase,
+    private val globalCountryUseCase: IGetGlobalCountryUseCase,
+    private val countryHistoricalUseCase: IGetCountryHistoricalUseCase
 ) : ViewModel() {
 
     private var state = DashboardState()
@@ -36,21 +37,25 @@ class DashboardViewModel @Inject constructor(
     val viewState: LiveData<ViewState>
         get() = _viewState
 
+    private val _mapCircles = MutableLiveData<List<MapCircle>>()
+    val mapCircles: LiveData<List<MapCircle>>
+        get() = _mapCircles
+
     val buttonGroupStartId = ObservableInt(state.chartState.typeButtonId)
     val modeButtonGroupStartId = ObservableInt(state.chartModeState.modeButtonId)
     val totalTitleId = ObservableInt(state.chartState.titleIdTotal)
     val chartAccentColor = ObservableInt(state.chartState.chartAccentId)
+    val newsItems = ObservableField<List<NewsItem>>(emptyList())
+    val countryItems = ObservableField<List<CountryItem>>(emptyList())
 
     private var globalHistoricalEntity: GlobalHistoricalEntity? = null
     private var globalTimelineEntity: GlobalTimelineEntity? = null
 
     init {
-        viewModelScope.launch(dispatcher.IO) {
-            initialize()
-        }
+        initialize()
     }
 
-    private suspend fun initialize() {
+    private fun initialize() {
 
         viewModelScope.launch(dispatcher.IO) {
             globalHistoricalUseCase.flow.collect {
@@ -77,6 +82,102 @@ class DashboardViewModel @Inject constructor(
                 }
             }
         }
+
+        viewModelScope.launch(dispatcher.IO) {
+            newsHeadlinesUseCase.flow.collect {
+                processArticles(it)
+            }
+        }
+
+        viewModelScope.launch(dispatcher.IO) {
+            globalCountryUseCase.flow.collect {
+                processMapCountries(it)
+            }
+        }
+
+        viewModelScope.launch(dispatcher.IO) {
+            globalCountryUseCase.flow.combine(countryHistoricalUseCase.flow) { history, timeline ->
+                Pair(history, timeline)
+            }.collect {
+                processCountryListHistorical(it.second, it.first)
+            }
+        }
+    }
+
+    private fun processCountryListHistorical(
+        countryTimelineList: List<CountryHistoricalEntity>?,
+        countryEntityList: List<GlobalCountryEntity>?
+    ) {
+        if (countryEntityList != null && countryTimelineList != null) {
+            val countryItemsList =
+                countryEntityList.sortedByDescending { it.cases }.take(10).mapNotNull { entity ->
+                    val timeline =
+                        countryTimelineList.firstOrNull { it.country.equals(entity.country, true) }
+                    if (timeline != null) {
+                        CountryItem(
+                            country = entity.country,
+                            cases = entity.cases.toString(),
+                            flag = requireNotNull(entity.countryInfo.flag),
+                            timeline = CountryItem.Timeline(
+                                cases = timeline.cases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                deaths = timeline.deaths.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                recovered = timeline.recovered.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                }
+                            )
+                        )
+                    } else {
+                        null
+                    }
+                }
+            countryItems.set(countryItemsList)
+        }
+    }
+
+    private fun processMapCountries(list: List<GlobalCountryEntity>?) {
+        var initialweight = 100.0
+        val mapCircles = list?.map {
+            initialweight *= 1.05
+            MapCircle(
+                center = LatLng(
+                    it.countryInfo.lat?.toDouble() ?: 0.0,
+                    it.countryInfo.long?.toDouble() ?: 0.0
+                ),
+                radius = 5000.0,
+                cases = it.cases,
+                country = it.country,
+                weight = initialweight
+            )
+        }
+        _mapCircles.postValue(mapCircles)
+    }
+
+    private fun processArticles(articles: List<ArticleEntity>?) {
+        val items = mutableListOf<NewsItem>()
+        val articleList = articles?.map {
+            NewsItem.Headline(
+                title = it.title,
+                publishedAt = "published at: ${it.publishedAt.toFormattedLocalDateTime()}",
+                imageUrl = it.urlToImage ?: "",
+                url = it.url
+            )
+        }?.take(20) ?: emptyList()
+        items.addAll(articleList)
+        items.add(NewsItem.More())
+        newsItems.set(items)
     }
 
     private fun processGlobalHistoricalEntity(entity: GlobalHistoricalEntity?) {

@@ -76,6 +76,8 @@ dependencies {
     implementation Dependencies.kotlinSerializationConverter
     implementation Dependencies.coroutinesAndroid
     implementation Dependencies.coroutinesCore
+    implementation Dependencies.mapsPlayServices
+    implementation Dependencies.mapUtils
 
     // Tools
     implementation Dependencies.timber

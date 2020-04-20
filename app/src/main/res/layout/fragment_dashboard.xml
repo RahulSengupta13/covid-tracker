@@ -11,15 +11,22 @@
     </data>
 
     <ScrollView
+        android:id="@+id/dashboard_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:animateLayoutChanges="true"
         android:fillViewport="true"
         tools:context=".android.landing.LandingActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:animateLayoutChanges="true"
+            android:background="@color/colorPrimaryDark"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/start_guideline"
@@ -38,7 +45,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="175dp"
                 android:layout_height="190dp"
-                android:alpha="0.05"
+                android:alpha="0.25"
                 android:src="@drawable/coronavirus"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,18 +55,18 @@
                 android:layout_width="175dp"
                 android:layout_height="190dp"
                 android:layout_marginTop="150dp"
-                android:alpha="0.05"
+                android:alpha="0.25"
                 android:src="@drawable/coronavirus"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/layout_spark_chart_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/layout_spark_chart_cardview" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="175dp"
                 android:layout_height="190dp"
                 android:layout_marginEnd="150dp"
-                android:alpha="0.05"
+                android:alpha="0.25"
                 android:src="@drawable/coronavirus"
                 app:layout_constraintBottom_toBottomOf="@id/layout_spark_chart_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +86,7 @@
 
             <TextView
                 android:id="@+id/dashboard_headline"
-                style="@style/H5.Medium"
+                style="@style/H5.Medium.Bright"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_below_divider_margin"
@@ -89,24 +96,43 @@
 
             <TextView
                 android:id="@+id/dashboard_title"
-                style="@style/H6.Thin"
+                style="@style/H6.Thin.Bright"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_big_margin"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:text="@string/dashboard_title_welcome"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/user_avatar" />
 
             <TextView
                 android:id="@+id/dashboard_title_user"
-                style="@style/H6.Light"
+                style="@style/H6.Light.Bright"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_quarter_margin"
-                android:text="Rahul!"
+                android:text="rahul!"
                 app:layout_constraintStart_toEndOf="@id/dashboard_title"
                 app:layout_constraintTop_toTopOf="@id/dashboard_title" />
 
+            <TextView
+                android:id="@+id/dashboard_title_statistics"
+                style="@style/H6.Medium.Bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/dashboard_statistics"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_title" />
+
+            <ImageView
+                android:id="@+id/dashboard_statistics_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_forward_24px"
+                android:tint="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintTop_toTopOf="@id/dashboard_title_statistics" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/layout_spark_chart_cardview"
@@ -115,12 +141,12 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="@dimen/standard_half_margin"
                 app:cardElevation="@dimen/standard_quarter_margin"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/dashboard_title_user">
+                app:layout_constraintTop_toBottomOf="@id/dashboard_title_statistics">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -134,12 +160,11 @@
 
                         <TextView
                             android:id="@+id/dashboard_global_totals_title"
-                            style="@style/Body1.Medium"
+                            style="@style/Body1.Medium.Bright"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_half_margin"
                             android:text="@{viewModel.totalTitleId}"
-                            android:textAllCaps="true"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="@string/dashboard_total_title_cases" />
@@ -165,7 +190,7 @@
 
                         <TextView
                             android:id="@+id/dashboard_global_totals_date"
-                            style="@style/Body2.Light"
+                            style="@style/Body2.Light.Bright"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_quarter_margin"
@@ -209,7 +234,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartModeButtonClicked(view.id)}"
-                                android:text="@string/button_daily" />
+                                android:text="@string/button_daily"
+                                android:textColor="@color/white" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnTotal"
@@ -217,7 +243,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartModeButtonClicked(view.id)}"
-                                android:text="@string/button_total" />
+                                android:text="@string/button_total"
+                                android:textColor="@color/white" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -239,7 +266,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_cases" />
+                                android:text="@string/button_cases"
+                                android:textColor="@color/white" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnDeaths"
@@ -247,7 +275,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_deaths" />
+                                android:text="@string/button_deaths"
+                                android:textColor="@color/white" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnRecovered"
@@ -255,13 +284,115 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_recovered" />
+                                android:text="@string/button_recovered"
+                                android:textColor="@color/white" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/dashboard_countries_title"
+                style="@style/H6.Medium.Bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_countries"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/countries_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_below_divider_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:countryItems="@{viewModel.countryItems}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_countries_title" />
+
+            <TextView
+                android:id="@+id/dashboard_map_title"
+                style="@style/H6.Medium.Bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_map"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/countries_view_pager" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboard_live_map_cardview"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/standard_half_margin"
+                app:cardElevation="@dimen/standard_quarter_margin"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_map_title">
+
+
+                <RelativeLayout
+                    android:id="@+id/dashboard_map_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <fragment
+                        android:id="@+id/dashboard_live_map"
+                        class="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <View
+                        android:id="@+id/customView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/dashboard_news_title"
+                style="@style/H6.Medium.Bright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:text="@string/dashboard_news"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_live_map_cardview" />
+
+            <ImageView
+                android:id="@+id/dashboard_news_title_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_forward_24px"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintTop_toTopOf="@id/dashboard_news_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/news_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_below_divider_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dashboard_news_title"
+                app:newsHeadlineItems="@{viewModel.newsItems}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

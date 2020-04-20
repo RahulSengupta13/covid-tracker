@@ -2,10 +2,7 @@ package com.rahulsengupta.core.di
 
 import com.rahulsengupta.core.repository.CoreRepository
 import com.rahulsengupta.core.repository.ICoreRepository
-import com.rahulsengupta.core.usecase.GetGlobalHistoricalUseCase
-import com.rahulsengupta.core.usecase.GetGlobalTimelineUseCase
-import com.rahulsengupta.core.usecase.IGetGlobalHistoricalUseCase
-import com.rahulsengupta.core.usecase.IGetGlobalTimelineUseCase
+import com.rahulsengupta.core.usecase.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -24,4 +21,16 @@ class CoreModule {
     @Singleton
     @Provides
     fun provideGlobalTimelineUseCase(useCase: GetGlobalTimelineUseCase): IGetGlobalTimelineUseCase = useCase
+
+    @Singleton
+    @Provides
+    fun provideGetNewsHeadlinesUseCase(useCase: GetNewsHeadlinesUseCase): IGetNewsHeadlinesUseCase = useCase
+
+    @Singleton
+    @Provides
+    fun provideGetGlobalCountryUseCase(useCase: GetGlobalCountryUseCase): IGetGlobalCountryUseCase = useCase
+
+    @Singleton
+    @Provides
+    fun provideGetCountryHistoricalUseCase(useCase: GetCountryHistoricalUseCase): IGetCountryHistoricalUseCase = useCase
 }

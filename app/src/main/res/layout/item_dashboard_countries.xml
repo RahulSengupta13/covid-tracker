@@ -6,6 +6,7 @@
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:clipChildren="false"
     android:clipToPadding="false"
     app:cardBackgroundColor="@color/colorPrimary"
@@ -14,9 +15,11 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/collapsed_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_half_margin">
+        android:padding="@dimen/standard_half_margin"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/country_image"
@@ -57,5 +60,22 @@
             app:layout_constraintStart_toStartOf="@id/country_title"
             app:layout_constraintTop_toBottomOf="@id/country_title"
             tools:text="761357" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/expanded_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_half_margin"
+        tools:visibility="gone">
+
+        <com.robinhood.spark.SparkView
+            android:id="@+id/country_chart"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

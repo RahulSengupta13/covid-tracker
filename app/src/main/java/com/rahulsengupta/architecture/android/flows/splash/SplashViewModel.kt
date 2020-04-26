@@ -27,6 +27,6 @@ class SplashViewModel @Inject constructor(
                 _viewEffect.postValue(NavigateToDashboard)
             }
         }
-        coreRepository.initializeAsync()
+        coreRepository.initialize()
     }
 }

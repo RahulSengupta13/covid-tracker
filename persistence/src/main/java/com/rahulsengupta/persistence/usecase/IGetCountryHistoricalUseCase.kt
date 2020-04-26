@@ -1,9 +1,7 @@
-package com.rahulsengupta.core.usecase
+package com.rahulsengupta.persistence.usecase
 
 import com.rahulsengupta.persistence.dao.CountryHistoricalDao
-import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.enitity.CountryHistoricalEntity
-import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

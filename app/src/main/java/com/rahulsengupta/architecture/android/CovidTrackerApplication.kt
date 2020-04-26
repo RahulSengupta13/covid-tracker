@@ -6,7 +6,6 @@ import com.rahulsengupta.home.di.DaggerHomeComponent
 import com.rahulsengupta.home.di.HomeComponent
 import com.rahulsengupta.home.di.provider.HomeComponentProvider
 import com.rahulsengupta.network.di.DataSourceModule
-import com.rahulsengupta.network.di.NetworkModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector

@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager
 import com.rahulsengupta.architecture.android.CovidTrackerApplication
 import com.rahulsengupta.core.di.Injectable
 import com.rahulsengupta.network.di.DataSourceModule
-import com.rahulsengupta.network.di.NetworkModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector

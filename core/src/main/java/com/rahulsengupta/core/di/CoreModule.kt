@@ -39,4 +39,8 @@ abstract class CoreModule {
     @Singleton
     @Binds
     abstract fun provideLoadHeadlinesUseCase(useCase: LoadHeadlinesUseCase): ILoadHeadlinesUseCase
+
+    @Singleton
+    @Binds
+    abstract fun provideGetIsDataDownloadedUseCase(useCase: GetIsDataDownloadedUseCase): IGetIsDataDownloadedUseCase
 }

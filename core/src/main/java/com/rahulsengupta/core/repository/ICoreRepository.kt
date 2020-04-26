@@ -23,6 +23,7 @@ class CoreRepository @Inject constructor(
     private val loadGlobalCountryUseCase: ILoadGlobalCountryUseCase,
     private val loadGlobalTotalsUseCase: ILoadGlobalTotalsUseCase,
     private val loadHeadlinesUseCase: ILoadHeadlinesUseCase,
+    private val isDataDownloadedUseCase: IGetIsDataDownloadedUseCase,
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineRepository(dispatcher) {
 
@@ -33,40 +34,22 @@ class CoreRepository @Inject constructor(
     @ExperimentalCoroutinesApi
     override fun initialize() {
         CoroutineScope(dispatcher.IO).launch {
+            val isDataDownloaded = isDataDownloadedUseCase.get()
 
-            val hasGlobalTotals = loadGlobalTotalsUseCase.hasGlobalTotals()
-            val hasGlobalHistorical = loadGlobalHistoricalUseCase.hasGlobalHistorical()
-            val hasGlobalTimeline = loadGlobalTimelineUseCase.hasGlobalTimeline()
-            val hasHeadlines = loadHeadlinesUseCase.hasHeadlines()
-            val hasGlobalCountryResult = loadGlobalCountryUseCase.hasGlobalCountry()
-            val hasCountryHistoricalResult = loadCountriesHistoricalUseCase.hasCountriesHistorical()
-
-            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines && hasGlobalCountryResult && hasCountryHistoricalResult) {
-                channel.send(Unit)
-                initializeGlobalTotals()
-                initializeGlobalHistorical()
-                initializeGlobalTimeline()
-                initializeTopHeadlines()
-                initializeGlobalCountryResult()
-                initializeCountriesHistorical()
-            } else {
-                val deferreds = listOf(
-                    initializeGlobalTotalsAsync(),
-                    initializeGlobalHistoricalAsync(),
-                    initializeGlobalTimelineAsync(),
-                    initializeTopHeadlinesAsync(),
-                    initializeGlobalCountryResultAsync(),
-                    initializeCountriesHistoricalAsync()
-                )
-                deferreds.awaitAll()
+            //move past splash and download data in background
+            if (isDataDownloaded) {
                 channel.send(Unit)
             }
-        }
-    }
 
-    private suspend fun initializeTopHeadlinesAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeTopHeadlines()
+            listOf(
+                async { initializeGlobalTotals() },
+                async { initializeGlobalHistorical() },
+                async { initializeGlobalTimeline() },
+                async { initializeTopHeadlines() },
+                async { initializeGlobalCountryResult() },
+                async { initializeCountriesHistorical() }
+            ).awaitAll()
+            channel.send(Unit)
         }
     }
 
@@ -74,50 +57,23 @@ class CoreRepository @Inject constructor(
         loadHeadlinesUseCase.loadHeadlines("COVID", "publishedAt", "en", 100, 1, "")
     }
 
-    private suspend fun initializeGlobalTotalsAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalTotals()
-        }
-    }
-
     private suspend fun initializeGlobalTotals() {
         loadGlobalTotalsUseCase.loadGlobalTotals()
-    }
-
-    private suspend fun initializeGlobalCountryResultAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalCountryResult()
-        }
     }
 
     private suspend fun initializeGlobalCountryResult() {
         loadGlobalCountryUseCase.loadGlobalCountry("todayCases")
     }
 
-    private suspend fun initializeCountriesHistoricalAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeCountriesHistorical()
-        }
-    }
-
     private suspend fun initializeCountriesHistorical() {
         loadCountriesHistoricalUseCase.loadCountriesHistorical(30)
     }
 
-    private suspend fun initializeGlobalHistoricalAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalHistorical()
-        }
-    }
-
-    private suspend fun initializeGlobalHistorical() =
+    private suspend fun initializeGlobalHistorical() {
         loadGlobalHistoricalUseCase.loadGlobalHistorical(30)
-
-    private suspend fun initializeGlobalTimelineAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalTimeline()
-        }
     }
 
-    private suspend fun initializeGlobalTimeline() = loadGlobalTimelineUseCase.loadGlobalTimeline()
+    private suspend fun initializeGlobalTimeline() {
+        loadGlobalTimelineUseCase.loadGlobalTimeline()
+    }
 }

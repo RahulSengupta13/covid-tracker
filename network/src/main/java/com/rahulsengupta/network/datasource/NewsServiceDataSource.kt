@@ -9,12 +9,12 @@ class NewsServiceDataSource @Inject constructor(
 ) : BaseDataSource() {
 
     suspend fun getHeadlines(
-        q: String,
+        query: String,
         sortBy: String,
         language: String,
         pageSize: Int,
         page: Int,
         country: String
-    ) = getResult { newsApi.topHeadlines(q, sortBy, language, pageSize, page, country) }
+    ) = getResult { newsApi.topHeadlines(query, sortBy, language, pageSize, page, country) }
 
 }

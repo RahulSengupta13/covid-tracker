@@ -7,7 +7,6 @@ import com.rahulsengupta.core.di.CoreModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
 import com.rahulsengupta.network.di.DataSourceModule
-import com.rahulsengupta.network.di.NetworkModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.BindsInstance
 import dagger.Component

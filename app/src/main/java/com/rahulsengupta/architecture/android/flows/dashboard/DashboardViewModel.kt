@@ -15,8 +15,8 @@ import com.rahulsengupta.architecture.android.flows.dashboard.model.DashBoardCha
 import com.rahulsengupta.architecture.android.flows.dashboard.model.ViewState.ChartData
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.extensions.toFormattedLocalDateTime
-import com.rahulsengupta.core.usecase.*
 import com.rahulsengupta.persistence.enitity.*
+import com.rahulsengupta.persistence.usecase.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -110,7 +110,7 @@ class DashboardViewModel @Inject constructor(
     ) {
         if (countryEntityList != null && countryTimelineList != null) {
             val countryItemsList =
-                countryEntityList.sortedByDescending { it.cases }.take(10).mapNotNull { entity ->
+                countryEntityList.sortedByDescending { it.cases }.mapNotNull { entity ->
                     val timeline =
                         countryTimelineList.firstOrNull { it.country.equals(entity.country, true) }
                     if (timeline != null) {
@@ -142,7 +142,7 @@ class DashboardViewModel @Inject constructor(
                     } else {
                         null
                     }
-                }
+                }.take(20)
             countryItems.set(countryItemsList)
         }
     }

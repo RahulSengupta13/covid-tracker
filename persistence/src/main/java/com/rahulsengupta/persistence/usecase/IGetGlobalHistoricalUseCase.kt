@@ -1,4 +1,4 @@
-package com.rahulsengupta.core.usecase
+package com.rahulsengupta.persistence.usecase
 
 import com.rahulsengupta.persistence.dao.GlobalHistoricalDao
 import com.rahulsengupta.persistence.enitity.GlobalHistoricalEntity

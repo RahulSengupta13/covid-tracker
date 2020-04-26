@@ -10,7 +10,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-@Module(includes = [PersistenceModule::class, DataSourceModule::class])
+@Module(includes = [PersistenceModule::class])
 abstract class ViewModelModule {
 
     @Binds

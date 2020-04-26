@@ -2,14 +2,7 @@ package com.rahulsengupta.core.repository
 
 import com.rahulsengupta.core.base.CoroutineRepository
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
-import com.rahulsengupta.core.extensions.getFormattedDateFromShortPattern
-import com.rahulsengupta.core.extensions.getFormattedDateFromUTCTimestamp
-import com.rahulsengupta.core.extensions.getLongFromTimeStamp
-import com.rahulsengupta.network.datasource.AboutCoronaDataSource
-import com.rahulsengupta.network.datasource.NewsServiceDataSource
-import com.rahulsengupta.network.datasource.NovelCovid19DataSource
-import com.rahulsengupta.persistence.dao.*
-import com.rahulsengupta.persistence.enitity.*
+import com.rahulsengupta.core.usecase.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
@@ -18,22 +11,19 @@ import javax.inject.Inject
 
 interface ICoreRepository {
 
-    fun initializeAsync()
+    fun initialize()
 
     val initialized: Flow<Unit>
-
 }
 
 class CoreRepository @Inject constructor(
-    private val novelCovid: NovelCovid19DataSource,
-    private val aboutCorona: AboutCoronaDataSource,
-    private val news: NewsServiceDataSource,
-    private val globalTotalsDao: GlobalTotalsDao,
-    private val globalHistoricalDao: GlobalHistoricalDao,
-    private val globalTimelineDao: GlobalTimelineDao,
-    private val headlinesDao: HeadlinesDao,
-    private val globalCountryDao: GlobalCountryDao,
-    private val countryHistoricalDao: CountryHistoricalDao,
+    private val loadGlobalTimelineUseCase: ILoadGlobalTimelineUseCase,
+    private val loadGlobalHistoricalUseCase: ILoadGlobalHistoricalUseCase,
+    private val loadCountriesHistoricalUseCase: ILoadCountriesHistoricalUseCase,
+    private val loadGlobalCountryUseCase: ILoadGlobalCountryUseCase,
+    private val loadGlobalTotalsUseCase: ILoadGlobalTotalsUseCase,
+    private val loadHeadlinesUseCase: ILoadHeadlinesUseCase,
+    private val isDataDownloadedUseCase: IGetIsDataDownloadedUseCase,
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineRepository(dispatcher) {
 
@@ -42,192 +32,48 @@ class CoreRepository @Inject constructor(
         get() = channel.asFlow()
 
     @ExperimentalCoroutinesApi
-    override fun initializeAsync() {
+    override fun initialize() {
         CoroutineScope(dispatcher.IO).launch {
+            val isDataDownloaded = isDataDownloadedUseCase.get()
 
-            val hasGlobalTotals = globalTotalsDao.getGlobalTotalsCount() > 0
-            val hasGlobalHistorical = globalHistoricalDao.getGlobalHistoricalCount() > 0
-            val hasGlobalTimeline = globalTimelineDao.getGlobalTimelineCount() > 0
-            val hasHeadlines = headlinesDao.getHeadlinesCount() > 0
-            val hasGlobalCountryResult = globalCountryDao.getGlobalCountryCount() > 0
-            val hasCountryHistoricalResult = countryHistoricalDao.getCountryHistoricalCount() > 0
-
-            if (hasGlobalTimeline && hasGlobalHistorical && hasGlobalTotals && hasHeadlines && hasGlobalCountryResult && hasCountryHistoricalResult) {
-                channel.send(Unit)
-                initializeGlobalTotals()
-                initializeGlobalHistorical()
-                initializeGlobalTimeline()
-                initializeTopHeadlines()
-                initializeGlobalCountryResult()
-                initializeCountriesHistorical()
-            } else {
-                val deferreds = listOf(
-                    initializeGlobalTotalsAsync(),
-                    initializeGlobalHistoricalAsync(),
-                    initializeGlobalTimelineAsync(),
-                    initializeTopHeadlinesAsync(),
-                    initializeGlobalCountryResultAsync(),
-                    initializeCountriesHistoricalAsync()
-                )
-                deferreds.awaitAll()
+            //move past splash and download data in background
+            if (isDataDownloaded) {
                 channel.send(Unit)
             }
-        }
-    }
 
-    private suspend fun initializeTopHeadlinesAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeTopHeadlines()
+            listOf(
+                async { initializeGlobalTotals() },
+                async { initializeGlobalHistorical() },
+                async { initializeGlobalTimeline() },
+                async { initializeTopHeadlines() },
+                async { initializeGlobalCountryResult() },
+                async { initializeCountriesHistorical() }
+            ).awaitAll()
+            channel.send(Unit)
         }
     }
 
     private suspend fun initializeTopHeadlines() {
-        val headlines = news.getHeadlines(
-            "COVID",
-            "publishedAt",
-            "en",
-            100,
-            1,
-            ""
-        ).data ?: return
-        val articles = headlines.articles.map {
-            ArticleEntity(
-                it.author,
-                it.content,
-                it.description,
-                it.publishedAt.getLongFromTimeStamp(),
-                ArticleEntity.Source(
-                    it.source?.id,
-                    it.source?.name
-                ),
-                it.title,
-                it.url,
-                it.urlToImage
-            )
-        }
-        headlinesDao.insertAllOrReplace(articles)
-    }
-
-    private suspend fun initializeGlobalTotalsAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalTotals()
-        }
+        loadHeadlinesUseCase.loadHeadlines("COVID", "publishedAt", "en", 100, 1, "")
     }
 
     private suspend fun initializeGlobalTotals() {
-        val globalTotals = novelCovid.getGlobalTotals().data ?: return
-        val globalTotalsEntity = GlobalTotalsEntity(
-            globalTotals.active,
-            globalTotals.affectedCountries,
-            globalTotals.cases,
-            globalTotals.casesPerOneMillion,
-            globalTotals.critical,
-            globalTotals.deaths,
-            globalTotals.deathsPerOneMillion,
-            globalTotals.recovered,
-            globalTotals.tests,
-            globalTotals.testsPerOneMillion,
-            globalTotals.todayCases,
-            globalTotals.todayDeaths,
-            globalTotals.updated
-        )
-        globalTotalsDao.insertOrReplace(item = globalTotalsEntity)
+        loadGlobalTotalsUseCase.loadGlobalTotals()
     }
-
-    private suspend fun initializeGlobalCountryResultAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalCountryResult()
-        }
-    }
-
 
     private suspend fun initializeGlobalCountryResult() {
-        val globalCountryResult = novelCovid.getGlobalCountryResult("todayCases").data ?: return
-        val globalCountryResultEntities = globalCountryResult
-            .filter { it.countryInfo.id != null && it.country.isNotEmpty() }
-            .map {
-                GlobalCountryEntity(
-                    it.active,
-                    it.cases,
-                    it.casesPerOneMillion,
-                    it.country,
-                    GlobalCountryEntity.CountryInfo(
-                        it.countryInfo.flag,
-                        it.countryInfo.id,
-                        it.countryInfo.iso2,
-                        it.countryInfo.iso3,
-                        it.countryInfo.lat,
-                        it.countryInfo.long
-                    ),
-                    it.critical,
-                    it.deaths,
-                    it.deathsPerOneMillion,
-                    it.recovered,
-                    it.todayCases,
-                    it.todayDeaths,
-                    it.updated
-                )
-            }
-        globalCountryDao.insertAllOrReplace(globalCountryResultEntities)
-    }
-
-    private suspend fun initializeCountriesHistoricalAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeCountriesHistorical()
-        }
+        loadGlobalCountryUseCase.loadGlobalCountry("todayCases")
     }
 
     private suspend fun initializeCountriesHistorical() {
-        val countriesHistoricalResult = novelCovid.getCountriesHistorical(28).data ?: return
-        val countriesHistoricalEntities = countriesHistoricalResult.map {
-            CountryHistoricalEntity(
-                country = it.country,
-                province = it.province ?: "",
-                cases = it.timeline.cases,
-                deaths = it.timeline.deaths,
-                recovered = it.timeline.recovered
-            )
-        }
-        countryHistoricalDao.insertAllOrReplace(countriesHistoricalEntities)
-    }
-
-    private suspend fun initializeGlobalHistoricalAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalHistorical()
-        }
+        loadCountriesHistoricalUseCase.loadCountriesHistorical(30)
     }
 
     private suspend fun initializeGlobalHistorical() {
-        val globalHistorical = novelCovid.getGlobalHistorical(30).data ?: return
-        val globalHistoricalEntity = GlobalHistoricalEntity(
-            cases = globalHistorical.cases.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                .toMap(),
-            deaths = globalHistorical.deaths.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                .toMap(),
-            recovered = globalHistorical.recovered.map { (k, v) -> k.getFormattedDateFromShortPattern() to v }
-                .toMap()
-        )
-        globalHistoricalDao.insertOrReplace(globalHistoricalEntity)
-    }
-
-    private suspend fun initializeGlobalTimelineAsync() = withContext(dispatcher.IO) {
-        async {
-            initializeGlobalTimeline()
-        }
+        loadGlobalHistoricalUseCase.loadGlobalHistorical(30)
     }
 
     private suspend fun initializeGlobalTimeline() {
-        val globalTimeline = aboutCorona.getTimeline().data ?: return
-        val globalTimelineEntity = GlobalTimelineEntity(
-            list = globalTimeline.data.map {
-                GlobalTimelineEntity.GlobalTimelineValue(
-                    it.newConfirmed,
-                    it.newRecovered,
-                    it.newDeaths,
-                    it.updatedAt.getFormattedDateFromUTCTimestamp()
-                )
-            }.asReversed()
-        )
-        globalTimelineDao.insertOrReplace(globalTimelineEntity)
+        loadGlobalTimelineUseCase.loadGlobalTimeline()
     }
 }

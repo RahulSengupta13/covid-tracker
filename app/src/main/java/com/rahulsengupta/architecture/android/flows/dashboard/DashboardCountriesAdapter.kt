@@ -7,13 +7,13 @@ import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
 
-class DashboardCountriesAdapter : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
+class DashboardCountriesAdapter(val recyclerView: RecyclerView) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
 
     private var list: List<CountryItem> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_dashboard_countries, parent, false)
-        return DashboardCountryItemViewHolder(itemView)
+        return DashboardCountryItemViewHolder(itemView, recyclerView)
     }
 
     override fun onBindViewHolder(holder: BaseRecyclerViewHolder, position: Int) {

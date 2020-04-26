@@ -12,9 +12,9 @@ object AppMetaData {
 
 object Versions {
     // Application
-    const val kotlin = "1.3.70"
+    const val kotlin = "1.3.72"
     const val kotlinSerialization = "0.20.0-mpp-dev-1"
-    const val gradle = "4.0.0-alpha09"
+    const val gradle = "4.0.0-beta05"
 
     //core
     const val appcompat = "1.1.0-beta01"

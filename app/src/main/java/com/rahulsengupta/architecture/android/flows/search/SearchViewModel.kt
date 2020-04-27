@@ -1,6 +1,6 @@
 package com.rahulsengupta.architecture.android.flows.search
 
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
@@ -15,7 +15,12 @@ class SearchViewModel @Inject constructor(
     private val coroutineDispatcher: ICoroutinesDispatcher
 ) : ViewModel() {
 
-    val searchCountries = MutableLiveData<List<SearchCountryItem>>()
+    val searchCountries = ObservableField<List<SearchCountryItem>>()
+    val scrollToPosition = ObservableField<Int>()
+
+    init {
+        initialize()
+    }
 
     fun initialize() {
         viewModelScope.launch(coroutineDispatcher.IO) {
@@ -30,7 +35,8 @@ class SearchViewModel @Inject constructor(
             val countries = countryEntities
                 .sortedByDescending { it.cases }
                 .map { SearchCountryItem(it.country, it.countryInfo.flag ?: "") }
-            searchCountries.postValue(countries)
+            searchCountries.set(countries)
+            scrollToPosition.set(0)
         }
     }
 }

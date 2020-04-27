@@ -33,8 +33,6 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             adapter = SearchCountriesAdapter()
             addItemDecoration(OffsetItemDecoration(requireContext()))
         }
-
-        viewModel.initialize()
     }
 
     override fun onItemSelected(layoutPosition: Int) {

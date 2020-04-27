@@ -2,7 +2,6 @@ package com.rahulsengupta.architecture.android.flows.dashboard
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
 import com.rahulsengupta.architecture.android.flows.dashboard.model.NewsItem
 

@@ -16,7 +16,7 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     val searchCountries = ObservableField<List<SearchCountryItem>>()
-    val scrollToPosition = ObservableField<Int>()
+    val scrollRecyclerViewToPosition = ObservableField<Int>()
 
     init {
         initialize()
@@ -36,7 +36,25 @@ class SearchViewModel @Inject constructor(
                 .sortedByDescending { it.cases }
                 .map { SearchCountryItem(it.country, it.countryInfo.flag ?: "") }
             searchCountries.set(countries)
-            scrollToPosition.set(0)
+        }
+    }
+
+    fun onRecyclerItemSelected(position: Int) {
+        scrollRecyclerViewToPosition.set(position)
+    }
+
+    fun onSearchTextChanged(searchText: String) {
+        viewModelScope.launch(coroutineDispatcher.IO) {
+            if(searchText.isNotEmpty()) {
+                globalCountryUseCase.flow.collect { list ->
+                    list?.filter { it.country.contains(searchText, true) }
+                        ?.sortedBy { searchText }
+                        ?.map { SearchCountryItem(it.country, it.countryInfo.flag ?: "") }
+                        ?.also { searchCountries.set(it) }
+                }
+            } else {
+                initialize()
+            }
         }
     }
 }

@@ -13,6 +13,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         tools:context="com.rahulsengupta.architecture.android.flows.search.SearchFragment">
 
         <com.iammert.library.ui.multisearchviewlib.MultiSearchView
@@ -30,13 +32,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/search_viewpager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/multi_search_view"
+            app:scrollToPosition="@{viewModel.scrollRecyclerViewToPosition}"
             app:setSearchCountries="@{viewModel.searchCountries}"
-            app:scrollToPosition="@{viewModel.scrollToPosition}"
             tools:itemCount="1"
             tools:listitem="@layout/item_search_country" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/search_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/standard_big_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingLeft="@dimen/view_pager_page_offset"
+            android:paddingRight="@dimen/view_pager_page_offset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_recycler_view"
+            app:setSearchCountries="@{viewModel.searchCountries}"
+            app:setItemPosition="@{viewModel.scrollRecyclerViewToPosition}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

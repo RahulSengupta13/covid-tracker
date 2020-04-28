@@ -22,6 +22,7 @@
     <string name="button_daily">daily</string>
     <string name="button_total">total</string>
     <string name="more">more</string>
+    <string name="search">Search</string>
 
     <!--Bottom Navigation Menu Items-->
     <string name="bottom_navigation_menu_item_1">Dashboard</string>

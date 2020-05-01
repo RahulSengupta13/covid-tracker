@@ -7,7 +7,11 @@ import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
 
-class DashboardCountriesAdapter(val recyclerView: RecyclerView) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
+class DashboardCountriesAdapter(private val recyclerView: RecyclerView) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
+
+    init {
+        setHasStableIds(true)
+    }
 
     private var list: List<CountryItem> = emptyList()
 
@@ -21,6 +25,8 @@ class DashboardCountriesAdapter(val recyclerView: RecyclerView) : RecyclerView.A
     }
 
     override fun getItemCount(): Int = list.size
+
+    override fun getItemId(position: Int) = list[position].id
 
     fun setItems(list: List<CountryItem>) {
         this.list = list

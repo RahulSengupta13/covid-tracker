@@ -1,6 +1,7 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
 import android.transition.TransitionManager
+import android.transition.TransitionSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.item_dashboard_countries.view.*
 
 class DashboardCountryItemViewHolder(
     val view: View,
-    val recyclerView: RecyclerView
+    private val recyclerView: RecyclerView
 ) : BaseRecyclerViewHolder(view) {
     private val countryTitle: TextView? = view.country_title
     private val countryCount: TextView? = view.country_count
@@ -34,21 +35,24 @@ class DashboardCountryItemViewHolder(
         collapsedView?.visibility = View.VISIBLE
         expandedView?.visibility = View.GONE
         expandedView?.setOnClickListener {
-//            val viewSharedAxis: MaterialSharedAxis =
-//                MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, false)
-            collapsedView?.visibility = View.VISIBLE
+//            val viewSharedAxis: MaterialSharedAxis = MaterialSharedAxis.create(view.context, MaterialSharedAxis.Y, false)
+//            TransitionManager.beginDelayedTransition(recyclerView, viewSharedAxis)
             expandedView.visibility = View.GONE
+            collapsedView?.visibility = View.VISIBLE
             TransitionManager.beginDelayedTransition(recyclerView)
         }
         collapsedView?.setOnClickListener {
-//            val viewSharedAxis: MaterialSharedAxis = MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, true)
+//            val viewSharedAxis: MaterialSharedAxis = MaterialSharedAxis.create(view.context, MaterialSharedAxis.Y, true)
+//            TransitionManager.beginDelayedTransition(recyclerView, viewSharedAxis)
             collapsedView.visibility = View.GONE
             expandedView?.visibility = View.VISIBLE
             TransitionManager.beginDelayedTransition(recyclerView)
         }
-        sparkChart.adapter = SparkCountriesAdapter().apply {
-            update(item.timeline.cases)
+        sparkChart.run {
+            adapter = SparkCountriesAdapter().apply {
+                update(item.timeline.cases)
+            }
+            isScrubEnabled = false
         }
-        sparkChart.isScrubEnabled = false
     }
 }

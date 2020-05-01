@@ -1,5 +1,6 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -25,7 +27,6 @@ import com.rahulsengupta.architecture.databinding.FragmentDashboardBinding
 import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.customview.ScrubListener
 import com.rahulsengupta.core.extensions.setDefaults
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
 
@@ -57,21 +58,25 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.dashboardConstraintLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.dashboard_live_map) as SupportMapFragment
         mapFragment.run {
             getMapAsync(this@DashboardFragment)
         }
 
-        dashboard_global_totals_sparkview.adapter = adapter
-        dashboard_global_totals_sparkview.setScrubListener { onScrubbed(it) }
-        dashboard_global_totals_sparkview.listener = scrubListener
+        binding.dashboardGlobalTotalsSparkview.run {
+            adapter = this@DashboardFragment.adapter
+            setScrubListener { onScrubbed(it) }
+            listener = this@DashboardFragment.scrubListener
+        }
 
-        with(news_view_pager) {
+        with(binding.newsViewPager) {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardNewsAdapter()
         }
 
-        with(countries_view_pager) {
+        with(binding.countriesViewPager) {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = DashboardCountriesAdapter(this)
         }
@@ -91,15 +96,15 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 return when (event?.action) {
                     ACTION_DOWN -> {
-                        dashboard_scrollview.requestDisallowInterceptTouchEvent(true)
+                        binding.dashboardScrollview.requestDisallowInterceptTouchEvent(true)
                         false
                     }
                     ACTION_UP -> {
-                        dashboard_scrollview.requestDisallowInterceptTouchEvent(false)
+                        binding.dashboardScrollview.requestDisallowInterceptTouchEvent(false)
                         true
                     }
                     ACTION_MOVE -> {
-                        dashboard_scrollview.requestDisallowInterceptTouchEvent(true)
+                        binding.dashboardScrollview.requestDisallowInterceptTouchEvent(true)
                         false
                     }
                     else -> true
@@ -143,16 +148,14 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
         adapter.update(chartData)
         lastChartDataValue = chartData.list.last()
         onScrubbed(lastChartDataValue)
-        dashboard_global_totals_value.textColor =
-            ContextCompat.getColor(requireContext(), chartData.color)
-        dashboard_global_totals_sparkview.lineColor =
-            ContextCompat.getColor(requireContext(), chartData.color)
+        binding.dashboardGlobalTotalsValue.textColor = ContextCompat.getColor(requireContext(), chartData.color)
+        binding.dashboardGlobalTotalsSparkview.lineColor = ContextCompat.getColor(requireContext(), chartData.color)
     }
 
     private fun onScrubbed(value: Any?) {
         if (value is ChartDataValue) {
-            dashboard_global_totals_value.setText(value.count.toString(), true)
-            dashboard_global_totals_date.text = value.date
+            binding.dashboardGlobalTotalsValue.setText(value.count.toString(), true)
+            binding.dashboardGlobalTotalsDate.text = value.date
         }
     }
 }

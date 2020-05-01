@@ -48,14 +48,23 @@ fun ImageView.loadImage(url: String?, block: (GradientDrawable) -> Unit = {}) {
                 isFirstResource: Boolean
             ): Boolean {
                 setImageBitmap(resource)
-                val palette = resource?.createPalette()
-                val darkGray = ContextCompat.getColor(context, R.color.white)
-                val color = ContextCompat.getColor(context, R.color.gray)
+
+                val palette = resource?.createPalette() ?: return true
+
+                val white = ContextCompat.getColor(context, R.color.white)
+                val gray = ContextCompat.getColor(context, R.color.gray)
+
+                var bottomColor = palette.getDarkMutedColor(gray)
+
+                if(bottomColor == gray) {
+                    bottomColor = palette.getMutedColor(gray)
+                }
+
                 val gradientDrawable = GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
                     intArrayOf(
-                        darkGray,
-                        palette?.getDarkMutedColor(color) ?: palette?.getLightVibrantColor(color) ?: color
+                        white,
+                        bottomColor
                     )
                 )
                 block(gradientDrawable)

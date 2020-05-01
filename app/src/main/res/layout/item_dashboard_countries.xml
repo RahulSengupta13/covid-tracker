@@ -80,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_half_margin"
-        tools:visibility="gone">
+        android:visibility="gone">
 
         <com.robinhood.spark.SparkView
             android:id="@+id/country_chart"

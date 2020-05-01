@@ -13,7 +13,7 @@ class SparkCountriesAdapter : SparkAdapter() {
     }
 
     override fun getY(index: Int): Float {
-        return dateAndCounts[index].count.toFloat() ?: 0F
+        return dateAndCounts[index].count.toFloat()
     }
 
     override fun getItem(index: Int): DateAndCount {

@@ -1,55 +1,46 @@
 package com.rahulsengupta.persistence.converter
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.rahulsengupta.persistence.CovidTrackerApplicationDatabase.Companion.json
 import com.rahulsengupta.persistence.enitity.ArticleEntity
 import com.rahulsengupta.persistence.enitity.GlobalCountryEntity
 import com.rahulsengupta.persistence.enitity.GlobalTimelineEntity.GlobalTimelineValue
+import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.serializer
+import kotlinx.serialization.stringify
 
 class DbTypeConverters {
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun fromString(value: String): Map<String, Int> {
-        val mapType = object : TypeToken<Map<String, Int>>() {}.type
-        return Gson().fromJson(value, mapType)
-    }
+    fun fromString(value: String): Map<String, Int> = json.parse(serializer(), value)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun fromStringMap(map: Map<String, Int>): String {
-        return Gson().toJson(map)
-    }
+    fun fromStringMap(map: Map<String, Int>) = json.stringify(map)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun fromGlobalTimeline(data: List<GlobalTimelineValue>): String {
-        return Gson().toJson(data)
-    }
+    fun fromGlobalTimeline(data: List<GlobalTimelineValue>) = json.stringify(data)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun toGlobalTimeline(value: String): List<GlobalTimelineValue> {
-        val mapType = object : TypeToken<List<GlobalTimelineValue>>() {}.type
-        return Gson().fromJson(value, mapType)
-    }
+    fun toGlobalTimeline(value: String): List<GlobalTimelineValue> = json.parse(serializer(), value)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun fromArticleSource(data: ArticleEntity.Source): String {
-        return Gson().toJson(data)
-    }
+    fun fromArticleSourceEntity(data: ArticleEntity.Source) = json.stringify(data)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun toArticleSource(value: String): ArticleEntity.Source {
-        val mapType = object : TypeToken<ArticleEntity.Source>() {}.type
-        return Gson().fromJson(value, mapType)
-    }
+    fun toArticleSourceEntity(value: String): ArticleEntity.Source = json.parse(serializer(), value)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun fromGlobalCountryInfo(data: GlobalCountryEntity.CountryInfo): String {
-        return Gson().toJson(data)
-    }
+    fun fromGlobalCountryInfo(data: GlobalCountryEntity.CountryInfo) = json.stringify(data)
 
+    @ImplicitReflectionSerializer
     @TypeConverter
-    fun toGlobalCountryInfo(value: String): GlobalCountryEntity.CountryInfo {
-        val mapType = object : TypeToken<GlobalCountryEntity.CountryInfo>() {}.type
-        return Gson().fromJson(value, mapType)
-    }
+    fun toGlobalCountryInfo(value: String): GlobalCountryEntity.CountryInfo =
+        json.parse(serializer(), value)
 }

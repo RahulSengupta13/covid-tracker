@@ -2,7 +2,9 @@ package com.rahulsengupta.persistence.enitity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "GlobalCountry")
 data class GlobalCountryEntity(
     val active: Int,
@@ -19,6 +21,8 @@ data class GlobalCountryEntity(
     val todayDeaths: Int,
     val updated: Long
 ) {
+
+    @Serializable
     data class CountryInfo(
         val flag: String? = "",
         val id: Int? = 0,

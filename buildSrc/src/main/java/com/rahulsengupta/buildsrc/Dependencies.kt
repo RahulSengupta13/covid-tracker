@@ -13,7 +13,7 @@ object AppMetaData {
 object Versions {
     // Application
     const val kotlin = "1.3.72"
-    const val kotlinSerialization = "0.20.0-mpp-dev-1"
+    const val kotlinSerialization = "0.20.0"
     const val gradle = "4.0.0-beta05"
 
     //core
@@ -31,7 +31,6 @@ object Versions {
     const val circularImageView = "4.2.0"
     const val spark = "1.2.0"
     const val ticker = "2.0.2"
-    const val gson = "2.8.5"
     const val threeTen = "1.2.3"
 
     const val mapsPlayServices = "17.0.0"
@@ -103,7 +102,6 @@ object Dependencies {
     const val circularImageView =  "com.mikhaellopez:circularimageview:${Versions.circularImageView}"
     const val spark =  "com.robinhood.spark:spark:${Versions.spark}"
     const val ticker =  "com.robinhood.ticker:ticker:${Versions.ticker}"
-    const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val threeTen = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTen}"
 
 

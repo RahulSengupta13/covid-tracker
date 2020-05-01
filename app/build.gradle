@@ -86,7 +86,6 @@ dependencies {
     implementation Dependencies.circularImageView
     implementation Dependencies.spark
     implementation Dependencies.ticker
-    implementation Dependencies.gson
     implementation Dependencies.threeTen
 
     // Dagger

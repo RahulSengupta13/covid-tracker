@@ -75,10 +75,10 @@ class DashboardViewModel @Inject constructor(
             }.collect {
                 if (state.chartModeState == DAILY) {
                     totalTitleId.set(state.chartState.titleIdDaily)
-                    processGlobalTimelineEntity(it?.second)
+                    processGlobalTimelineEntity(it.second)
                 } else {
                     totalTitleId.set(state.chartState.titleIdTotal)
-                    processGlobalHistoricalEntity(it?.first)
+                    processGlobalHistoricalEntity(it.first)
                 }
             }
         }

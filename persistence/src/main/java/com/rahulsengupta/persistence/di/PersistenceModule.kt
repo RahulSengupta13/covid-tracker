@@ -7,6 +7,8 @@ import com.rahulsengupta.persistence.DatabaseMeta
 import com.rahulsengupta.persistence.dao.*
 import dagger.Module
 import dagger.Provides
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import javax.inject.Singleton
 
 @Module
@@ -14,13 +16,19 @@ class PersistenceModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(application: Application): CovidTrackerApplicationDatabase {
+    fun provideDatabase(application: Application, json: Json): CovidTrackerApplicationDatabase {
         return Room.databaseBuilder(
             application,
             CovidTrackerApplicationDatabase::class.java,
             DatabaseMeta.NAME
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration().build().apply {
+            CovidTrackerApplicationDatabase.json = json
+        }
     }
+
+    @Provides
+    @Singleton
+    fun provideJson(): Json = Json(JsonConfiguration.Stable)
 
     @Provides
     @Singleton

@@ -5,7 +5,6 @@ import com.rahulsengupta.architecture.android.flows.dashboard.DashboardViewModel
 import com.rahulsengupta.architecture.android.flows.search.SearchViewModel
 import com.rahulsengupta.architecture.android.flows.splash.SplashViewModel
 import com.rahulsengupta.core.di.ViewModelKey
-import com.rahulsengupta.network.di.DataSourceModule
 import com.rahulsengupta.persistence.di.PersistenceModule
 import dagger.Binds
 import dagger.Module

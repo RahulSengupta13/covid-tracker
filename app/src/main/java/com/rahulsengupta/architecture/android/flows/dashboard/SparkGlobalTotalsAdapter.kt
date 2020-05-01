@@ -15,7 +15,7 @@ class SparkGlobalTotalsAdapter : SparkAdapter() {
     }
 
     override fun getY(index: Int): Float {
-        return globalHistorical[index].count.toFloat() ?: 0F
+        return globalHistorical[index].count.toFloat()
     }
 
     override fun getItem(index: Int): ChartDataValue {

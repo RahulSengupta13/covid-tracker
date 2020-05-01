@@ -34,14 +34,14 @@ class DashboardCountryItemViewHolder(
         collapsedView?.visibility = View.VISIBLE
         expandedView?.visibility = View.GONE
         expandedView?.setOnClickListener {
-            val viewSharedAxis: MaterialSharedAxis =
-                MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, false)
+//            val viewSharedAxis: MaterialSharedAxis =
+//                MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, false)
             collapsedView?.visibility = View.VISIBLE
             expandedView.visibility = View.GONE
             TransitionManager.beginDelayedTransition(recyclerView)
         }
         collapsedView?.setOnClickListener {
-            val viewSharedAxis: MaterialSharedAxis = MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, true)
+//            val viewSharedAxis: MaterialSharedAxis = MaterialSharedAxis.create(view.context, MaterialSharedAxis.X, true)
             collapsedView.visibility = View.GONE
             expandedView?.visibility = View.VISIBLE
             TransitionManager.beginDelayedTransition(recyclerView)

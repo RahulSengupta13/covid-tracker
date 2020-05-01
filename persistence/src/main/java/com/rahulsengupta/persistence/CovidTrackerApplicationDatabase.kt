@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.rahulsengupta.persistence.converter.DbTypeConverters
 import com.rahulsengupta.persistence.dao.*
 import com.rahulsengupta.persistence.enitity.*
+import kotlinx.serialization.json.Json
 
 object DatabaseMeta {
     const val NAME = "covid_tracker.db"
@@ -26,6 +27,9 @@ object DatabaseMeta {
 )
 @TypeConverters(value = [DbTypeConverters::class])
 abstract class CovidTrackerApplicationDatabase : RoomDatabase() {
+    companion object {
+        lateinit var json: Json
+    }
     abstract fun globalTotalDao(): GlobalTotalsDao
     abstract fun globalHistoricalDao(): GlobalHistoricalDao
     abstract fun globalTimelineDao(): GlobalTimelineDao

@@ -35,9 +35,8 @@ class CoreRepository @Inject constructor(
     override fun initialize() {
         CoroutineScope(dispatcher.IO).launch {
             val isDataDownloaded = isDataDownloadedUseCase.get()
-
-            //move past splash and download data in background
             if (isDataDownloaded) {
+                //move past splash and download data in background
                 channel.send(Unit)
             }
 

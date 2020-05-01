@@ -14,9 +14,9 @@
         android:id="@+id/dashboard_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:animateLayoutChanges="true"
         android:fillViewport="true"
         tools:context=".android.landing.LandingActivity">
 
@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:background="@color/colorPrimaryDark"
             android:clipChildren="false"
             android:clipToPadding="false">
 
@@ -42,37 +41,6 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/standard_big_margin" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="175dp"
-                android:layout_height="190dp"
-                android:alpha="0.25"
-                android:src="@drawable/coronavirus"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="175dp"
-                android:layout_height="190dp"
-                android:layout_marginTop="150dp"
-                android:alpha="0.25"
-                android:src="@drawable/coronavirus"
-                app:layout_constraintBottom_toBottomOf="@id/layout_spark_chart_cardview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/layout_spark_chart_cardview" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="175dp"
-                android:layout_height="190dp"
-                android:layout_marginEnd="150dp"
-                android:alpha="0.25"
-                android:src="@drawable/coronavirus"
-                app:layout_constraintBottom_toBottomOf="@id/layout_spark_chart_cardview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview" />
-
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/user_avatar"
                 android:layout_width="50dp"
@@ -86,7 +54,7 @@
 
             <TextView
                 android:id="@+id/dashboard_headline"
-                style="@style/H5.Medium.Bright"
+                style="@style/H5.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_below_divider_margin"
@@ -96,7 +64,7 @@
 
             <TextView
                 android:id="@+id/dashboard_title"
-                style="@style/H6.Thin.Bright"
+                style="@style/H6.Thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
@@ -106,7 +74,7 @@
 
             <TextView
                 android:id="@+id/dashboard_title_user"
-                style="@style/H6.Light.Bright"
+                style="@style/H6.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_quarter_margin"
@@ -116,7 +84,7 @@
 
             <TextView
                 android:id="@+id/dashboard_title_statistics"
-                style="@style/H6.Medium.Bright"
+                style="@style/H6.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
@@ -130,7 +98,6 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_arrow_forward_24px"
-                android:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintTop_toTopOf="@id/dashboard_title_statistics" />
 
@@ -141,7 +108,6 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="@dimen/standard_half_margin"
                 app:cardElevation="@dimen/standard_quarter_margin"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -160,7 +126,7 @@
 
                         <TextView
                             android:id="@+id/dashboard_global_totals_title"
-                            style="@style/Body1.Medium.Bright"
+                            style="@style/Body1.Medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_half_margin"
@@ -190,7 +156,7 @@
 
                         <TextView
                             android:id="@+id/dashboard_global_totals_date"
-                            style="@style/Body2.Light.Bright"
+                            style="@style/Body2.Light"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_quarter_margin"
@@ -234,8 +200,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartModeButtonClicked(view.id)}"
-                                android:text="@string/button_daily"
-                                android:textColor="@color/white" />
+                                android:text="@string/button_daily" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnTotal"
@@ -243,8 +208,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartModeButtonClicked(view.id)}"
-                                android:text="@string/button_total"
-                                android:textColor="@color/white" />
+                                android:text="@string/button_total" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
@@ -266,8 +230,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_cases"
-                                android:textColor="@color/white" />
+                                android:text="@string/button_cases" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnDeaths"
@@ -275,8 +238,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_deaths"
-                                android:textColor="@color/white" />
+                                android:text="@string/button_deaths" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnRecovered"
@@ -284,8 +246,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{(view) -> viewModel.onChartButtonClicked(view.id)}"
-                                android:text="@string/button_recovered"
-                                android:textColor="@color/white" />
+                                android:text="@string/button_recovered" />
                         </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     </LinearLayout>
@@ -294,7 +255,7 @@
 
             <TextView
                 android:id="@+id/dashboard_countries_title"
-                style="@style/H6.Medium.Bright"
+                style="@style/H6.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_big_margin"
@@ -317,7 +278,7 @@
 
             <TextView
                 android:id="@+id/dashboard_map_title"
-                style="@style/H6.Medium.Bright"
+                style="@style/H6.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_big_margin"
@@ -332,7 +293,6 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/standard_half_margin"
                 app:cardElevation="@dimen/standard_quarter_margin"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -363,7 +323,7 @@
 
             <TextView
                 android:id="@+id/dashboard_news_title"
-                style="@style/H6.Medium.Bright"
+                style="@style/H6.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_big_margin"

@@ -49,10 +49,10 @@ fun ImageView.loadImage(url: String?, block: (GradientDrawable) -> Unit = {}) {
             ): Boolean {
                 setImageBitmap(resource)
                 val palette = resource?.createPalette()
-                val darkGray = ContextCompat.getColor(context, R.color.darkGray)
-                val color = ContextCompat.getColor(context, R.color.translucentRed)
+                val darkGray = ContextCompat.getColor(context, R.color.white)
+                val color = ContextCompat.getColor(context, R.color.gray)
                 val gradientDrawable = GradientDrawable(
-                    GradientDrawable.Orientation.BOTTOM_TOP,
+                    GradientDrawable.Orientation.TOP_BOTTOM,
                     intArrayOf(
                         darkGray,
                         palette?.getDarkMutedColor(color) ?: palette?.getLightVibrantColor(color) ?: color

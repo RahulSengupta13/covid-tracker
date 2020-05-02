@@ -27,6 +27,8 @@ import com.rahulsengupta.architecture.databinding.FragmentDashboardBinding
 import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.customview.ScrubListener
 import com.rahulsengupta.core.extensions.setDefaults
+import com.robinhood.spark.animation.LineSparkAnimator
+import com.robinhood.spark.animation.MorphSparkAnimator
 
 class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
 
@@ -69,6 +71,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
             adapter = this@DashboardFragment.adapter
             setScrubListener { onScrubbed(it) }
             listener = this@DashboardFragment.scrubListener
+            sparkAnimator = MorphSparkAnimator()
         }
 
         with(binding.newsViewPager) {

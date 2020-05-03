@@ -21,8 +21,8 @@ class SettingsFragment : PreferenceFragmentCompat(), Injectable {
         setPreferencesFromResource(R.xml.settings_preference_fragment, rootKey)
         preference = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        val preference = findPreference<ListPreference>("theme")
-        preference?.setOnPreferenceChangeListener { _, newValue ->
+        val themePreference = findPreference<ListPreference>("theme")
+        themePreference?.setOnPreferenceChangeListener { _, newValue ->
             val themeValues = resources.getStringArray(R.array.theme_values)
             val value = (newValue as? String)
             themeHelper.setTheme(themeValues, value)

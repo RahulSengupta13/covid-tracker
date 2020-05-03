@@ -51,11 +51,7 @@ class DashboardViewModel @Inject constructor(
     private var globalHistoricalEntity: GlobalHistoricalEntity? = null
     private var globalTimelineEntity: GlobalTimelineEntity? = null
 
-    init {
-        initialize()
-    }
-
-    private fun initialize() {
+    fun initialize() {
 
         viewModelScope.launch(dispatcher.IO) {
             globalHistoricalUseCase.flow.collect {

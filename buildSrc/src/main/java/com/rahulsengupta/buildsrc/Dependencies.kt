@@ -32,6 +32,7 @@ object Versions {
     const val spark = "1.2.0"
     const val ticker = "2.0.2"
     const val threeTen = "1.2.3"
+    const val preference = "1.1.1"
 
     const val mapsPlayServices = "17.0.0"
     const val mapUtils = "1.1.0"
@@ -96,6 +97,7 @@ object Dependencies {
     const val kotlinSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.kotlinSerialization}"
     const val coroutinesAndroid =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val coroutinesCore =  "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val preference =  "androidx.preference:preference:${Versions.preference}"
 
     // Tools
     const val timber =  "com.jakewharton.timber:timber:${Versions.timber}"

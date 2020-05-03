@@ -47,7 +47,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/user_avatar"
-                app:civ_border_color="@color/colorAccent"
+                app:civ_border_color="@color/color_on_secondary"
                 app:civ_border_width="1dp"
                 app:layout_constraintBottom_toBottomOf="@id/dashboard_headline"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
@@ -98,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
+                android:tint="@color/color_primary"
                 android:src="@drawable/ic_arrow_forward_24px"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintTop_toTopOf="@id/dashboard_title_statistics" />
@@ -337,6 +338,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
+                android:tint="@color/color_primary"
                 android:src="@drawable/ic_arrow_forward_24px"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintTop_toTopOf="@id/dashboard_news_title" />

@@ -1,9 +1,10 @@
 <resources>
 
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
         <item name="spark_SparkViewStyle">@style/SparkViewStyle</item>
     </style>
 
@@ -12,6 +13,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+<!--        <item name="android:windowBackground">?attr/colorPrimaryDark</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
@@ -127,51 +129,5 @@
 
     <style name="Body2.Medium" parent="TextAppearance.MaterialComponents.Body2">
         <item name="fontFamily">sans-serif-medium</item>
-    </style>
-
-    <!--Accented Text Views-->
-
-    <style name="H5.Medium.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="H6.Medium.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="H6.Thin.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="H6.Light.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="Body1.Light.Green">
-        <item name="android:textColor">@color/green</item>
-    </style>
-
-    <style name="Body1.Medium.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="Body1.Light.Red">
-        <item name="android:textColor">@color/red</item>
-    </style>
-
-    <style name="Body2.Light.Green">
-        <item name="android:textColor">@color/green</item>
-    </style>
-
-    <style name="Body2.Light.Bright">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="Body2.Light.Red">
-        <item name="android:textColor">@color/red</item>
-    </style>
-
-    <style name="Body2.Medium.Gray">
-        <item name="android:textColor">@color/gray</item>
     </style>
 </resources>

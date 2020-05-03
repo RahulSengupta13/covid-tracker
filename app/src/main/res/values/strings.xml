@@ -23,7 +23,18 @@
     <string name="button_total">total</string>
     <string name="more">more</string>
     <string name="search">Search</string>
+    <string name="dialog_theme_title">select a theme</string>
 
+    <array name="theme_names">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System Default</item>
+    </array>
+    <array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>default</item>
+    </array>
     <!--Bottom Navigation Menu Items-->
     <string name="bottom_navigation_menu_item_1">Dashboard</string>
     <string name="bottom_navigation_menu_item_2">Live Reports</string>

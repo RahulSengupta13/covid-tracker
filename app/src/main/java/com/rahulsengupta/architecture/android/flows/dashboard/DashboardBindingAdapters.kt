@@ -2,7 +2,7 @@ package com.rahulsengupta.architecture.android.flows.dashboard
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
+import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.architecture.android.flows.dashboard.model.NewsItem
 
 @BindingAdapter("app:newsHeadlineItems")

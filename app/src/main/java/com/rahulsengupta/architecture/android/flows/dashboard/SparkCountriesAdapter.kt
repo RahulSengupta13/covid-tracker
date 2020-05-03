@@ -1,6 +1,6 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
-import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem.Timeline.DateAndCount
+import com.rahulsengupta.core.model.CountryItem.Timeline.DateAndCount
 import com.robinhood.spark.SparkAdapter
 
 class SparkCountriesAdapter : SparkAdapter() {

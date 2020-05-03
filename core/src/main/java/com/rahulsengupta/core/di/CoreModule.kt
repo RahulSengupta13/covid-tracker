@@ -46,5 +46,9 @@ abstract class CoreModule {
 
     @Singleton
     @Binds
+    abstract fun provideGetCountryItemsListUseCase(useCase: GetCountryItemsListUseCase): IGetCountryItemsListUseCase
+
+    @Singleton
+    @Binds
     abstract fun provideThemeHelperUseCase(useCase: ThemeHelperUseCase): IThemeHelperUseCase
 }

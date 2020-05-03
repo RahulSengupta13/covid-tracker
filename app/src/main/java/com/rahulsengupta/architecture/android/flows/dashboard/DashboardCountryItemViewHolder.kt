@@ -1,15 +1,12 @@
 package com.rahulsengupta.architecture.android.flows.dashboard
 
 import android.transition.TransitionManager
-import android.transition.TransitionSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.transition.MaterialSharedAxis
-import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
+import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
 import com.rahulsengupta.core.extensions.loadImage
 import com.robinhood.spark.SparkView

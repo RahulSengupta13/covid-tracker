@@ -1,4 +1,4 @@
-package com.rahulsengupta.architecture.android.flows.dashboard.model
+package com.rahulsengupta.core.model
 
 data class CountryItem(
     val id: Long,

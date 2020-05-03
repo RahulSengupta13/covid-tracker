@@ -2,5 +2,5 @@
 <resources>
     <color name="color_primary">#CF212A</color>
     <color name="color_primary_dark">#191919</color>
-    <color name="color_on_secondary">#ECECEC</color>
+    <color name="color_on_secondary">#191919</color>
 </resources>

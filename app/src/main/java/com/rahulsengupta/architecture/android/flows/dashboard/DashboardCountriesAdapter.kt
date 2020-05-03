@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rahulsengupta.architecture.R
-import com.rahulsengupta.architecture.android.flows.dashboard.model.CountryItem
+import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
 
 class DashboardCountriesAdapter(private val recyclerView: RecyclerView) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {

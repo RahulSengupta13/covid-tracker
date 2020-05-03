@@ -1,19 +1,33 @@
 package com.rahulsengupta.architecture.android.flows.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.rahulsengupta.architecture.R
-import com.rahulsengupta.core.base.InjectableFragment
+import com.rahulsengupta.core.di.Injectable
+import com.rahulsengupta.core.usecase.ThemeHelperUseCase
+import javax.inject.Inject
 
-class SettingsFragment : InjectableFragment() {
+class SettingsFragment : PreferenceFragmentCompat(), Injectable {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+    @Inject
+    lateinit var themeHelper: ThemeHelperUseCase
+
+    lateinit var preference: SharedPreferences
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.settings_preference_fragment, rootKey)
+        preference = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        val themePreference = findPreference<ListPreference>("theme")
+        themePreference?.setOnPreferenceChangeListener { _, newValue ->
+            val themeValues = resources.getStringArray(R.array.theme_values)
+            val value = (newValue as? String)
+            themeHelper.setTheme(themeValues, value)
+            true
+        }
+
     }
-
 }

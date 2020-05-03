@@ -38,7 +38,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
     var lastChartDataValue: ChartDataValue? = null
 
     lateinit var binding: FragmentDashboardBinding
-    lateinit var map: GoogleMap
+    private var map: GoogleMap? = null
 
     private val scrubListener = object : ScrubListener {
         override fun onScrubEndedListener() {
@@ -114,6 +114,8 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
                 }
             }
         })
+
+        viewModel.initialize()
     }
 
     private fun processMapCircles(list: List<MapCircle>?) {
@@ -124,7 +126,7 @@ class DashboardFragment : InjectableFragment(), OnMapReadyCallback {
                     .weightedData(it)
                     .radius(50)
                     .build()
-                map.addTileOverlay(TileOverlayOptions().tileProvider(provider))
+                map?.addTileOverlay(TileOverlayOptions().tileProvider(provider))
             }
         }
         /*list?.forEach {

@@ -9,7 +9,7 @@
     android:animateLayoutChanges="true"
     android:clipChildren="false"
     android:clipToPadding="false"
-    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardBackgroundColor="@color/color_primary"
     app:cardCornerRadius="@dimen/standard_half_margin"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">

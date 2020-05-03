@@ -10,8 +10,11 @@ data class CountryItem(
 
     data class Timeline(
         val cases: List<DateAndCount>,
+        val dailyCases: List<DateAndCount>,
         val deaths: List<DateAndCount>,
-        val recovered: List<DateAndCount>
+        val dailyDeaths: List<DateAndCount>,
+        val recovered: List<DateAndCount>,
+        val dailyRecovered: List<DateAndCount>
     ) {
 
         data class DateAndCount(

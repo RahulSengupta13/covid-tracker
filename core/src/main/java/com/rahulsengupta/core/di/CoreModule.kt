@@ -43,4 +43,8 @@ abstract class CoreModule {
     @Singleton
     @Binds
     abstract fun provideGetIsDataDownloadedUseCase(useCase: GetIsDataDownloadedUseCase): IGetIsDataDownloadedUseCase
+
+    @Singleton
+    @Binds
+    abstract fun provideThemeHelperUseCase(useCase: ThemeHelperUseCase): IThemeHelperUseCase
 }

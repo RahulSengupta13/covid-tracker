@@ -50,7 +50,7 @@ class DashboardCountryItemViewHolder(
         }
         sparkChart.run {
             adapter = SparkCountriesAdapter().apply {
-                update(item.timeline.cases)
+                update(item.timeline.dailyCases)
             }
             isScrubEnabled = false
         }

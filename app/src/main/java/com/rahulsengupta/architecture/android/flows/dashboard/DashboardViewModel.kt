@@ -51,11 +51,7 @@ class DashboardViewModel @Inject constructor(
     private var globalHistoricalEntity: GlobalHistoricalEntity? = null
     private var globalTimelineEntity: GlobalTimelineEntity? = null
 
-    init {
-        initialize()
-    }
-
-    private fun initialize() {
+    fun initialize() {
 
         viewModelScope.launch(dispatcher.IO) {
             globalHistoricalUseCase.flow.collect {
@@ -125,13 +121,31 @@ class DashboardViewModel @Inject constructor(
                                         it.key
                                     )
                                 },
+                                dailyCases = timeline.timelineDailyCases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
                                 deaths = timeline.deaths.map {
                                     CountryItem.Timeline.DateAndCount(
                                         it.value,
                                         it.key
                                     )
                                 },
+                                dailyDeaths = timeline.timelineDailyCases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
                                 recovered = timeline.recovered.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                dailyRecovered = timeline.timelineDailyCases.map {
                                     CountryItem.Timeline.DateAndCount(
                                         it.value,
                                         it.key

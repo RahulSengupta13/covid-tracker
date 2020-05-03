@@ -121,13 +121,31 @@ class DashboardViewModel @Inject constructor(
                                         it.key
                                     )
                                 },
+                                dailyCases = timeline.timelineDailyCases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
                                 deaths = timeline.deaths.map {
                                     CountryItem.Timeline.DateAndCount(
                                         it.value,
                                         it.key
                                     )
                                 },
+                                dailyDeaths = timeline.timelineDailyCases.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
                                 recovered = timeline.recovered.map {
+                                    CountryItem.Timeline.DateAndCount(
+                                        it.value,
+                                        it.key
+                                    )
+                                },
+                                dailyRecovered = timeline.timelineDailyCases.map {
                                     CountryItem.Timeline.DateAndCount(
                                         it.value,
                                         it.key

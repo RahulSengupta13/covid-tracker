@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 
 object DatabaseMeta {
     const val NAME = "covid_tracker.db"
-    const val VERSION = 3
+    const val VERSION = 4
 }
 
 @Database(

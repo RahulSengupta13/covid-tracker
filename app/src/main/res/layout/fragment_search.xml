@@ -48,8 +48,6 @@
             android:layout_marginBottom="@dimen/standard_big_margin"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:paddingLeft="@dimen/view_pager_page_offset"
-            android:paddingRight="@dimen/view_pager_page_offset"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

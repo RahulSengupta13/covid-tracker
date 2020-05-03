@@ -104,7 +104,7 @@ class GetCountryItemsListUseCase @Inject constructor(
                     } else {
                         null
                     }
-                }.filterNotNull().take(20)
+                }.filterNotNull()
             channel.send(countryItemsList)
         }
     }

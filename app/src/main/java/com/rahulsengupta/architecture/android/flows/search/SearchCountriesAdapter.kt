@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.core.model.CountryItem
 import kotlinx.android.synthetic.main.item_search_country.view.*
 
 class SearchCountriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var list = emptyList<SearchCountryItem>()
+    var list = emptyList<CountryItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_country, parent, false)
@@ -22,14 +23,14 @@ class SearchCountriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         (holder as SearchCountryViewHolder).bind(list[position])
     }
 
-    fun setItems(list: List<SearchCountryItem>) {
+    fun setItems(list: List<CountryItem>) {
         this.list = list
         notifyDataSetChanged()
     }
 
     class SearchCountryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(item: SearchCountryItem) {
+        fun bind(item: CountryItem) {
             view.item_search_country.text = item.country
 //            view.item_search_country_flag.loadImage(item.flag)
         }

@@ -88,7 +88,7 @@ class DashboardViewModel @Inject constructor(
         }
 
         viewModelScope.launch(dispatcher.IO) {
-            getCountryItemsListUseCase.flow.collect { countryItems.set(it) }
+            getCountryItemsListUseCase.flow.collect { countryItems.set(it.take(20)) }
         }
     }
 

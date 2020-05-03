@@ -1,9 +1,9 @@
-package com.rahulsengupta.architecture.android.flows.dashboard
+package com.rahulsengupta.core.adapters
 
 import com.rahulsengupta.core.model.CountryItem.Timeline.DateAndCount
 import com.robinhood.spark.SparkAdapter
 
-class SparkCountriesAdapter : SparkAdapter() {
+class SparkDateAndCountAdapter : SparkAdapter() {
 
     private var dateAndCounts: List<DateAndCount> = mutableListOf()
 

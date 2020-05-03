@@ -6,7 +6,7 @@ import com.robinhood.spark.SparkView
 
 class CustomSparkView : SparkView {
 
-    lateinit var listener: ScrubListener
+    var listener: ScrubListener? = null
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
@@ -18,7 +18,7 @@ class CustomSparkView : SparkView {
 
     override fun onScrubEnded() {
         super.onScrubEnded()
-        listener.onScrubEndedListener()
+        listener?.onScrubEndedListener()
     }
 }
 

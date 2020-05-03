@@ -6,9 +6,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.rahulsengupta.architecture.android.core.extensions.loadImage
+import com.rahulsengupta.core.adapters.SparkDateAndCountAdapter
 import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
-import com.rahulsengupta.core.extensions.loadImage
 import com.robinhood.spark.SparkView
 import kotlinx.android.synthetic.main.item_dashboard_countries.view.*
 
@@ -46,7 +47,7 @@ class DashboardCountryItemViewHolder(
             TransitionManager.beginDelayedTransition(recyclerView)
         }
         sparkChart.run {
-            adapter = SparkCountriesAdapter().apply {
+            adapter = SparkDateAndCountAdapter().apply {
                 update(item.timeline.dailyCases)
             }
             isScrubEnabled = false

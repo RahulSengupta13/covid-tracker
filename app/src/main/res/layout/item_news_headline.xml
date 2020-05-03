@@ -8,6 +8,7 @@
     android:layout_height="355dp"
     android:layout_margin="@dimen/standard_quarter_margin"
     app:cardBackgroundColor="@color/white"
+    app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/standard_half_margin"
     app:cardElevation="4dp"
     android:clipChildren="false"

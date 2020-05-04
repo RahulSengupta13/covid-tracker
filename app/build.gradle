@@ -79,7 +79,6 @@ dependencies {
     implementation Dependencies.mapsPlayServices
     implementation Dependencies.mapUtils
     implementation Dependencies.palette
-    implementation Dependencies.multiSearch
     implementation Dependencies.preference
 
     // Tools

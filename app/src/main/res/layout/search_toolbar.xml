@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="@android:color/transparent"
+    android:elevation="@dimen/standard_quarter_margin"
+    android:minHeight="?actionBarSize">
+
+    <TextView
+        android:id="@+id/search_title"
+        style="@style/Body1.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:background="@drawable/search_toolbar_background"
+        android:padding="10dp"
+        android:paddingStart="@dimen/standard_big_margin"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/search_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/standard_quarter_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:background="@drawable/search_toolbar_icon_background"
+        android:elevation="@dimen/standard_half_margin"
+        android:padding="@dimen/standard_quarter_margin"
+        android:tint="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/search_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_search_24px" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

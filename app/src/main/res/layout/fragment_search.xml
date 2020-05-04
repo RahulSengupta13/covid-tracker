@@ -17,15 +17,16 @@
         android:clipToPadding="false"
         tools:context="com.rahulsengupta.architecture.android.flows.search.SearchFragment">
 
-        <com.iammert.library.ui.multisearchviewlib.MultiSearchView
-            android:id="@+id/multi_search_view"
+        <com.rahulsengupta.architecture.android.flows.search.SearchToolbar
+            android:id="@+id/search_toolbar"
+            style="@style/SearchToolbarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:hint="@string/search"
+            android:layout_height="?attr/actionBarSize"
+            android:minHeight="?actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextAppearance="@style/H5.Medium" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recycler_view"
@@ -35,7 +36,8 @@
             app:layout_constraintBottom_toTopOf="@id/search_viewpager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/multi_search_view"
+            app:layout_constraintTop_toBottomOf="@id/search_toolbar"
+            android:layout_marginTop="@dimen/standard_margin"
             app:scrollToPosition="@{viewModel.scrollRecyclerViewToPosition}"
             app:setSearchCountries="@{viewModel.searchCountries}"
             tools:itemCount="1"
@@ -52,8 +54,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_recycler_view"
-            app:setSearchCountries="@{viewModel.searchCountries}"
-            app:setItemPosition="@{viewModel.scrollRecyclerViewToPosition}" />
+            app:setItemPosition="@{viewModel.scrollRecyclerViewToPosition}"
+            app:setSearchCountries="@{viewModel.searchCountries}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

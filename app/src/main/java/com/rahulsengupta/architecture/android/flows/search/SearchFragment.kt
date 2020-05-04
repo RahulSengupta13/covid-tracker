@@ -2,19 +2,22 @@ package com.rahulsengupta.architecture.android.flows.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.iammert.library.ui.multisearchviewlib.MultiSearchView
 import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.databinding.FragmentSearchBinding
 import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.base.ScalingLayoutManager
 import com.rahulsengupta.core.customview.OffsetItemDecoration
+import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener {
 
@@ -32,6 +35,8 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as AppCompatActivity).setSupportActionBar(search_toolbar)
 
         binding.searchRecyclerView.run {
             layoutManager = ScalingLayoutManager(requireContext(), this@SearchFragment)
@@ -51,12 +56,13 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             )
         }
 
-        binding.multiSearchView.setSearchViewListener(object : MultiSearchView.MultiSearchViewListener {
-            override fun onItemSelected(index: Int, s: CharSequence) = viewModel.onSearchTextChanged(s.toString())
-            override fun onSearchComplete(index: Int, s: CharSequence) = viewModel.initialize()
-            override fun onSearchItemRemoved(index: Int) = viewModel.initialize()
-            override fun onTextChanged(index: Int, s: CharSequence) = viewModel.onSearchTextChanged(s.toString())
-        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> findNavController().popBackStack()
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onItemSelected(layoutPosition: Int) = viewModel.onRecyclerItemSelected(layoutPosition)

@@ -37,7 +37,6 @@ object Versions {
     const val mapsPlayServices = "17.0.0"
     const val mapUtils = "1.1.0"
     const val palette = "1.0.0"
-    const val multiSearch = "0.1"
 
     //database
     const val room = "2.2.3"
@@ -86,7 +85,6 @@ object Dependencies {
     const val mapsPlayServices = "com.google.android.gms:play-services-maps:${Versions.mapsPlayServices}"
     const val mapUtils = "com.google.maps.android:android-maps-utils:${Versions.mapUtils}"
     const val palette = "androidx.palette:palette:${Versions.palette}"
-    const val multiSearch = "com.github.iammert:MultiSearchView:${Versions.multiSearch}"
 
     const val roomRuntime =  "androidx.room:room-runtime:${Versions.room}"
     const val pagingRuntime =  "androidx.paging:paging-runtime:${Versions.paging}"

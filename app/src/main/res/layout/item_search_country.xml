@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
-        android:lines="2"
         android:padding="@dimen/standard_half_margin"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -13,7 +13,6 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-<!--        <item name="android:windowBackground">?attr/colorPrimaryDark</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
@@ -31,6 +30,10 @@
         <item name="spark_scrubLineWidth">1dp</item>
         <item name="spark_scrubEnabled">true</item>
         <item name="spark_animateChanges">true</item>
+    </style>
+
+    <style name="SearchToolbarStyle" parent="Theme.AppCompat">
+        <item name="navigationIcon">@drawable/ic_arrow_left</item>
     </style>
 
     <!--Text Styles-->

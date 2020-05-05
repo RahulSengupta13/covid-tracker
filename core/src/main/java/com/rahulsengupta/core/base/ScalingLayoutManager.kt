@@ -46,8 +46,11 @@ class ScalingLayoutManager(
             val childMid = (getDecoratedLeft(child) + getDecoratedRight(child)) / 2.0f
             val distanceFromCenter = abs(mid - childMid)
             val scale = 1 - sqrt((distanceFromCenter / width).toDouble()).toFloat() * 0.55f
-            child.scaleX = scale
-            child.scaleY = scale
+
+            if(scale > 0) {
+                child.scaleX = scale
+                child.scaleY = scale
+            }
         }
     }
 

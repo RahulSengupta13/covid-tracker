@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -18,6 +19,7 @@ import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.base.ScalingLayoutManager
 import com.rahulsengupta.core.customview.OffsetItemDecoration
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.search_toolbar.*
 
 class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener {
 
@@ -56,10 +58,18 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             )
         }
 
+        search_toolbar.setOnClickListener {
+            val action = SearchFragmentDirections.actionSearchToSearchresults()
+            val extras = FragmentNavigatorExtras(
+                search_toolbar to "toolbar",
+                search_title to "toolbarTitle"
+            )
+            findNavController().navigate(action, extras)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> findNavController().popBackStack()
             else -> super.onOptionsItemSelected(item)
         }

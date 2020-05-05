@@ -3,4 +3,6 @@
     <color name="color_primary">#CF212A</color>
     <color name="color_primary_dark">#BF0426</color>
     <color name="color_on_secondary">#ECECEC</color>
+
+    <color name="toolbar_title_color">#ECECEC</color>
 </resources>

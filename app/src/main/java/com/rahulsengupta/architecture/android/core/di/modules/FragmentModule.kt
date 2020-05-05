@@ -4,6 +4,7 @@ import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.architecture.android.flows.dashboard.DashboardFragment
 import com.rahulsengupta.architecture.android.flows.livereports.LiveReportsFragment
 import com.rahulsengupta.architecture.android.flows.search.SearchFragment
+import com.rahulsengupta.architecture.android.flows.searchresults.SearchResultFragment
 import com.rahulsengupta.architecture.android.flows.settings.SettingsFragment
 import com.rahulsengupta.architecture.android.flows.splash.SplashFragment
 import dagger.Module
@@ -29,4 +30,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSettingsFragment(): SettingsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSearchResultFragment(): SearchResultFragment
 }

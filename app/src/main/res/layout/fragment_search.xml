@@ -8,54 +8,64 @@
             type="com.rahulsengupta.architecture.android.flows.search.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        tools:context="com.rahulsengupta.architecture.android.flows.search.SearchFragment">
+        android:layout_height="match_parent">
 
-        <com.rahulsengupta.architecture.android.flows.search.SearchToolbar
-            android:id="@+id/search_toolbar"
-            style="@style/SearchToolbarStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:minHeight="?actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextAppearance="@style/H5.Medium" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/search_viewpager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_toolbar"
-            android:layout_marginTop="@dimen/standard_margin"
-            app:scrollToPosition="@{viewModel.scrollRecyclerViewToPosition}"
-            app:setSearchCountries="@{viewModel.searchCountries}"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_search_country" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/search_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/standard_big_margin"
+            android:layout_height="match_parent"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_recycler_view"
-            app:setItemPosition="@{viewModel.scrollRecyclerViewToPosition}"
-            app:setSearchCountries="@{viewModel.searchCountries}" />
+            tools:context="com.rahulsengupta.architecture.android.flows.search.SearchFragment">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.rahulsengupta.architecture.android.flows.search.SearchToolbar
+                android:id="@+id/search_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="@dimen/standard_margin"
+                style="@style/SearchToolbarStyle"
+                android:minHeight="?actionBarSize"
+                android:transitionName="toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:titleTextAppearance="@style/H5.Medium" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_big_margin"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/search_viewpager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_toolbar"
+                app:scrollToPosition="@{viewModel.scrollRecyclerViewToPosition}"
+                app:setSearchCountries="@{viewModel.searchCountries}"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_search_country" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/search_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_big_margin"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_recycler_view"
+                app:setItemPosition="@{viewModel.scrollRecyclerViewToPosition}"
+                app:setSearchCountries="@{viewModel.searchCountries}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

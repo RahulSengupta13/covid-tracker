@@ -18,8 +18,10 @@ import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.base.ScalingLayoutManager
 import com.rahulsengupta.core.customview.OffsetItemDecoration
+import com.rahulsengupta.core.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
+import kotlinx.android.synthetic.main.search_toolbar.view.*
 
 class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener {
 
@@ -58,13 +60,22 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             )
         }
 
-        search_toolbar.setOnClickListener {
+        search_toolbar.search_icon.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchToSearchresults()
             val extras = FragmentNavigatorExtras(
                 search_toolbar to "toolbar",
                 search_title to "toolbarTitle"
             )
             findNavController().navigate(action, extras)
+        }
+
+        binding.searchRecyclerView.setOnClickListener {
+            binding.searchToolbar.clearFocus()
+            requireContext().hideKeyboard(view)
+        }
+        binding.searchViewpager.setOnClickListener {
+            binding.searchToolbar.clearFocus()
+            requireContext().hideKeyboard(view)
         }
     }
 

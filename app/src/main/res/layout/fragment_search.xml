@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_big_margin"
                 android:orientation="horizontal"
+                android:clipToPadding="false"
                 app:layout_constraintBottom_toTopOf="@id/search_viewpager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

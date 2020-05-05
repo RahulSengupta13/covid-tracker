@@ -24,6 +24,7 @@
     <string name="button_total">total</string>
     <string name="more">more</string>
     <string name="search">Search</string>
+    <string name="search_countries">search countries…</string>
     <string name="dialog_theme_title">select a theme</string>
 
     <array name="theme_names">

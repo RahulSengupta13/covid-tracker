@@ -75,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
         app:tabBackground="@drawable/rounded_tab_selector"
         app:tabIndicatorColor="@android:color/transparent"
+        app:tabMode="scrollable"
         app:tabRippleColor="@null"
         app:tabSelectedTextColor="@color/color_on_secondary">
 

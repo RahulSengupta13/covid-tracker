@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -18,12 +19,16 @@ import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.base.ScalingLayoutManager
 import com.rahulsengupta.core.customview.OffsetItemDecoration
+import com.rahulsengupta.core.extensions.dpToPx
+import com.rahulsengupta.core.extensions.getScreenWidth
 import com.rahulsengupta.core.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 
 class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener {
+
+    private val arguments by navArgs<SearchFragmentArgs>()
 
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels { viewModelFactory }
@@ -46,6 +51,8 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             layoutManager = ScalingLayoutManager(requireContext(), this@SearchFragment)
             adapter = SearchCountriesAdapter()
             addItemDecoration(OffsetItemDecoration(requireContext()))
+            val padding = requireContext().getScreenWidth() / 2 - resources.getDimensionPixelOffset(R.dimen.search_country_layout_width)
+            setPadding(padding, 0, padding, 0)
         }
 
         binding.searchViewpager.run {
@@ -80,6 +87,8 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
         binding.swipeContainer.setOnRefreshListener {
             viewModel.refresh()
         }
+
+        viewModel.setIndexToScrollTo(arguments.index)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

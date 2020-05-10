@@ -15,8 +15,10 @@ import kotlinx.android.synthetic.main.item_dashboard_countries.view.*
 
 class DashboardCountryItemViewHolder(
     val view: View,
-    private val recyclerView: RecyclerView
+    private val recyclerView: RecyclerView,
+    private val listener: Listener
 ) : BaseRecyclerViewHolder(view) {
+    private val moreInfo: TextView? = view.country_more
     private val countryTitle: TextView? = view.country_title
     private val countryCount: TextView? = view.country_count
     private val countryFlag: ImageView? = view.country_image
@@ -24,7 +26,7 @@ class DashboardCountryItemViewHolder(
     private val expandedView: ConstraintLayout? = view.expanded_view
     private val sparkChart: SparkView = view.country_chart
 
-    fun bind(item: CountryItem) {
+    fun bind(index: Int, item: CountryItem) {
         countryTitle?.text = item.country
         countryCount?.text = item.cases
         countryFlag?.loadImage(item.flag) {
@@ -52,5 +54,14 @@ class DashboardCountryItemViewHolder(
             }
             isScrubEnabled = false
         }
+
+        moreInfo?.setOnClickListener {
+            listener.onCountryMoreClicked(index)
+        }
+
+    }
+
+    interface Listener {
+        fun onCountryMoreClicked(index: Int)
     }
 }

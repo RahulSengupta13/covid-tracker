@@ -7,7 +7,7 @@ import com.rahulsengupta.architecture.R
 import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.base.BaseRecyclerViewHolder
 
-class DashboardCountriesAdapter(private val recyclerView: RecyclerView) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
+class DashboardCountriesAdapter(private val recyclerView: RecyclerView, private val listener: Listener) : RecyclerView.Adapter<BaseRecyclerViewHolder>() {
 
     init {
         setHasStableIds(true)
@@ -17,11 +17,11 @@ class DashboardCountriesAdapter(private val recyclerView: RecyclerView) : Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRecyclerViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_dashboard_countries, parent, false)
-        return DashboardCountryItemViewHolder(itemView, recyclerView)
+        return DashboardCountryItemViewHolder(itemView, recyclerView, listener)
     }
 
     override fun onBindViewHolder(holder: BaseRecyclerViewHolder, position: Int) {
-        (holder as? DashboardCountryItemViewHolder)?.bind(list[position])
+        (holder as? DashboardCountryItemViewHolder)?.bind(position, list[position])
     }
 
     override fun getItemCount(): Int = list.size
@@ -32,4 +32,6 @@ class DashboardCountriesAdapter(private val recyclerView: RecyclerView) : Recycl
         this.list = list
         notifyDataSetChanged()
     }
+
+    interface Listener: DashboardCountryItemViewHolder.Listener
 }

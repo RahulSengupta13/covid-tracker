@@ -10,6 +10,7 @@ import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.repository.ICoreRepository
 import com.rahulsengupta.core.repository.LoadingState
 import com.rahulsengupta.core.usecase.IGetCountryItemsListUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,13 +27,19 @@ class SearchViewModel @Inject constructor(
     val refreshed: LiveData<Boolean>
         get() = _refreshed
 
+    var scrollToIndex = 0
+
     init {
         initialize()
     }
 
     private fun initialize() {
         viewModelScope.launch(coroutineDispatcher.IO) {
-            countryItemsListUseCase.flow.collect { searchCountries.set(it) }
+            countryItemsListUseCase.flow.collect {
+                searchCountries.set(it)
+                delay(100)
+                onRecyclerItemSelected(scrollToIndex)
+            }
         }
         viewModelScope.launch(coroutineDispatcher.IO) {
             coreRepository.initialized.collect {
@@ -64,5 +71,9 @@ class SearchViewModel @Inject constructor(
 
     fun refresh() {
         coreRepository.initialize()
+    }
+
+    fun setIndexToScrollTo(index: Int) {
+        scrollToIndex = index
     }
 }

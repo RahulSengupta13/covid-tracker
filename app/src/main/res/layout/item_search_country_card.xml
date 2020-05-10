@@ -1,123 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:paddingBottom="@dimen/standard_bigger_margin">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_guideline"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/standard_margin" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/standard_margin" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/layout_spark_chart_cardview"
-        android:layout_width="0dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="@dimen/standard_margin"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:cardCornerRadius="@dimen/standard_half_margin"
-        app:cardElevation="@dimen/standard_quarter_margin"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="@dimen/standard_bigger_margin">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/standard_margin" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_country_spark"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/standard_margin" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layout_spark_chart_cardview"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:cardCornerRadius="@dimen/standard_half_margin"
+            app:cardElevation="@dimen/standard_quarter_margin"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/standard_margin">
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/invisible_country_flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.rahulsengupta.core.customview.CustomSparkView
-                    android:id="@+id/country_sparkview"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_country_spark"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/standard_margin">
 
-    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:id="@+id/invisible_country_flag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/mode_toggle_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:background="@drawable/rounded_tab_layout_background"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
-        app:tabBackground="@drawable/rounded_tab_selector"
-        app:tabIndicatorColor="@android:color/transparent"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@null"
-        app:tabSelectedTextColor="@color/color_on_secondary">
+                    <com.rahulsengupta.core.customview.CustomSparkView
+                        android:id="@+id/country_sparkview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
-        <com.google.android.material.tabs.TabItem
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/mode_toggle_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="daily" />
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:background="@drawable/rounded_tab_layout_background"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
+            app:tabBackground="@drawable/rounded_tab_selector"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/color_on_secondary">
 
-        <com.google.android.material.tabs.TabItem
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="daily" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="total" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/toggle_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="total" />
-    </com.google.android.material.tabs.TabLayout>
+            android:layout_height="32dp"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@drawable/rounded_tab_layout_background"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/mode_toggle_layout"
+            app:tabBackground="@drawable/rounded_tab_selector"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/color_on_secondary">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/toggle_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="@dimen/standard_half_margin"
-        android:background="@drawable/rounded_tab_layout_background"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/mode_toggle_layout"
-        app:tabBackground="@drawable/rounded_tab_selector"
-        app:tabIndicatorColor="@android:color/transparent"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@null"
-        app:tabSelectedTextColor="@color/color_on_secondary">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cases" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cases" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="deaths" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="deaths" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="recovered" />
+        </com.google.android.material.tabs.TabLayout>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/country_case_recycler_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="recovered" />
-    </com.google.android.material.tabs.TabLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="@dimen/standard_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/toggle_layout"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_search_country_card_case" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

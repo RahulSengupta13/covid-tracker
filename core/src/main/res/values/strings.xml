@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_country_cases_today">cases today</string>
+    <string name="search_country_deaths_today">deaths today</string>
+    <string name="search_country_recovered_today">recovered today</string>
+    <string name="search_country_cases_total">total cases</string>
+    <string name="search_country_deaths_total">total deaths</string>
+    <string name="search_country_recovered_total">total recovered</string>
+</resources>

@@ -1,11 +1,14 @@
 package com.rahulsengupta.core.model
 
+import com.rahulsengupta.core.R
+
 data class CountryItem(
     val id: Long,
     val country: String,
     val cases: String,
     val flag: String,
-    val timeline: Timeline
+    val timeline: Timeline,
+    val dailyList: List<CaseType>
 ) {
 
     data class Timeline(
@@ -21,5 +24,41 @@ data class CountryItem(
             val count: Int,
             val date: String
         )
+    }
+
+    sealed class CaseType(
+        open val count: Int,
+        open val caseTitle: Int
+    ) {
+
+        data class TodayCases(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_cases_today
+        ) : CaseType(count, caseTitle)
+
+        data class TodayDeaths(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_deaths_today
+        ) : CaseType(count, caseTitle)
+
+        data class TodayRecovered(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_recovered_today
+        ) : CaseType(count, caseTitle)
+
+        data class TotalCases(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_cases_total
+        ) : CaseType(count, caseTitle)
+
+        data class TotalDeaths(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_deaths_total
+        ) : CaseType(count, caseTitle)
+
+        data class TotalRecovered(
+            override val count: Int,
+            override val caseTitle: Int = R.string.search_country_recovered_total
+        ) : CaseType(count, caseTitle)
     }
 }

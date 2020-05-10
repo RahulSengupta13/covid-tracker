@@ -2,6 +2,8 @@ package com.rahulsengupta.core.usecase
 
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.model.CountryItem
+import com.rahulsengupta.core.model.CountryItem.CaseType
+import com.rahulsengupta.core.model.CountryItem.Timeline
 import com.rahulsengupta.persistence.enitity.CountryHistoricalEntity
 import com.rahulsengupta.persistence.enitity.GlobalCountryEntity
 import com.rahulsengupta.persistence.usecase.IGetCountryHistoricalUseCase
@@ -57,48 +59,59 @@ class GetCountryItemsListUseCase @Inject constructor(
                     val timeline =
                         countryTimelineList.firstOrNull { it.country.equals(entity.country, true) }
                     if (timeline != null) {
+                        val dailyCases = timeline.timelineDailyCases.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
+                        val dailyDeaths = timeline.timelineDailyDeaths.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
+                        val dailyRecovered = timeline.timelineDailyRecovered.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
                         CountryItem(
                             id = index.toLong(),
                             country = entity.country,
                             cases = entity.cases.toString(),
                             flag = requireNotNull(entity.countryInfo.flag),
-                            timeline = CountryItem.Timeline(
+                            timeline = Timeline(
                                 cases = timeline.cases.map {
-                                    CountryItem.Timeline.DateAndCount(
+                                    Timeline.DateAndCount(
                                         it.value,
                                         it.key
                                     )
                                 },
-                                dailyCases = timeline.timelineDailyCases.map {
-                                    CountryItem.Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                },
+                                dailyCases = dailyCases,
                                 deaths = timeline.deaths.map {
-                                    CountryItem.Timeline.DateAndCount(
+                                    Timeline.DateAndCount(
                                         it.value,
                                         it.key
                                     )
                                 },
-                                dailyDeaths = timeline.timelineDailyCases.map {
-                                    CountryItem.Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                },
+                                dailyDeaths = dailyDeaths,
                                 recovered = timeline.recovered.map {
-                                    CountryItem.Timeline.DateAndCount(
+                                    Timeline.DateAndCount(
                                         it.value,
                                         it.key
                                     )
                                 },
-                                dailyRecovered = timeline.timelineDailyCases.map {
-                                    CountryItem.Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                }
+                                dailyRecovered = dailyRecovered
+                            ),
+                            dailyList = listOf(
+                                CaseType.TodayCases(entity.todayCases),
+                                CaseType.TotalCases(entity.cases),
+                                CaseType.TodayDeaths(entity.todayDeaths),
+                                CaseType.TotalDeaths(entity.deaths),
+                                CaseType.TodayRecovered(dailyRecovered.last().count),
+                                CaseType.TotalRecovered(entity.recovered)
                             )
                         )
                     } else {

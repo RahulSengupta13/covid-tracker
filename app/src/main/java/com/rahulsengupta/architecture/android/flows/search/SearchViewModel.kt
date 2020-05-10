@@ -22,7 +22,7 @@ class SearchViewModel @Inject constructor(
         initialize()
     }
 
-    fun initialize() {
+    private fun initialize() {
         viewModelScope.launch(coroutineDispatcher.IO) {
             countryItemsListUseCase.flow.collect { searchCountries.set(it) }
         }

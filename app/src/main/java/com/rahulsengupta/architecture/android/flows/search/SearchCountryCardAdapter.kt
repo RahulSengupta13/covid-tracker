@@ -3,6 +3,7 @@ package com.rahulsengupta.architecture.android.flows.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rahulsengupta.architecture.R
 import com.rahulsengupta.architecture.android.core.extensions.loadImage
@@ -37,6 +38,12 @@ class SearchCountryCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             }
             view.invisible_country_flag.loadImage(item.flag) {
                 view.layout_country_spark.background = it
+            }
+            view.country_case_recycler_view.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                adapter = SearchCountryCardCaseAdapter().apply {
+                    setItems(item.dailyList)
+                }
             }
         }
     }

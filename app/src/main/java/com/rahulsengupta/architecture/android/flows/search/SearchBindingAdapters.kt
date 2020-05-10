@@ -2,6 +2,7 @@ package com.rahulsengupta.architecture.android.flows.search
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.rahulsengupta.core.model.CountryItem
 
@@ -23,5 +24,12 @@ fun setSearchCountries(viewPager: ViewPager2, data: List<CountryItem>?) {
 fun setItemPosition(viewPager: ViewPager2, position: Int?) {
     position?.let {
         viewPager.currentItem = it
+    }
+}
+
+@BindingAdapter("app:refreshed")
+fun refreshed(swipeRefreshLayout: SwipeRefreshLayout, value: Boolean?) {
+    value?.let {
+        swipeRefreshLayout.isRefreshing = false
     }
 }

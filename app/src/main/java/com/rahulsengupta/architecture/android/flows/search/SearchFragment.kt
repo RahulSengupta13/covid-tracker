@@ -77,6 +77,9 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             binding.searchToolbar.clearFocus()
             requireContext().hideKeyboard(view)
         }
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.refresh()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

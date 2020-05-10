@@ -8,6 +8,7 @@ import com.rahulsengupta.architecture.android.flows.splash.model.ViewEffect
 import com.rahulsengupta.architecture.android.flows.splash.model.ViewEffect.NavigateToDashboard
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.repository.ICoreRepository
+import com.rahulsengupta.core.repository.LoadingState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +25,9 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch(dispatcher.IO) {
             coreRepository.initialized.collect {
-                _viewEffect.postValue(NavigateToDashboard)
+                if(it is LoadingState.LoadedCached || it is LoadingState.Loaded) {
+                    _viewEffect.postValue(NavigateToDashboard)
+                }
             }
         }
         coreRepository.initialize()

@@ -2,6 +2,7 @@ package com.rahulsengupta.core.repository
 
 import com.rahulsengupta.core.base.CoroutineRepository
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
+import com.rahulsengupta.core.repository.LoadingState.*
 import com.rahulsengupta.core.usecase.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
@@ -13,7 +14,7 @@ interface ICoreRepository {
 
     fun initialize()
 
-    val initialized: Flow<Unit>
+    val initialized: Flow<LoadingState>
 }
 
 class CoreRepository @Inject constructor(
@@ -27,8 +28,8 @@ class CoreRepository @Inject constructor(
     private val dispatcher: ICoroutinesDispatcher
 ) : ICoreRepository, CoroutineRepository(dispatcher) {
 
-    private val channel = ConflatedBroadcastChannel<Unit>()
-    override val initialized: Flow<Unit>
+    private val channel = ConflatedBroadcastChannel<LoadingState>()
+    override val initialized: Flow<LoadingState>
         get() = channel.asFlow()
 
     @ExperimentalCoroutinesApi
@@ -37,8 +38,9 @@ class CoreRepository @Inject constructor(
             val isDataDownloaded = isDataDownloadedUseCase.get()
             if (isDataDownloaded) {
                 //move past splash and download data in background
-                channel.send(Unit)
+                channel.send(LoadedCached)
             }
+            channel.send(Loading)
 
             listOf(
                 async { initializeGlobalTotals() },
@@ -48,7 +50,7 @@ class CoreRepository @Inject constructor(
                 async { initializeGlobalCountryResult() },
                 async { initializeCountriesHistorical() }
             ).awaitAll()
-            channel.send(Unit)
+            channel.send(Loaded)
         }
     }
 
@@ -75,4 +77,10 @@ class CoreRepository @Inject constructor(
     private suspend fun initializeGlobalTimeline() {
         loadGlobalTimelineUseCase.loadGlobalTimeline()
     }
+}
+
+sealed class LoadingState {
+    object Loading : LoadingState()
+    object Loaded : LoadingState()
+    object LoadedCached : LoadingState()
 }

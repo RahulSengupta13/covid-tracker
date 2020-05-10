@@ -80,6 +80,7 @@ dependencies {
     implementation Dependencies.mapUtils
     implementation Dependencies.palette
     implementation Dependencies.preference
+    implementation Dependencies.swipeRefresh
 
     // Tools
     implementation Dependencies.timber

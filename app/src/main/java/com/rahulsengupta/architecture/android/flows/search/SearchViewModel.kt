@@ -23,11 +23,9 @@ class SearchViewModel @Inject constructor(
 
     val searchCountries = ObservableField<List<CountryItem>>()
     val scrollRecyclerViewToPosition = ObservableField<Int>()
-    private val _refreshed = MutableLiveData<Boolean>()
-    val refreshed: LiveData<Boolean>
-        get() = _refreshed
 
     var scrollToIndex = 0
+    var hasScrolledToIndex = false
 
     init {
         initialize()
@@ -38,13 +36,9 @@ class SearchViewModel @Inject constructor(
             countryItemsListUseCase.flow.collect {
                 searchCountries.set(it)
                 delay(100)
-                onRecyclerItemSelected(scrollToIndex)
-            }
-        }
-        viewModelScope.launch(coroutineDispatcher.IO) {
-            coreRepository.initialized.collect {
-                if (it is LoadingState.Loaded) {
-                    _refreshed.postValue(true)
+                if(!hasScrolledToIndex) {
+                    onRecyclerItemSelected(scrollToIndex)
+                    hasScrolledToIndex = true
                 }
             }
         }

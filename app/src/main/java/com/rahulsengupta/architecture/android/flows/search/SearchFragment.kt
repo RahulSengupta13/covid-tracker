@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 
-class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener {
+class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelectedListener, SearchCountryCardAdapter.Listener {
 
     private val arguments by navArgs<SearchFragmentArgs>()
 
@@ -57,7 +57,7 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
 
         binding.searchViewpager.run {
             (getChildAt(0) as? RecyclerView)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            adapter = SearchCountryCardAdapter()
+            adapter = SearchCountryCardAdapter(this@SearchFragment)
             isUserInputEnabled = false
             setPageTransformer(
                 CompositePageTransformer().apply {
@@ -84,9 +84,6 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             binding.searchToolbar.clearFocus()
             requireContext().hideKeyboard(view)
         }
-        binding.swipeContainer.setOnRefreshListener {
-            viewModel.refresh()
-        }
 
         viewModel.setIndexToScrollTo(arguments.index)
     }
@@ -96,6 +93,10 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             android.R.id.home -> findNavController().popBackStack()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onRefresh() {
+        viewModel.refresh()
     }
 
     override fun onItemSelected(layoutPosition: Int) = viewModel.onRecyclerItemSelected(layoutPosition)

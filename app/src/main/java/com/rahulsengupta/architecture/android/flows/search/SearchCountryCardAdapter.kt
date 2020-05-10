@@ -11,13 +11,13 @@ import com.rahulsengupta.core.adapters.SparkDateAndCountAdapter
 import com.rahulsengupta.core.model.CountryItem
 import kotlinx.android.synthetic.main.item_search_country_card.view.*
 
-class SearchCountryCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchCountryCardAdapter(val listener: Listener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var list = emptyList<CountryItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_country_card, parent, false)
-        return SearchCountryCardViewHolder(view)
+        return SearchCountryCardViewHolder(view, listener)
     }
 
     override fun getItemCount() = list.size
@@ -31,7 +31,7 @@ class SearchCountryCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         notifyDataSetChanged()
     }
 
-    class SearchCountryCardViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+    class SearchCountryCardViewHolder(val view: View, private val listener: Listener): RecyclerView.ViewHolder(view) {
         fun bind(item: CountryItem) {
             view.country_sparkview.adapter = SparkDateAndCountAdapter().apply {
                 update(item.timeline.dailyCases)
@@ -45,7 +45,16 @@ class SearchCountryCardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     setItems(item.dailyList)
                 }
             }
+            view.swipe_container.setOnRefreshListener {
+                listener.onRefresh()
+            }
+        }
+
+        interface Listener {
+            fun onRefresh()
         }
     }
+
+    interface Listener: SearchCountryCardViewHolder.Listener
 
 }

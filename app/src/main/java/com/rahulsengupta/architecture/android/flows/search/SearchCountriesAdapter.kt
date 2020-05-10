@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.architecture.android.core.extensions.loadImage
 import com.rahulsengupta.core.model.CountryItem
 import kotlinx.android.synthetic.main.item_search_country.view.*
 
@@ -32,7 +33,7 @@ class SearchCountriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(item: CountryItem) {
             view.item_search_country.text = item.country
-//            view.item_search_country_flag.loadImage(item.flag)
+            view.item_search_country_flag.loadImage(item.flag)
         }
     }
 }

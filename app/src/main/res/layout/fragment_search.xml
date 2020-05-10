@@ -25,7 +25,7 @@
             <com.rahulsengupta.architecture.android.flows.search.SearchToolbar
                 android:id="@+id/search_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 style="@style/SearchToolbarStyle"
                 android:minHeight="?actionBarSize"
@@ -33,13 +33,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/search_recycler_view"
                 app:titleTextAppearance="@style/H5.Medium" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_big_margin"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:orientation="horizontal"
                 android:clipToPadding="false"
                 app:layout_constraintBottom_toTopOf="@id/search_viewpager"

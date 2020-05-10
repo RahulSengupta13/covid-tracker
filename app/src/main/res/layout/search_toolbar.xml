@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:clipChildren="false"
     android:clipToPadding="false"
     app:cardBackgroundColor="@color/color_on_secondary"
@@ -12,13 +13,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:minHeight="?actionBarSize"
         android:padding="@dimen/standard_half_margin">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textview.MaterialAutoCompleteTextView
             android:id="@+id/search_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,8 +28,7 @@
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:background="@null"
             android:hint="@string/search_countries"
-            android:lines="1"
-            android:maxLength="10"
+            android:maxLines="1"
             android:textAppearance="@style/Body1.Light"
             android:transitionName="toolbarTitle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,14 +42,14 @@
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/standard_margin"
             android:elevation="@dimen/standard_half_margin"
-            tools:visibility="visible"
             android:tint="@color/color_primary"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/search_title"
             app:layout_constraintEnd_toStartOf="@id/search_icon"
             app:layout_constraintStart_toEndOf="@id/search_title"
             app:layout_constraintTop_toTopOf="@id/search_title"
-            app:srcCompat="@drawable/ic_cancel_24px" />
+            app:srcCompat="@drawable/ic_cancel_24px"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/search_icon"
@@ -63,9 +64,5 @@
             app:layout_constraintStart_toEndOf="@id/search_close_icon"
             app:layout_constraintTop_toTopOf="@id/search_title"
             app:srcCompat="@drawable/ic_search_24px" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </com.google.android.material.card.MaterialCardView>

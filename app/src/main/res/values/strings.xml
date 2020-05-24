@@ -26,6 +26,12 @@
     <string name="search">Search</string>
     <string name="search_countries">search countries…</string>
     <string name="dialog_theme_title">select a theme</string>
+    <string name="total_title_cases">total cases</string>
+    <string name="total_title_deaths">total deaths</string>
+    <string name="total_title_recovered">total recovered</string>
+    <string name="daily_title_cases">daily cases</string>
+    <string name="daily_title_deaths">daily deaths</string>
+    <string name="daily_title_recovered">daily recovered</string>
 
     <array name="theme_names">
         <item>Light</item>

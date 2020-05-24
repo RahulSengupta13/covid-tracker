@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -75,63 +73,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/mode_toggle_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:background="@drawable/rounded_tab_layout_background"
-                app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
-                app:tabBackground="@drawable/rounded_tab_selector"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="scrollable"
-                app:tabRippleColor="@null"
-                app:tabSelectedTextColor="@color/color_on_secondary">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="daily" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="total" />
-            </com.google.android.material.tabs.TabLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/toggle_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginTop="@dimen/standard_half_margin"
-                android:background="@drawable/rounded_tab_layout_background"
-                app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/mode_toggle_layout"
-                app:tabBackground="@drawable/rounded_tab_selector"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="scrollable"
-                app:tabRippleColor="@null"
-                app:tabSelectedTextColor="@color/color_on_secondary">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="cases" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="deaths" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="recovered" />
-            </com.google.android.material.tabs.TabLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/country_case_recycler_view"
                 android:layout_width="0dp"
@@ -140,7 +81,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@id/toggle_layout"
+                app:layout_constraintTop_toBottomOf="@id/layout_spark_chart_cardview"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_search_country_card_case" />
         </androidx.constraintlayout.widget.ConstraintLayout>

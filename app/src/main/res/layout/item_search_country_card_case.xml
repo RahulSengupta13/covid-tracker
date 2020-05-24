@@ -29,31 +29,48 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/standard_margin" />
 
-        <TextView
-            android:id="@+id/country_case_type_title"
-            style="@style/H6.Light"
+        <com.rahulsengupta.core.customview.CustomSparkView
+            android:id="@+id/country_casetype_sparkview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/country_case_type_count"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="@id/start_guideline"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="cases" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/country_case_type_title"
+            style="@style/Body2.Light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintTop_toTopOf="@id/country_casetype_sparkview"
+            tools:text="total cases" />
 
         <TextView
             android:id="@+id/country_case_type_count"
-            style="@style/H5.Medium"
+            style="@style/Body1.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_margin"
             android:textAlignment="center"
-            android:textColor="@color/color_primary"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="@id/start_guideline"
             app:layout_constraintTop_toBottomOf="@id/country_case_type_title"
             tools:text="140,000" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_scrim_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -8,6 +8,7 @@ data class CountryItem(
     val cases: String,
     val flag: String,
     val timeline: Timeline,
+    val timelineAsList: List<List<Timeline.DateAndCount>>,
     val dailyList: List<CaseType>
 ) {
 

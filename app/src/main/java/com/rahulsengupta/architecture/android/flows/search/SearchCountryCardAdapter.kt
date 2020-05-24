@@ -42,7 +42,7 @@ class SearchCountryCardAdapter(val listener: Listener) : RecyclerView.Adapter<Re
             view.country_case_recycler_view.apply {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = SearchCountryCardCaseAdapter().apply {
-                    setItems(item.dailyList)
+                    setItems(item.timelineAsList)
                 }
             }
             view.swipe_container.setOnRefreshListener {

@@ -77,33 +77,44 @@ class GetCountryItemsListUseCase @Inject constructor(
                                 it.key
                             )
                         }
+                        val totalCases = timeline.cases.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
+                        val totalDeaths = timeline.deaths.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
+                        val totalRecovered = timeline.recovered.map {
+                            Timeline.DateAndCount(
+                                it.value,
+                                it.key
+                            )
+                        }
                         CountryItem(
                             id = index.toLong(),
                             country = entity.country,
                             cases = entity.cases.toString(),
                             flag = requireNotNull(entity.countryInfo.flag),
                             timeline = Timeline(
-                                cases = timeline.cases.map {
-                                    Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                },
+                                cases = totalCases,
                                 dailyCases = dailyCases,
-                                deaths = timeline.deaths.map {
-                                    Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                },
+                                deaths = totalDeaths,
                                 dailyDeaths = dailyDeaths,
-                                recovered = timeline.recovered.map {
-                                    Timeline.DateAndCount(
-                                        it.value,
-                                        it.key
-                                    )
-                                },
+                                recovered = totalRecovered,
                                 dailyRecovered = dailyRecovered
+                            ),
+                            timelineAsList = listOf(
+                                dailyCases,
+                                totalCases,
+                                dailyDeaths,
+                                totalDeaths,
+                                dailyRecovered,
+                                totalRecovered
                             ),
                             dailyList = listOf(
                                 CaseType.TodayCases(entity.todayCases),

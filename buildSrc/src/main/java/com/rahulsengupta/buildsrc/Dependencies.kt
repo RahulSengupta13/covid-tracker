@@ -50,6 +50,7 @@ object Versions {
 
     //di
     const val dagger = "2.25.4"
+    const val assistedInject = "0.5.2"
 
     //image
     const val glide = "4.9.0"
@@ -113,6 +114,10 @@ object Dependencies {
     const val dagger =  "com.google.dagger:dagger:${Versions.dagger}"
     const val daggerAndroid =  "com.google.dagger:dagger-android:${Versions.dagger}"
     const val daggerAndroidSupport =  "com.google.dagger:dagger-android-support:${Versions.dagger}"
+
+    // Assisted Inject
+    const val assistedInjectAnnotations = "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assistedInject}"
+    const val assistedInjectProcessor = "com.squareup.inject:assisted-inject-processor-dagger2:${Versions.assistedInject}"
 
     // Networking
     const val retrofit =  "com.squareup.retrofit2:retrofit:${Versions.retrofit}"

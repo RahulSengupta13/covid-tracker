@@ -1,31 +1,34 @@
 package com.rahulsengupta.architecture.android.flows.search
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulsengupta.core.di.ICoroutinesDispatcher
 import com.rahulsengupta.core.model.CountryItem
 import com.rahulsengupta.core.repository.ICoreRepository
-import com.rahulsengupta.core.repository.LoadingState
 import com.rahulsengupta.core.usecase.IGetCountryItemsListUseCase
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+class SearchViewModel @AssistedInject constructor(
     private val countryItemsListUseCase: IGetCountryItemsListUseCase,
     private val coroutineDispatcher: ICoroutinesDispatcher,
-    private val coreRepository: ICoreRepository
+    private val coreRepository: ICoreRepository,
+    @Assisted private val scrollToIndex: Int
 ) : ViewModel() {
+
+    @AssistedInject.Factory
+    interface Factory {
+        fun create(scrollToIndex: Int): SearchViewModel
+    }
 
     val searchCountries = ObservableField<List<CountryItem>>()
     val scrollRecyclerViewToPosition = ObservableField<Int>()
 
-    var scrollToIndex = 0
-    var hasScrolledToIndex = false
+    private var hasScrolledToIndex = false
 
     init {
         initialize()
@@ -35,8 +38,8 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(coroutineDispatcher.IO) {
             countryItemsListUseCase.flow.collect {
                 searchCountries.set(it)
-                delay(100)
-                if(!hasScrolledToIndex) {
+                delay(25)
+                if (!hasScrolledToIndex) {
                     onRecyclerItemSelected(scrollToIndex)
                     hasScrolledToIndex = true
                 }
@@ -65,9 +68,5 @@ class SearchViewModel @Inject constructor(
 
     fun refresh() {
         coreRepository.initialize()
-    }
-
-    fun setIndexToScrollTo(index: Int) {
-        scrollToIndex = index
     }
 }

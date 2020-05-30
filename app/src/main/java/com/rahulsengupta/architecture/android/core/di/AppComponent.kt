@@ -3,6 +3,8 @@ package com.rahulsengupta.architecture.android.core.di
 import android.app.Application
 import com.rahulsengupta.architecture.android.CovidTrackerApplication
 import com.rahulsengupta.architecture.android.core.di.modules.AppModule
+import com.rahulsengupta.architecture.android.core.di.modules.AppAssistedInjectionModule
+import com.rahulsengupta.architecture.android.flows.search.SearchViewModel
 import com.rahulsengupta.core.di.CoreModule
 import com.rahulsengupta.core.di.CoroutinesModule
 import com.rahulsengupta.core.di.ViewModelFactoryModule
@@ -20,7 +22,8 @@ import javax.inject.Singleton
         AppModule::class,
         CoroutinesModule::class,
         CoreModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        AppAssistedInjectionModule::class
     ]
 )
 interface AppComponent {
@@ -38,6 +41,8 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
+    val searchViewModelFactory: SearchViewModel.Factory
 
     fun inject(application: CovidTrackerApplication)
 }

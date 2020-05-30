@@ -34,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -41,6 +45,7 @@ dependencies {
     implementation Dependencies.core
     implementation Dependencies.constraintlayout
     implementation Dependencies.material
+    implementation Dependencies.lifecycleExtensions
 
     implementation Dependencies.kotlinStdlib
     implementation Dependencies.kotlinSerialization
@@ -51,6 +56,8 @@ dependencies {
 
     kapt Dependencies.daggerCompiler
     kapt Dependencies.daggerAndroidProcessor
+    kapt Dependencies.assistedInjectProcessor
+    compileOnly Dependencies.assistedInjectAnnotations
     implementation Dependencies.dagger
     implementation Dependencies.daggerAndroid
     implementation Dependencies.daggerAndroidSupport

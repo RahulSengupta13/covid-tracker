@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,14 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.rahulsengupta.architecture.R
+import com.rahulsengupta.architecture.android.core.di.injector
 import com.rahulsengupta.architecture.databinding.FragmentSearchBinding
 import com.rahulsengupta.core.base.InjectableFragment
 import com.rahulsengupta.core.base.ScaleTransformer
 import com.rahulsengupta.core.base.ScalingLayoutManager
 import com.rahulsengupta.core.customview.OffsetItemDecoration
-import com.rahulsengupta.core.extensions.dpToPx
+import com.rahulsengupta.core.extensions.fragmentViewModels
 import com.rahulsengupta.core.extensions.getScreenWidth
 import com.rahulsengupta.core.extensions.hideKeyboard
+import com.rahulsengupta.core.extensions.navGraphSavedStateViewModels
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
@@ -31,7 +32,10 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
     private val arguments by navArgs<SearchFragmentArgs>()
 
     private lateinit var binding: FragmentSearchBinding
-    private val viewModel: SearchViewModel by viewModels { viewModelFactory }
+
+    private val viewModel: SearchViewModel by fragmentViewModels {
+        injector.searchViewModelFactory.create(arguments.index)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -84,8 +88,6 @@ class SearchFragment : InjectableFragment(), ScalingLayoutManager.OnItemSelected
             binding.searchToolbar.clearFocus()
             requireContext().hideKeyboard(view)
         }
-
-        viewModel.setIndexToScrollTo(arguments.index)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

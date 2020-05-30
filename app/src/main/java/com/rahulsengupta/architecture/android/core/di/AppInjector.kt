@@ -20,16 +20,10 @@ import dagger.android.support.AndroidSupportInjection
 object AppInjector {
 
     fun init(
-        application: CovidTrackerApplication,
-        dataSourceModule: DataSourceModule,
-        persistenceModule: PersistenceModule
+        appComponent: AppComponent,
+        application: CovidTrackerApplication
     ) {
-        DaggerAppComponent.builder()
-            .application(application)
-            .dataSourceModule(dataSourceModule)
-            .persistenceModule(persistenceModule)
-            .build()
-            .inject(application)
+        appComponent.inject(application)
 
         application
             .registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {

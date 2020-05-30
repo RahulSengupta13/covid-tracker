@@ -2,7 +2,6 @@ package com.rahulsengupta.architecture.android.core.di.modules
 
 import androidx.lifecycle.ViewModel
 import com.rahulsengupta.architecture.android.flows.dashboard.DashboardViewModel
-import com.rahulsengupta.architecture.android.flows.search.SearchViewModel
 import com.rahulsengupta.architecture.android.flows.splash.SplashViewModel
 import com.rahulsengupta.core.di.ViewModelKey
 import com.rahulsengupta.persistence.di.PersistenceModule
@@ -22,9 +21,4 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SplashViewModel::class)
     abstract fun providesSplashViewModel(viewModel: SplashViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SearchViewModel::class)
-    abstract fun providesSearchViewModel(viewModel: SearchViewModel): ViewModel
 }
